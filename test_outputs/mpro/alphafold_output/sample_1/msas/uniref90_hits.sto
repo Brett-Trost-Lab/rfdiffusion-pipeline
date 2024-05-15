@@ -1,0 +1,13 @@
+# STOCKHOLM 1.0
+
+#=GS T=0.0001,                        DE sample=1, score=0.8099, global_score=0.8099, seq_recovery=0.3942
+#=GS UniRef90_UPI0001E2DE1E/966-990   DE [subseq from] transglutaminase domain-containing protein n=1 Tax=Acetivibrio cellulolyticus TaxID=35830 RepID=UPI0001E2DE1E
+#=GS UniRef90_UPI0001E2DE1E/1021-1049 DE [subseq from] transglutaminase domain-containing protein n=1 Tax=Acetivibrio cellulolyticus TaxID=35830 RepID=UPI0001E2DE1E
+#=GS UniRef90_UPI0001E2DE1E/1079-1108 DE [subseq from] transglutaminase domain-containing protein n=1 Tax=Acetivibrio cellulolyticus TaxID=35830 RepID=UPI0001E2DE1E
+
+T=0.0001,                                AAAAAAAAANAAAFKAKYGAEVEEAIARARAEEALAAALA
+UniRef90_UPI0001E2DE1E/966-990           -----------IEFQAKYGDEITEAIVKMNGEEALK----
+UniRef90_UPI0001E2DE1E/1021-1049         -------LEELAEFQAKHGNEITEAIVKMNGEEALK----
+UniRef90_UPI0001E2DE1E/1079-1108         ------ALEELADFQAKHGNEVTEAIVKMNGEEALK----
+#=GC RF                                  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+//

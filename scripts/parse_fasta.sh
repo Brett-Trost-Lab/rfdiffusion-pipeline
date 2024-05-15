@@ -28,9 +28,9 @@ while IFS= read -r line; do
             skip_first=false
             continue
         fi
-	    # extract the sequence before the slash (in the case of binders, excludes the target protein)
+	# extract the sequence before the slash (in the case of binders, excludes the target protein)
         sequence=$(echo "$line" | cut -d'/' -f1)
-        # append the sequence to the corresponding fasta file
+	# append the sequence to the corresponding fasta file
         echo "$sequence" >> $fasta_dir/sample_${sample_num}.fasta
     fi
 done < $1

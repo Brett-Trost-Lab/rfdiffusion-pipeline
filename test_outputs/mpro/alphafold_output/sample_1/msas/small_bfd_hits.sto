@@ -1,0 +1,8 @@
+# STOCKHOLM 1.0
+#=GF ID T=0.0001,-i1
+
+#=GS T=0.0001, DE sample=1, score=0.8099, global_score=0.8099, seq_recovery=0.3942
+
+T=0.0001, AAAAAAAAANAAAFKAKYGAEVEEAIARARAEEALAAALA
+#=GC RF   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+//

@@ -1,0 +1,159 @@
+Query         T=0.0001, sample=1, score=0.8099, global_score=0.8099, seq_recovery=0.3942
+Match_columns 40
+No_of_seqs    3 out of 4
+Neff          1.33534
+Searched_HMMs 80799
+Date          Wed May 15 16:20:22 2024
+Command       /usr/bin/hhsearch -i /tmp/tmpxzagxamy/query.a3m -o /tmp/tmpxzagxamy/output.hhr -maxseq 1000000 -d /hpf/tools/centos7/alphafold/2.3.2/data/pdb70/pdb70 
+
+ No Hit                             Prob E-value P-value  Score    SS Cols Query HMM  Template HMM
+  1 2MXE_A MvaT; TRANSCRIPTION REG  37.0      29 0.00036   20.6   0.0   19   10-28     28-46  (55)
+  2 1BO9_A PROTEIN (ANNEXIN I); DO  25.4      61 0.00075   15.0   0.0   18   11-28     41-58  (73)
+  3 2NPU_A FKBP12-rapamycin comple  23.8      68 0.00085   19.0   0.0   19   12-30     80-98  (126)
+  4 4ABX_C DNA REPAIR PROTEIN RECN  23.6      69 0.00086   19.8   0.0   21    8-28    131-151 (175)
+  5 2DT7_B Splicing factor 3A subu  20.1      91  0.0011   17.4   0.0   22    8-29     35-56  (85)
+  6 5Z62_K Cytochrome c oxidase su  19.7      94  0.0012   18.2   0.0   10   13-22      3-12  (49)
+  7 6JUW_K Cytochrome c oxidase su  19.2      97  0.0012   18.2   0.0   10   13-22      3-12  (49)
+  8 2HYV_A Annexin A2; calcium-bin  18.4 1.1E+02  0.0013   19.3   0.0   19   11-29    273-291 (308)
+  9 1X4O_A Splicing factor 4; SURP  18.3 1.1E+02  0.0013   16.7   0.0   23    7-29     20-42  (78)
+ 10 2DT6_A Splicing factor 3 subun  17.5 1.1E+02  0.0014   15.5   0.0   21    8-28      7-27  (64)
+
+No 1
+>2MXE_A MvaT; TRANSCRIPTION REGULATOR; NMR {Pseudomonas aeruginosa PAO1}
+Probab=36.97  E-value=29  Score=20.60  Aligned_cols=19  Identities=37%  Similarity=0.513  Sum_probs=14.9  Template_Neff=2.600
+
+Q T=0.0001,        10 NAAAFKAKYGAEVEEAIAR   28 (40)
+Q Consensus        10 ~~a~FqAKyG~EvtEAIvk   28 (40)
+                      .|.+++++||.|+.|.-+.
+T Consensus        28 ~LK~WK~eyG~e~VesW~~   46 (55)
+T 2MXE_A           28 TLKEWKAKWGPEAVESWAT   46 (55)
+T ss_dssp             HHHHHHHHHCHHHHHHHCE
+T ss_pred             HHHHHHHHHCHHHHHHHHH
+Confidence            4678999999998876543
+
+
+No 2
+>1BO9_A PROTEIN (ANNEXIN I); DOMAIN 1, METAL TRANSPORT; NMR {Homo sapiens} SCOP: a.65.1.1
+Probab=25.38  E-value=61  Score=15.00  Aligned_cols=18  Identities=22%  Similarity=0.482  Sum_probs=13.0  Template_Neff=10.800
+
+Q T=0.0001,        11 AAAFKAKYGAEVEEAIAR   28 (40)
+Q Consensus        11 ~a~FqAKyG~EvtEAIvk   28 (40)
+                      ...|+..||..+.+.|.+
+T Consensus        41 ~~~y~~~~g~~l~~~i~~   58 (73)
+T 1BO9_A           41 KAAYLQETGKPLDETLKK   58 (73)
+T ss_dssp             HHHHHHHTSSCSSHHHHH
+T ss_pred             HHHHHHHHCCCHHHHHHH
+Confidence            345777888888877765
+
+
+No 3
+>2NPU_A FKBP12-rapamycin complex-associated protein; Four-helix bundle, Transferase; NMR {Homo sapiens}
+Probab=23.79  E-value=68  Score=19.04  Aligned_cols=19  Identities=32%  Similarity=0.578  Sum_probs=15.8  Template_Neff=7.500
+
+Q T=0.0001,        12 AAFKAKYGAEVEEAIARAR   30 (40)
+Q Consensus        12 a~FqAKyG~EvtEAIvk~~   30 (40)
+                      ..|+..||..+.+|+..++
+T Consensus        80 ~~F~~~fg~~I~~a~~~lk   98 (126)
+T 2NPU_A           80 TSFNQAYGRDLMEAQEWCR   98 (126)
+T ss_dssp             HHHHHHHHHHHHHHHHHHH
+T ss_pred             HHHHHHHHHHHHHHHHHHH
+Confidence            4689999999999987665
+
+
+No 4
+>4ABX_C DNA REPAIR PROTEIN RECN; DNA BINDING PROTEIN, ATP BINDING; 2.041A {DEINOCOCCUS RADIODURANS}
+Probab=23.63  E-value=69  Score=19.75  Aligned_cols=21  Identities=24%  Similarity=0.476  Sum_probs=15.4  Template_Neff=7.900
+
+Q T=0.0001,         8 AANAAAFKAKYGAEVEEAIAR   28 (40)
+Q Consensus         8 ~~~~a~FqAKyG~EvtEAIvk   28 (40)
+                      +..+...+.|||..+.+.|..
+T Consensus       131 l~~l~~L~RKYg~~~e~ll~~  151 (175)
+T 4ABX_C          131 LSALSKLKNKYGPTLEDVVEF  151 (175)
+T ss_dssp             HHHHHHHHHHHCSSHHHHHHH
+T ss_pred             HHHHHHHHHHHCCCHHHHHHH
+Confidence            445677889999887776654
+
+
+No 5
+>2DT7_B Splicing factor 3A subunit 3; structure genomics, SF3a120, SF3a60, SURP; NMR {Homo sapiens} SCOP: a.217.1.1
+Probab=20.09  E-value=91  Score=17.38  Aligned_cols=22  Identities=18%  Similarity=0.250  Sum_probs=17.0  Template_Neff=7.400
+
+Q T=0.0001,         8 AANAAAFKAKYGAEVEEAIARA   29 (40)
+Q Consensus         8 ~~~~a~FqAKyG~EvtEAIvk~   29 (40)
+                      +...++|-+++|.+.++.+.+-
+T Consensus        35 I~~tA~fva~~G~~fe~~l~~~   56 (85)
+T 2DT7_B           35 VKLTAQFVARNGRQFLTQLMQK   56 (85)
+T ss_pred             HHHHHHHHHHHCHHHHHHHHHH
+Confidence            4567889999999988776653
+
+
+No 6
+>5Z62_K Cytochrome c oxidase subunit 1; cytochrome c oxidase, electron transport; HET: CDL, PEE, HEA; 3.6A {Homo sapiens}
+Probab=19.70  E-value=94  Score=18.23  Aligned_cols=10  Identities=50%  Similarity=0.923  Sum_probs=8.5  Template_Neff=2.300
+
+Q T=0.0001,        13 AFKAKYGAEV   22 (40)
+Q Consensus        13 ~FqAKyG~Ev   22 (40)
+                      +|..|||+-|
+T Consensus         3 dFHdKYGn~v   12 (49)
+T 5Z62_K            3 DFHDKYGNAV   12 (49)
+T ss_dssp             CHHHHHHHHH
+T ss_pred             Cchhhhcccc
+Confidence            6899999876
+
+
+No 7
+>6JUW_K Cytochrome c oxidase subunit 1; Cytochrome c oxidase membrane protein; HET: SAC, PSC, CDL, HEA, DMU, EDO, TPO, PGV, PO4, CHD, TGL, PEK, FME; 1.8A {Bos taurus}
+Probab=19.24  E-value=97  Score=18.16  Aligned_cols=10  Identities=50%  Similarity=0.923  Sum_probs=8.5  Template_Neff=2.300
+
+Q T=0.0001,        13 AFKAKYGAEV   22 (40)
+Q Consensus        13 ~FqAKyG~Ev   22 (40)
+                      +|..|||+-|
+T Consensus         3 dFHdKYGn~v   12 (49)
+T 6JUW_K            3 DFHDKYGNAV   12 (49)
+T ss_dssp             CHHHHHHHHH
+T ss_pred             Cchhhhccee
+Confidence            6899999866
+
+
+No 8
+>2HYV_A Annexin A2; calcium-binding protein, membrane-binding protein, helix; HET: SGN, UAP, IDS; 1.42A {Homo sapiens}
+Probab=18.36  E-value=1.1e+02  Score=19.32  Aligned_cols=19  Identities=32%  Similarity=0.469  Sum_probs=15.1  Template_Neff=9.700
+
+Q T=0.0001,        11 AAAFKAKYGAEVEEAIARA   29 (40)
+Q Consensus        11 ~a~FqAKyG~EvtEAIvk~   29 (40)
+                      ..+|+.+||..++++|.+-
+T Consensus       273 ~~~Y~~~yg~~L~~~I~~~  291 (308)
+T 2HYV_A          273 RSEFKRKYGKSLYYYIQQD  291 (308)
+T ss_dssp             HHHHHHHHSSCHHHHHHHH
+T ss_pred             HHHHHHHHCCCHHHHHHHh
+Confidence            4568899999999998643
+
+
+No 9
+>1X4O_A Splicing factor 4; SURP domain,splicing factor 4 (SF4); NMR {Mus musculus} SCOP: a.217.1.1
+Probab=18.26  E-value=1.1e+02  Score=16.65  Aligned_cols=23  Identities=35%  Similarity=0.323  Sum_probs=17.3  Template_Neff=7.700
+
+Q T=0.0001,         7 AAANAAAFKAKYGAEVEEAIARA   29 (40)
+Q Consensus         7 A~~~~a~FqAKyG~EvtEAIvk~   29 (40)
+                      .+...+.|-+++|.+.++-+.+-
+T Consensus        20 ~I~~tA~~Va~~G~~fE~~l~~~   42 (78)
+T 1X4O_A           20 LAEKLARFIADGGPEVETIALQN   42 (78)
+T ss_dssp             HHHHHHHHHHHSCTTHHHHHHHH
+T ss_pred             HHHHHHHHHHHHCHHHHHHHHHc
+Confidence            34667889999999987766553
+
+
+No 10
+>2DT6_A Splicing factor 3 subunit 1; structure genomics, SF3a120, SURP domain; NMR {Homo sapiens} SCOP: a.217.1.1
+Probab=17.50  E-value=1.1e+02  Score=15.53  Aligned_cols=21  Identities=33%  Similarity=0.512  Sum_probs=15.8  Template_Neff=8.300
+
+Q T=0.0001,         8 AANAAAFKAKYGAEVEEAIAR   28 (40)
+Q Consensus         8 ~~~~a~FqAKyG~EvtEAIvk   28 (40)
+                      +...+.|-+++|.+.++.+.+
+T Consensus         7 I~~~a~~v~~~G~~fe~~l~~   27 (64)
+T 2DT6_A            7 VDKTASFVARNGPEFEARIRQ   27 (64)
+T ss_dssp             HHHHHHHHHHHCTHHHHHHHH
+T ss_pred             HHHHHHHHHHHCHHHHHHHHH
+Confidence            456778999999987766554
+
+
