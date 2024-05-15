@@ -1,0 +1,7 @@
+- inference.output_prefix=/home/sxie/RFdiffusion_pipeline/test_outputs//RFDiffusion/mpro_binder
+- inference.num_designs=1
+- contigmap.contigs=[A1-305/0 25-50]
+- inference.input_pdb=/home/sxie/RFdiffusion_pipeline/inputs//pdbs/6w63.pdb
+- ppi.hotspot_res=[A41,A145]
+- denoiser.noise_scale_ca=0
+- denoiser.noise_scale_frame=0
