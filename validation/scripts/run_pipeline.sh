@@ -7,7 +7,7 @@ set -e
 # This script runs the pipeline from RFDiffusion -> ProteinMPNN -> alphafold.
 
 export INPUT_DIR=$HOME/RFdiffusion_pipeline/inputs/
-export OUTPUT_DIR=$HOME/RFdiffusion_pipeline/test_outputs/mpro/
+export OUTPUT_DIR=$HOME/RFdiffusion_pipeline/validation/test_outputs/mpro/
 
 export RFDIFFUSION_DIR=/hpf/tools/alma8/RFDiffusion/1.1.0/
 export PROTEINMPNN_DIR=/hpf/tools/alma8/ProteinMPNN/v1.0.1/

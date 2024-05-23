@@ -1,0 +1,57 @@
+Loading module...
+Loading p2rank/2.4.1
+  Loading requirement: java/18.0.1.1
+
+Running script...
+WARNING: package java.rmi.activation not in java.rmi
+WARNING: package java.security.acl not in java.base
+P2Rank 2.4.1
+[INFO] Console - P2Rank 2.4.1
+
+[INFO] Console - 
+[INFO] Main - loading default config from [/hpf/tools/alma8/p2rank/2.4.1/config/default.groovy]
+[INFO] Futils - deleting /home/sxie/RFdiffusion_pipeline/prediction/p2rank/outputs/6w63_clean/run.log
+predicting pockets for proteins from dataset [6w63_clean.pdb]
+[INFO] Console - predicting pockets for proteins from dataset [6w63_clean.pdb]
+[INFO] PredictPocketsRoutine - outdir: /home/sxie/RFdiffusion_pipeline/prediction/p2rank/outputs/6w63_clean
+[INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]
+[INFO] Dataset - processing dataset [6w63_clean.pdb] using 0 threads
+[INFO] Dataset - 
+------------------------------------------------------------------------------------------------------------------------
+processing [6w63_clean.pdb] (1/1)
+------------------------------------------------------------------------------------------------------------------------
+
+processing [6w63_clean.pdb] (1/1)
+[INFO] Console - processing [6w63_clean.pdb] (1/1)
+[INFO] Protein - loading protein [/home/sxie/RFdiffusion_pipeline/inputs/6w63_clean.pdb]
+[INFO] PdbUtils - loading file [/home/sxie/RFdiffusion_pipeline/inputs//6w63_clean.pdb]
+[INFO] Struct - groups in chain A: 305
+[INFO] Struct - groups in chain A: 305
+[INFO] Struct - 305 groups in chain A
+[INFO] Protein - structure atoms: 4648
+[INFO] Protein - protein   atoms: 2322
+[INFO] Protein - ignoring ligands
+[INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]
+[INFO] Protein - SAS points: 4483
+[INFO] Protein - exposed protein atoms: 1452 of 2322
+[INFO] InstancePredictor - Creating WekaInstancePredictor
+[INFO] SLinkClusterer - clustering [50] elements
+[INFO] SLinkClusterer - clusters: [id:19( 25 ), id:20( 2 ), id:21( 2 ), id:35( 12 ), id:41( 1 ), id:46( 8 )]
+[INFO] SLinkClusterer - clusters together: 50 / 50
+[INFO] PocketPredictor - PREDICTING POCKETS.... ====================================
+[INFO] PocketPredictor - SAS POINTS: 4483
+[INFO] PocketPredictor - LIGANDABLE POINTS: 50
+[INFO] PocketPredictor - CLUSTERS: 6
+[INFO] PocketPredictor - FILTERED CLUSTERS: 3
+[INFO] PocketPredictor - pocket 1 -  surf_atoms:  46   points:  25   score:    9.3
+[INFO] PocketPredictor - pocket 2 -  surf_atoms:  21   points:   8   score:    3.1
+[INFO] PocketPredictor - pocket 3 -  surf_atoms:  22   points:  12   score:    3.0
+[INFO] OldPymolRenderer - copying [/home/sxie/RFdiffusion_pipeline/inputs/6w63_clean.pdb] to [/home/sxie/RFdiffusion_pipeline/prediction/p2rank/outputs/6w63_clean/visualizations/data/6w63_clean.pdb]
+predicting pockets finished in 0 hours 0 minutes 30.768 seconds
+[INFO] Console - predicting pockets finished in 0 hours 0 minutes 30.768 seconds
+results saved to directory [/home/sxie/RFdiffusion_pipeline/prediction/p2rank/outputs/6w63_clean]
+[INFO] Console - results saved to directory [/home/sxie/RFdiffusion_pipeline/prediction/p2rank/outputs/6w63_clean]
+
+[INFO] Console - 
+Finished successfully in 0 hours 0 minutes 35.702 seconds.
+[INFO] Console - Finished successfully in 0 hours 0 minutes 35.702 seconds.
