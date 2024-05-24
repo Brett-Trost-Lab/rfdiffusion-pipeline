@@ -11,6 +11,7 @@ conda activate ${repo_dir}/py_scannet
 
 echo Running script...
 
-python ${repo_dir}/predict_bindingsites.py $HOME/pdbs/6w63.pdb --noMSA --predictions_folder /home/csicheri/scannet_predictions
+python ${repo_dir}/predict_bindingsites.py $HOME/RFdiffusion_pipeline/inputs/6w63.pdb --noMSA --predictions_folder $HOME/RFdiffusion_pipeline/prediction/scannet/scannet_predictions
 
 echo Done.
+
