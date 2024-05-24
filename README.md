@@ -18,4 +18,4 @@ A collection of methods for protein binding site prediction.
 
 Currently installed:
 * [P2Rank](https://github.com/rdk/p2rank) (2018): A rapid, template-free machine learning model based on Random Forest.
-* [ScanNet] (https://github.com/jertubiana/ScanNet) (2022) Uses a geometric deep learning architecture for prediciton.
+* [ScanNet](https://github.com/jertubiana/ScanNet) (2022) Uses a geometric deep learning architecture for prediciton.
