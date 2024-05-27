@@ -1,12 +1,12 @@
 # Protein Binder Design
 
 ## Extracting Ligands and Cleaning PDBs
-Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner).
+Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Clean PDBs and Ligands are outputed to the specified output path. The program will generate a cleaned PDB for all files in the specified folder.
 
 usage: `python pdb_cleaner.py <folder-of-pdbs> <folder-for-output> <save_ligands(true/false)>`
 
 ## Selecting Hotspot Residues (for proteins with ligands)
-We randomly select 6 residues within an 11 angstrom radius of the ligand centroid to be used as hot spot residues into RFDiffusion. 
+For proteins with a known ligand binder, to generate accurate and effective hotspot residues to RFDiffusion we randomly select 6 hydrophobic residues within an 11 angstrom radius of the ligand centroid. This ensures they are "important" binding residues and allows us to generate residues which RFDiffusion will accept.
 
 usage: `python select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
 
