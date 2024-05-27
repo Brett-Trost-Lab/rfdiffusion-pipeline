@@ -123,7 +123,8 @@ def pdb_reader(filename):
     
     #### locates the last "TER" in the sequence.
     terminal_id = pdb_df[pdb_df["Records"] == "TER"].index.tolist()
-
+    if terminal_id == []:
+        terminal_id.append(pdb_df.shape[0])
     #### return the experiment method, pdb information, and ligands/solvents.
     if pdb_df.shape[0] > terminal_id[-1]:
         pdb = pdb_df.iloc[:terminal_id[-1]+1, :]
