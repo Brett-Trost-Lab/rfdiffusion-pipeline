@@ -1,7 +1,8 @@
 # RFdiffusion pipeline
 
 ## Extracting Ligands and Cleaning PDBs
-adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner).
+Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner).
+
 usage: python pdb_cleaner.py <folder-of-pdbs> <folder-for-output> <save_ligands(true/false)>
 
 ## Prediction
