@@ -17,9 +17,9 @@ import os, re, sys, time
 import sys
 import typing
 
-# prot_path = sys.argv[1]
-# ligand_path = sys.argv[2]
-# output_path = sys.argv[3]
+prot_path = sys.argv[1]
+ligand_path = sys.argv[2]
+output_path = sys.argv[3]
 
 # steps to create this program:
 # 1. get the pdbs into dataframes
@@ -71,8 +71,7 @@ def main():
     3. pick out hydrophobic residues closest to this point
     4. save and output them in some way. A file would be most useful
     """
-    prot_path = "cleaning/clean_pdbs/6w63_cleaned_original_single_chains.pdb"
-    ligand_path = "cleaning/clean_pdbs/6w63_ligands.pdb"
+
     prot_pdb = pdb_to_dataframe(prot_path)
     lig_pdb = pdb_to_dataframe(ligand_path)
 
@@ -110,7 +109,8 @@ def main():
     # sample 6 randomly
     random_residues = hydrophobic_residues.sample(n=N)
 
-    print(random_residues)
-    
+    output_file = output_path + "/selected_residues.txt"
+    random_residues.to_csv(output_file, index=False, sep='\t')
+
 if __name__ == "__main__":
     main()
