@@ -494,7 +494,7 @@ def main(path, keep, hydrogen, report):
                 outputf = os.path.join(outputpath, fname)
                 save_cleaned_PDB(outputf, pdb_df)
                 if (save_ligands == "True" or save_ligands == "true" or save_ligands == "t"):
-                    save_cleaned_PDB(outputpath + "/" + f[:4] + "_ligands", ligand)
+                    save_cleaned_PDB(outputpath + "/" + f[:4] + "_ligands.pdb", ligand)
                 print(print_fmt.format(f, outputf))
 
         steptime = time.time() - start_time
