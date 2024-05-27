@@ -8,7 +8,7 @@ usage: `python pdb_cleaner.py <folder-of-pdbs> <folder-for-output> <save_ligands
 ## Selecting Hotspot Residues (for proteins with ligands)
 We randomly select 6 residues within an 11 angstrom radius of the ligand centroid to be used as hot spot residues into RFDiffusion. 
 
-usage: `python select_residues_using_centroid <pdb-of-interest> <pdb-of-ligand> <output-path>`
+usage: `python select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
 
 ## Prediction
 
