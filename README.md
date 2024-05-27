@@ -1,4 +1,4 @@
-# RFdiffusion pipeline
+# Protein Binder Design
 
 ## Extracting Ligands and Cleaning PDBs
 Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner).
