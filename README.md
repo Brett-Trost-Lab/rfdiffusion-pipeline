@@ -5,6 +5,11 @@ Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner).
 
 usage: `python pdb_cleaner.py <folder-of-pdbs> <folder-for-output> <save_ligands(true/false)>`
 
+## Selecting Hotspot Residues (for proteins with ligands)
+We randomly select 6 residues within an 11 angstrom radius of the ligand centroid to be used as hot spot residues into RFDiffusion. 
+
+usage: `python select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
+
 ## Prediction
 
 A collection of methods for protein binding site prediction.
