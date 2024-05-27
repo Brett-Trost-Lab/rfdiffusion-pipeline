@@ -1,5 +1,17 @@
 # RFdiffusion pipeline
 
+## Extracting Ligands and Cleaning PDBS
+adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner).
+usage: python pdb_cleaner.py <folder-of-pdbs> <folder-for-output> <save_ligands(true/false)>
+
+## Prediction
+
+A collection of methods for protein binding site prediction.
+
+Currently installed:
+* [P2Rank](https://github.com/rdk/p2rank) (2018): A rapid, template-free machine learning model based on Random Forest.
+* [ScanNet](https://github.com/jertubiana/ScanNet) (2022) Uses a geometric deep learning architecture for prediciton.
+
 ## Validation
 
 A collection of scripts that automates the validation process of [RFdiffusion](https://github.com/RosettaCommons/RFdiffusion) using [ProteinMPNN](https://github.com/dauparas/ProteinMPNN) and [AlphaFold2](https://github.com/google-deepmind/alphafold). Developed specifically for protein binder design.
@@ -12,10 +24,4 @@ The example provided is designing a 25-50aa binder to Mpro ([6w63](https://www.r
 
 pAE scores of the binder are outputted to `/test_outputs/mpro/alphafold_output/sample_1/pAE_scores.txt`.
 
-## Prediction
 
-A collection of methods for protein binding site prediction.
-
-Currently installed:
-* [P2Rank](https://github.com/rdk/p2rank) (2018): A rapid, template-free machine learning model based on Random Forest.
-* [ScanNet](https://github.com/jertubiana/ScanNet) (2022) Uses a geometric deep learning architecture for prediciton.
