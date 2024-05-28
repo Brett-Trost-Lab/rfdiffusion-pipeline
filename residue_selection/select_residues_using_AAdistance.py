@@ -79,22 +79,24 @@ def main():
     prot_pdb = pdb_to_dataframe(prot_path)
     lig_pdb = pdb_to_dataframe(ligand_path)
 
-    # Find distacne of every residue center to the closest atom in the ligand
-    residue_centroids = prot_pdb.groupby('residue_sequence_number').agg({
+    # Filter hydrophobic residues
+    prot_pdb = prot_pdb[prot_pdb['residue_name'].isin(['ALA', 'VAL', 'ILE', 'LEU', 'MET', 'PHE', 'PRO', 'TRP'])]
+    
+    # Find all residue centers
+    residue_centroids = prot_pdb.groupby(['chain_identifier', 'residue_sequence_number']).agg({
         'x_coordinate': 'mean',
         'y_coordinate': 'mean',
         'z_coordinate': 'mean'
     }).reset_index()
 
-    # Filter hydrophobic residues
-    hydrophobic_residues = residue_centroids[prot_pdb['residue_name'].isin(['ALA', 'VAL', 'ILE', 'LEU', 'MET', 'PHE', 'PRO', 'TRP'])]
+    print(residue_centroids)
 
     # Calculate minimum distance from each residue centroid to any atom in the ligand
-    hydrophobic_residues['min_distance_to_ligand'] = hydrophobic_residues.apply(min_distance_to_ligand, lig_pdb=lig_pdb, axis=1)
+    residue_centroids['min_distance_to_ligand'] = residue_centroids.apply(min_distance_to_ligand, lig_pdb=lig_pdb, axis=1)
 
     # Filter by a certain distance threshold
     d_max = 11
-    close_hydrophobic_residues = hydrophobic_residues[hydrophobic_residues['min_distance_to_ligand'] <= d_max]
+    close_hydrophobic_residues = residue_centroids[residue_centroids['min_distance_to_ligand'] <= d_max]
 
     # Randomly sample 6 residues
     # N = 6
