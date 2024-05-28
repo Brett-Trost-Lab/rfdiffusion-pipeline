@@ -63,51 +63,45 @@ def pdb_to_dataframe(pdb_file_path):
     df = pd.DataFrame(data, columns=columns)
     return df
 
+def min_distance_to_ligand(row, lig_pdb):
+    return lig_pdb.apply(lambda lig_row: distance(row['x_coordinate'], row['y_coordinate'], row['z_coordinate'], 
+                                                  lig_row['x_coordinate'], lig_row['y_coordinate'], lig_row['z_coordinate']), axis=1).min()
+
 def main():
     """
     Workflow:
     1. get the pdbs into dataframes
-    2. calculate the centroid of the ligand as an (x, y, z) coordinate
-    3. pick out hydrophobic residues closest to this point
-    4. save and output them in some way. A file would be most useful
+    3. pick out hydrophobic residues only
+    4. find minumum distance from residue centroids to single atom on ligand
+    5. pick randomly amongst best residues
     """
 
     prot_pdb = pdb_to_dataframe(prot_path)
     lig_pdb = pdb_to_dataframe(ligand_path)
 
-    centroid_x = lig_pdb['x_coordinate'].mean()
-    centroid_y = lig_pdb['y_coordinate'].mean()
-    centroid_z = lig_pdb['z_coordinate'].mean()
-
-    centroid = (centroid_x, centroid_y, centroid_z)
-
-     # Calculate centroid of each residue
+    # Find distacne of every residue center to the closest atom in the ligand
     residue_centroids = prot_pdb.groupby('residue_sequence_number').agg({
         'x_coordinate': 'mean',
         'y_coordinate': 'mean',
         'z_coordinate': 'mean'
     }).reset_index()
 
-    # Calculate distance from each residue centroid to the ligand centroid
-    residue_centroids['distance_to_centroid'] = residue_centroids.apply(
-        lambda row: distance(row['x_coordinate'], row['y_coordinate'], row['z_coordinate'], centroid[0], centroid[1], centroid[2]),
-        axis=1
-    )
-
     # Filter hydrophobic residues
     hydrophobic_residues = residue_centroids[prot_pdb['residue_name'].isin(['ALA', 'VAL', 'ILE', 'LEU', 'MET', 'PHE', 'PRO', 'TRP'])]
 
-    N = 6  # Number of closest hydrophobic residues to pick
+    # Calculate minimum distance from each residue centroid to any atom in the ligand
+    hydrophobic_residues['min_distance_to_ligand'] = hydrophobic_residues.apply(min_distance_to_ligand, lig_pdb=lig_pdb, axis=1)
 
-    # Sort by distance and pick the closest N residues
-    # closest_residues = hydrophobic_residues.nsmallest(N, 'distance_to_centroid')
-
-    # filter by a certain distance threshold
+    # Filter by a certain distance threshold
     d_max = 11
-    hydrophobic_residues = hydrophobic_residues[hydrophobic_residues["distance_to_centroid"] <= d_max]
+    close_hydrophobic_residues = hydrophobic_residues[hydrophobic_residues['min_distance_to_ligand'] <= d_max]
 
-    # sample 6 randomly
-    random_residues = hydrophobic_residues.sample(n=N)
+    # Randomly sample 6 residues
+    N = 6
+    if len(close_hydrophobic_residues) < N:
+        N = len(close_hydrophobic_residues)  # Adjust N if there are less than 6 residues
+
+    sampled_residues = close_hydrophobic_residues.sample(n=N)
 
     # find the protein name for naming convention
     # Extract the filename from the path
@@ -117,8 +111,11 @@ def main():
     protein_name = filename.split('_')[0]
 
     # Save the selected residues to a text file
-    output_file = output_path + "/" + protein_name + "_hotspots_centroid.txt"
+    output_file = output_path + "/" + protein_name + "_hotspots.txt"
     sampled_residues.to_csv(output_file, index=False, sep='\t')
+
+
+
 
 if __name__ == "__main__":
     main()

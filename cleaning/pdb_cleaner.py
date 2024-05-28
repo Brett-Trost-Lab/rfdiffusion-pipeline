@@ -422,15 +422,15 @@ def main(path, keep, hydrogen, report):
             #### PDB file has multiple chains and choose the longest one.
             if (chains and keep == "one"):
                 pdb_df = pdb_df[pdb_df.ChainID == pdb_df.ChainID.mode()[0]]
-                fname = "".join((f[:4], "_cleaned_keep_one_chain.pdb"))
+                fname = "".join((f[:4], "_cleaned.pdb"))
                
             #### PDB file has multiple chains and choose all chains.
             elif (chains and keep == "all"):
-                fname = "".join((f[:4], "_cleaned_keep_multichains.pdb"))
+                fname = "".join((f[:4], "_cleaned.pdb"))
                 
             #### PDB file has only one chain.
             else:
-                fname = "".join((f[:4], "_cleaned_original_single_chains.pdb"))
+                fname = "".join((f[:4], "_cleaned.pdb"))
 
             #### parse and clean the PDB file item by item.
             lig = check_ligand(filename, ligand)    # return a tuple
