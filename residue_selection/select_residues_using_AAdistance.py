@@ -97,11 +97,14 @@ def main():
     close_hydrophobic_residues = hydrophobic_residues[hydrophobic_residues['min_distance_to_ligand'] <= d_max]
 
     # Randomly sample 6 residues
-    N = 6
-    if len(close_hydrophobic_residues) < N:
-        N = len(close_hydrophobic_residues)  # Adjust N if there are less than 6 residues
+    # N = 6
+    # if len(close_hydrophobic_residues) < N:
+    #     N = len(close_hydrophobic_residues)  # Adjust N if there are less than 6 residues
 
-    sampled_residues = close_hydrophobic_residues.sample(n=N)
+    # close_hydrophobic_residues = close_hydrophobic_residues.sample(n=N)
+
+
+    close_hydrophobic_residues.sort_values(by=['min_distance_to_ligand'], inplace=True)
 
     # find the protein name for naming convention
     # Extract the filename from the path
@@ -112,7 +115,7 @@ def main():
 
     # Save the selected residues to a text file
     output_file = output_path + "/" + protein_name + "_hotspots.txt"
-    sampled_residues.to_csv(output_file, index=False, sep='\t')
+    close_hydrophobic_residues.to_csv(output_file, index=False, sep='\t')
 
 
 
