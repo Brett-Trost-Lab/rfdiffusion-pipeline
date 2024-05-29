@@ -1,5 +1,10 @@
 # Protein Binder Design
 
+This pipeline consists of the following steps:
+1. PDB Cleaning
+2. Hotspot Residue Selection / Binding Site Prediction
+3. RFdiffusion Validation (RFdiffusion --> ProteinMPNN --> AlphaFold2)
+
 ## Extracting Ligands and Cleaning PDBs
 Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Clean PDBs and Ligands are outputed to the specified output path. The program will generate a cleaned PDB for all files in the specified folder. Example cleaned pdbs can be found in cleaning/clean_pdbs
 
@@ -22,14 +27,18 @@ Currently installed:
 
 ## Validation
 
-A collection of scripts that automates the validation process of [RFdiffusion](https://github.com/RosettaCommons/RFdiffusion) using [ProteinMPNN](https://github.com/dauparas/ProteinMPNN) and [AlphaFold2](https://github.com/google-deepmind/alphafold). Developed specifically for protein binder design.
-
-For protein binder validation, the authors of RFdiffusion used **ProteinMPNN-FastRelax** and **AlphaFold2 Complex Prediction** with the "initial guess" method, available [here](https://github.com/nrbennet/dl_binder_design). These versions are <ins>waiting to be installed on the cluster</ins> and will replace the current ones once ready to be used.
-
-This means that currently, the pipeline cannot evaluate how well the designed protein binds to its target. It can only determine how well the binder itself will fold to its intended monomer structure.
-
-The example provided is designing a 25-50aa binder to Mpro ([6w63](https://www.rcsb.org/structure/6W63)) to two known hotspot residues in the active site cavity, [His41 and Cys145](https://www.nature.com/articles/s41467-020-16954-7#:~:text=The%20catalytic%20residues%20Cys145%20and%20His41%20in%203CL%20Mpro%20are%20buried%20in%20an%20active%20site%20cavity).
-
-pAE scores of the binder are outputted to `/test_outputs/mpro/alphafold_output/sample_1/pAE_scores.txt`.
-
+A collection of scripts that automates the validation process of [RFdiffusion](https://github.com/RosettaCommons/RFdiffusion) using [ProteinMPNN and AlphaFold2](https://github.com/nrbennet/dl_binder_design). Developed specifically for protein binder design.
+ 
+The validation pipeline designs a binder to specified hotspot residues on the target protein. It then evaluates how well the designed structure folds into its intended monomer structure, as well as how well it binds to its target.
+ 
+#### Input
+Place desired input PDBs (cleaned) into `validation/inputs`. (Currently working on sampling hotspot residues from here as well.)
+ 
+#### Usage
+`sbatch validation/launch_validation.sh`
+ 
+#### Output
+Outputs for individual steps of the pipeline are located in `validation/outputs`. The RFdiffusion designed structure in `validation/outputs/<pdb_name>/rfdiffusion` can be compared with the AF2 predicted structure in `validation/outputs/<pdb_name>/af2`.
+ 
+Predicted aligned error (pAE) scores are outputted to `validation/outputs/<pdb_name>/<pdb_name>.out.sc`.
 
