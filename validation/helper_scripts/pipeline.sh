@@ -20,7 +20,10 @@ total_seconds=0
 
 echo STEP 1: RFDiffusion
 
-bash $script_dir/rfdiffusion.sh $3 $4 # 3=contig, 4=hotspots
+echo Contig: $3
+echo Hotspots: $4
+
+bash $script_dir/rfdiffusion.sh "$3" "$4" # 3=contig, 4=hotspots
 
 echo RFDiffusion time elapsed: $SECONDS seconds
 total_seconds=$((total_seconds+SECONDS))

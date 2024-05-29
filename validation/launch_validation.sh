@@ -29,10 +29,10 @@ for pdb in $input_dir/*.pdb; do
 	echo Contig: $contig
         echo Hotspots: $hotspots
 
-	sbatch ./helper_scripts/pipeline.sh $pdb $pdb_name $contig $hotspots
+	sbatch ./helper_scripts/pipeline.sh $pdb $pdb_name "$contig" "$hotspots"
 
     else
-        echo "Hotspots file not found. Please ensure <pdb_name>_hotspots.txt is located in inputs/hotspots/ directory."
+        echo "Hotspots file not found. Please ensure ${pdb_name}_hotspots.txt is located in inputs/hotspots/ directory."
         echo Skipping $pdb_name
     fi
 done
