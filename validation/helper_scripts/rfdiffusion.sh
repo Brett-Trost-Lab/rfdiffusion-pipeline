@@ -19,9 +19,9 @@ echo Running script...
 $repo_dir/scripts/run_inference.py \
 inference.output_prefix=$OUTPUT_DIR/rfdiffusion/$PDB_NAME \
 inference.num_designs=2 \
-"contigmap.contigs=[$1 10-15]" \ # how to select binder length for different proteins?
+"contigmap.contigs=[$1 5-15]" \
 inference.input_pdb=$PDB_PATH \
-"ppi.hotspot_res=[A41,A145,A165]" \ # currently hardcoded, working on sampling from residue_selection output
+"ppi.hotspot_res=[$2]" \
 denoiser.noise_scale_ca=0 \
 denoiser.noise_scale_frame=0
 
