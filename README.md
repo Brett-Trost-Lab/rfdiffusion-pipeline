@@ -31,13 +31,13 @@ A collection of scripts that automates the validation process of [RFdiffusion](h
  
 The validation pipeline designs a binder to specified hotspot residues on the target protein. It then evaluates how well the designed structure folds into its intended monomer structure, as well as how well it binds to its target.
  
-#### Input
+### Input
 Place desired input PDBs (cleaned) into `validation/inputs`. (Currently working on sampling hotspot residues from here as well.)
  
-#### Usage
+### Usage
 `sbatch validation/launch_validation.sh`
  
-#### Output
+### Output
 Outputs for individual steps of the pipeline are located in `validation/outputs`. The RFdiffusion designed structure in `validation/outputs/<pdb_name>/rfdiffusion` can be compared with the AF2 predicted structure in `validation/outputs/<pdb_name>/af2`.
  
 Predicted aligned error (pAE) scores are outputted to `validation/outputs/<pdb_name>/<pdb_name>.out.sc`.
