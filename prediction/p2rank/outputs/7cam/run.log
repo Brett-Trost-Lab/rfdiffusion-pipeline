@@ -1,0 +1,49 @@
+[INFO] Console - predicting pockets for proteins from dataset [7cam_cleaned.pdb]
+[INFO] PredictPocketsRoutine - outdir: /home/sxie/protein-binder-design/prediction/p2rank/outputs/7cam
+[INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]
+[INFO] Dataset - processing dataset [7cam_cleaned.pdb] using 0 threads
+[INFO] Dataset - 
+------------------------------------------------------------------------------------------------------------------------
+processing [7cam_cleaned.pdb] (1/1)
+------------------------------------------------------------------------------------------------------------------------
+
+[INFO] Console - processing [7cam_cleaned.pdb] (1/1)
+[INFO] Protein - loading protein [/home/sxie/protein-binder-design/cleaning/clean_pdbs/7cam_cleaned.pdb]
+[INFO] PdbUtils - loading file [/home/sxie/protein-binder-design/cleaning/clean_pdbs//7cam_cleaned.pdb]
+[INFO] Struct - groups in chain A: 297
+[INFO] Struct - groups in chain B: 298
+[INFO] Struct - groups in chain A: 297
+[INFO] Struct - 297 groups in chain A
+[INFO] Struct - groups in chain B: 298
+[INFO] Struct - 298 groups in chain B
+[INFO] Protein - structure atoms: 4615
+[INFO] Protein - protein   atoms: 4543
+[INFO] Protein - ignoring ligands
+[INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]
+[INFO] Protein - SAS points: 8257
+[INFO] Protein - exposed protein atoms: 2815 of 4543
+[INFO] InstancePredictor - Creating WekaInstancePredictor
+[INFO] SLinkClusterer - clustering [151] elements
+[INFO] SLinkClusterer - clusters: [id:1( 1 ), id:2( 1 ), id:15( 17 ), id:17( 4 ), id:18( 1 ), id:19( 1 ), id:28( 1 ), id:30( 5 ), id:38( 13 ), id:42( 1 ), id:60( 22 ), id:69( 6 ), id:82( 10 ), id:89( 1 ), id:100( 1 ), id:117( 17 ), id:118( 14 ), id:131( 22 ), id:136( 1 ), id:137( 1 ), id:149( 11 )]
+[INFO] SLinkClusterer - clusters together: 151 / 151
+[INFO] PocketPredictor - PREDICTING POCKETS.... ====================================
+[INFO] PocketPredictor - SAS POINTS: 8257
+[INFO] PocketPredictor - LIGANDABLE POINTS: 151
+[INFO] PocketPredictor - CLUSTERS: 21
+[INFO] PocketPredictor - FILTERED CLUSTERS: 11
+[INFO] PocketPredictor - pocket 1 -  surf_atoms:  28   points:  22   score:    8.1
+[INFO] PocketPredictor - pocket 2 -  surf_atoms:  26   points:  17   score:    7.7
+[INFO] PocketPredictor - pocket 3 -  surf_atoms:  38   points:  22   score:    7.3
+[INFO] PocketPredictor - pocket 4 -  surf_atoms:  41   points:  14   score:    5.1
+[INFO] PocketPredictor - pocket 5 -  surf_atoms:  25   points:  17   score:    5.1
+[INFO] PocketPredictor - pocket 6 -  surf_atoms:  17   points:  10   score:    5.0
+[INFO] PocketPredictor - pocket 7 -  surf_atoms:  27   points:  13   score:    3.8
+[INFO] PocketPredictor - pocket 8 -  surf_atoms:  31   points:  11   score:    3.3
+[INFO] PocketPredictor - pocket 9 -  surf_atoms:  28   points:   6   score:    2.9
+[INFO] PocketPredictor - pocket10 -  surf_atoms:  19   points:   5   score:    2.0
+[INFO] PocketPredictor - pocket11 -  surf_atoms:  16   points:   4   score:    1.4
+[INFO] OldPymolRenderer - copying [/home/sxie/protein-binder-design/cleaning/clean_pdbs/7cam_cleaned.pdb] to [/home/sxie/protein-binder-design/prediction/p2rank/outputs/7cam/visualizations/data/7cam_cleaned.pdb]
+[INFO] Console - predicting pockets finished in 0 hours 0 minutes 16.761 seconds
+[INFO] Console - results saved to directory [/home/sxie/protein-binder-design/prediction/p2rank/outputs/7cam]
+[INFO] Console - 
+[INFO] Console - Finished successfully in 0 hours 0 minutes 18.948 seconds.
