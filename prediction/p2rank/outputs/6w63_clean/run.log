@@ -1,5 +1,5 @@
 [INFO] Console - predicting pockets for proteins from dataset [6w63_clean.pdb]
-[INFO] PredictPocketsRoutine - outdir: /home/sxie/RFdiffusion_pipeline/prediction/p2rank/outputs/6w63_clean
+[INFO] PredictPocketsRoutine - outdir: /home/csicheri/RFdiffusion_pipeline/prediction/p2rank/outputs/6w63_clean
 [INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]
 [INFO] Dataset - processing dataset [6w63_clean.pdb] using 0 threads
 [INFO] Dataset - 
@@ -8,31 +8,43 @@ processing [6w63_clean.pdb] (1/1)
 ------------------------------------------------------------------------------------------------------------------------
 
 [INFO] Console - processing [6w63_clean.pdb] (1/1)
-[INFO] Protein - loading protein [/home/sxie/RFdiffusion_pipeline/inputs/6w63_clean.pdb]
-[INFO] PdbUtils - loading file [/home/sxie/RFdiffusion_pipeline/inputs//6w63_clean.pdb]
-[INFO] Struct - groups in chain A: 305
-[INFO] Struct - groups in chain A: 305
-[INFO] Struct - 305 groups in chain A
-[INFO] Protein - structure atoms: 4648
-[INFO] Protein - protein   atoms: 2322
-[INFO] Protein - ignoring ligands
-[INFO] FeatureSetup - enabledFeatures: [chem, volsite, protrusion, bfactor, atom_table]
-[INFO] Protein - SAS points: 4483
-[INFO] Protein - exposed protein atoms: 1452 of 2322
-[INFO] InstancePredictor - Creating WekaInstancePredictor
-[INFO] SLinkClusterer - clustering [50] elements
-[INFO] SLinkClusterer - clusters: [id:19( 25 ), id:20( 2 ), id:21( 2 ), id:35( 12 ), id:41( 1 ), id:46( 8 )]
-[INFO] SLinkClusterer - clusters together: 50 / 50
-[INFO] PocketPredictor - PREDICTING POCKETS.... ====================================
-[INFO] PocketPredictor - SAS POINTS: 4483
-[INFO] PocketPredictor - LIGANDABLE POINTS: 50
-[INFO] PocketPredictor - CLUSTERS: 6
-[INFO] PocketPredictor - FILTERED CLUSTERS: 3
-[INFO] PocketPredictor - pocket 1 -  surf_atoms:  46   points:  25   score:    9.3
-[INFO] PocketPredictor - pocket 2 -  surf_atoms:  21   points:   8   score:    3.1
-[INFO] PocketPredictor - pocket 3 -  surf_atoms:  22   points:  12   score:    3.0
-[INFO] OldPymolRenderer - copying [/home/sxie/RFdiffusion_pipeline/inputs/6w63_clean.pdb] to [/home/sxie/RFdiffusion_pipeline/prediction/p2rank/outputs/6w63_clean/visualizations/data/6w63_clean.pdb]
-[INFO] Console - predicting pockets finished in 0 hours 0 minutes 30.768 seconds
-[INFO] Console - results saved to directory [/home/sxie/RFdiffusion_pipeline/prediction/p2rank/outputs/6w63_clean]
+[INFO] Protein - loading protein [/home/csicheri/RFdiffusion_pipeline/inputs/6w63_clean.pdb]
+[INFO] PdbUtils - loading file [/home/csicheri/RFdiffusion_pipeline/inputs//6w63_clean.pdb]
+[ERROR] Dataset - error processing dataset item [6w63_clean.pdb]
+java.io.FileNotFoundException: /home/csicheri/RFdiffusion_pipeline/inputs/6w63_clean.pdb (No such file or directory)
+	at java.io.FileInputStream.open0(Native Method) ~[?:?]
+	at java.io.FileInputStream.open(FileInputStream.java:216) ~[?:?]
+	at java.io.FileInputStream.<init>(FileInputStream.java:157) ~[?:?]
+	at cz.siret.prank.utils.Futils.bufferedFileInputStream(Futils.groovy:233) ~[p2rank.jar:?]
+	at cz.siret.prank.utils.Futils.inputStream(Futils.groovy:212) ~[p2rank.jar:?]
+	at cz.siret.prank.utils.Futils.inputStream(Futils.groovy:229) ~[p2rank.jar:?]
+	at cz.siret.prank.utils.PdbUtils.loadFromPdbFile(PdbUtils.groovy:73) ~[p2rank.jar:?]
+	at cz.siret.prank.utils.PdbUtils.loadFromFile(PdbUtils.groovy:68) ~[p2rank.jar:?]
+	at cz.siret.prank.domain.Protein.loadFile(Protein.groovy:421) ~[p2rank.jar:?]
+	at cz.siret.prank.domain.Protein.load(Protein.groovy:400) ~[p2rank.jar:?]
+	at cz.siret.prank.domain.loaders.DatasetItemLoader.loadPredictionPair(DatasetItemLoader.groovy:59) ~[p2rank.jar:?]
+	at cz.siret.prank.domain.Dataset$Item.loadPredictionPair(Dataset.groovy:750) ~[p2rank.jar:?]
+	at cz.siret.prank.domain.Dataset$Item.getPredictionPair(Dataset.groovy:740) ~[p2rank.jar:?]
+	at cz.siret.prank.program.routines.predict.PredictPocketsRoutine$_execute_closure1.doCall(PredictPocketsRoutine.groovy:91) ~[p2rank.jar:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:577) ~[?:?]
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:343) ~[groovy-4.0.13.jar:4.0.13]
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:328) ~[groovy-4.0.13.jar:4.0.13]
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:279) ~[groovy-4.0.13.jar:4.0.13]
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1006) ~[groovy-4.0.13.jar:4.0.13]
+	at groovy.lang.Closure.call(Closure.java:433) ~[groovy-4.0.13.jar:4.0.13]
+	at groovy.lang.Closure.call(Closure.java:422) ~[groovy-4.0.13.jar:4.0.13]
+	at cz.siret.prank.domain.Dataset$1.processItem(Dataset.groovy:135) ~[p2rank.jar:?]
+	at cz.siret.prank.domain.Dataset.processssItem(Dataset.groovy:214) [p2rank.jar:?]
+	at cz.siret.prank.domain.Dataset.access$0(Dataset.groovy) [p2rank.jar:?]
+	at cz.siret.prank.domain.Dataset$2.call(Dataset.groovy:178) [p2rank.jar:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:833) [?:?]
+[INFO] Console - predicting pockets finished in 0 hours 0 minutes 13.642 seconds
+[INFO] Console - results saved to directory [/home/csicheri/RFdiffusion_pipeline/prediction/p2rank/outputs/6w63_clean]
+[INFO] Console - ERROR on processing 1 file(s):
+[INFO] Console -     [6w63_clean.pdb]
 [INFO] Console - 
-[INFO] Console - Finished successfully in 0 hours 0 minutes 35.702 seconds.
+[INFO] Console - Finished with ERROR in 0 hours 0 minutes 16.471 seconds.
