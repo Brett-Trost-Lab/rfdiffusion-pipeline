@@ -19,7 +19,7 @@ echo Running script...
 $repo_dir/scripts/run_inference.py \
 inference.output_prefix=$OUTPUT_DIR/rfdiffusion/$PDB_NAME \
 inference.num_designs=2 \
-"contigmap.contigs=[$1 25-30]" \
+"contigmap.contigs=[$1 40-50]" \
 inference.input_pdb=$PDB_PATH \
 "ppi.hotspot_res=[$2]" \
 denoiser.noise_scale_ca=0 \

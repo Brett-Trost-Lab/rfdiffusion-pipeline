@@ -1,0 +1,7 @@
+- inference.output_prefix=/home/csicheri/protein-binder-design/validation/inputs/../outputs/7camA/rfdiffusion/7camA
+- inference.num_designs=2
+- contigmap.contigs=[A4-300/0  40-50]
+- inference.input_pdb=/home/csicheri/protein-binder-design/validation/inputs//7camA_cleaned.pdb
+- ppi.hotspot_res=[A9,A10,A122,A124,A138,A285]
+- denoiser.noise_scale_ca=0
+- denoiser.noise_scale_frame=0
