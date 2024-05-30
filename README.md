@@ -19,11 +19,15 @@ usage: `python residue_selection/select_residues_using_AAdistance.py <pdb-of-int
 
 ## Prediction
 
-A collection of methods for protein binding site prediction when no known ligands are present.
+A collection of scripts that run protein binding site prediction methods. To be used when no known ligands are present, or novel binding sites are desired.
 
 Currently installed:
-* [P2Rank](https://github.com/rdk/p2rank) (2018): A rapid, template-free machine learning model based on Random Forest.
-* [ScanNet](https://github.com/jertubiana/ScanNet) (2022) Uses a geometric deep learning architecture for prediciton.
+#### [P2Rank](https://github.com/rdk/p2rank) (2018)
+* A rapid, template-free machine learning model based on Random Forest.
+* Usage: `sbatch prediction/p2rank/p2rank.sh` (specify the protein inside of the script)
+#### [ScanNet](https://github.com/jertubiana/ScanNet) (2022)
+* A geometric deep learning architecture for prediction.
+* Usage: `sbatch prediction/scannet/scannet.sh` (specify the protein inside of the script)
 
 ## Validation
 
