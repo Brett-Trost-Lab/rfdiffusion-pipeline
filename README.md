@@ -25,6 +25,8 @@ Currently installed:
 #### [P2Rank](https://github.com/rdk/p2rank) (2018)
 * A rapid, template-free machine learning model based on Random Forest.
 * Usage: `sbatch prediction/p2rank/p2rank.sh` (specify the protein inside of the script)
+* Predicted pockets will be output in order of confidence to `<>.pdb_predictions.csv`.
+* One pocket and its hotspots can then be extracted and prepared for RFdiffusion: `python prediction/p2rank/extract_hotspots.py <pdb_name> <path_to_predictions.csv> <pocket_number>`
 #### [ScanNet](https://github.com/jertubiana/ScanNet) (2022)
 * A geometric deep learning architecture for prediction.
 * Usage: `sbatch prediction/scannet/scannet.sh` (specify the protein inside of the script)
