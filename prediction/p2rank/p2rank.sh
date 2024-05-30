@@ -9,7 +9,7 @@ echo Loading module...
 
 module load p2rank/2.4.1
 
-pdb_name=7cam # can make this not hardcoded
+pdb_name=4lg9 # can make this not hardcoded
 
 echo
 echo Running script...

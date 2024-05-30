@@ -26,6 +26,9 @@ for pdb in $input_dir/*.pdb; do
         contig=$(python ./helper_scripts/get_contigs.py $pdb)
         hotspots=$(python ./helper_scripts/sample_hotspots.py $hotspot_file)
         
+	# MANUAL OVERRIDE
+	contig="A152-201/0 A207-214/0 A222-513/0 "
+
 	echo Contig: $contig
         echo Hotspots: $hotspots
 
