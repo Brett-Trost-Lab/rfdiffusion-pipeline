@@ -1,11 +1,10 @@
 """
 Extract contigs from a cleaned PDB for RFdiffusion binder design.
 
-e.g. A PDB with two chains (chain A with residues 1-50, chain B with residues 25-75,
-should return 'A1-50/0 B25-75/0 '. The /0 specified a chain break.)
+e.g. A PDB with two chains (chain A with residues 1-50;55-70, chain B with residues 25-75,
+should return 'A1-50/0 A55-70/0 B25-75/0 '. The /0 specified a chain break.)
 
 Note that this passes the entire target protein to RFdiffusion, with no truncation.
-Also, this currently cannot handle PDBs with sequence gaps (e.g. A1-25/28-50).
 
 argv[1]: protein pdb path
 """
@@ -48,17 +47,30 @@ def pdb_to_dataframe(pdb_file_path):
     df = pd.DataFrame(data, columns=columns)
     return df
 
+def get_continuous_ranges(residue_series):
+    ranges = []
+    start = end = residue_series.iloc[0]
+    for residue_num in residue_series[1:]:
+
+        if residue_num <= end + 1:
+            end = residue_num
+        else:
+            ranges.append((start, end))
+            start = end = residue_num
+
+    ranges.append((start, end))
+    return ranges
+
 def main():
     df = pdb_to_dataframe(pdb_path)
     chains = df['chain_identifier'].unique().tolist()
     
     contig = ''
-
-    for chain in chains:
-        df_chain = df[df['chain_identifier'] == chain]
-        start_residue = df_chain.iloc[1,6]
-        end_residue = df_chain.iloc[-1,6]
-        contig = contig + chain + str(start_residue) + '-' + str(end_residue) + '/0 '
+    for chain, df_chain in df.groupby('chain_identifier'):
+        ranges = get_continuous_ranges(df_chain['residue_sequence_number'])
+        
+        for start, end in ranges:
+            contig += f"{chain}{start}-{end}/0 "
 
     print(contig)
 
