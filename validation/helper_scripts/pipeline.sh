@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -G 1
-#SBATCH --mem=16G --tmp=16G
+#SBATCH --mem=32G --tmp=32G
 
 set -e
 

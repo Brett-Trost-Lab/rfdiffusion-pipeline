@@ -13,7 +13,7 @@ $repo_dir/base_dir/mpnn_fr/dl_interface_design.py \
 -pdbdir $OUTPUT_DIR/rfdiffusion/ \
 -outpdbdir $OUTPUT_DIR/proteinmpnn/ \
 -relax_cycles 0 \
--seqs_per_struct 2 \
+-seqs_per_struct 8 \
 -checkpoint_name ${PDB_NAME}.check.point \
 -temperature 0.0001 # as specified in Watson et al. supplementary methods
 
