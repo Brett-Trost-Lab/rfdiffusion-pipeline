@@ -1,0 +1,10 @@
+Launching 4lg9-base-model
+Hotspots file not found. Please ensure 4lg9-base-model_hotspots.txt is located in inputs/hotspots/ directory.
+Skipping 4lg9-base-model
+
+Launching 4lg9-beta-model
+Contig: A152-201/0 A207-214/0 A222-513/0
+Hotspots: A173,A175,A313,A314,A356,A493
+Submitted batch job 10476034
+
+Done launching.
