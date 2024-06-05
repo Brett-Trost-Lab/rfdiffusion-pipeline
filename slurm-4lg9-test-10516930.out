@@ -1,0 +1,202 @@
+SCRIPT_DIR /home/sxie/protein-binder-design/validation/scripts/
+NAME 4lg9-test
+PDB_PATH /home/sxie/protein-binder-design/inputs/4lg9.pdb
+CLEAN no
+HOTSPOTS A232,A245,A271
+MIN_LENGTH 5
+MAX_LENGTH 10
+NUM_STRUCTS 1
+SEQ_PER_STRUCT 1
+RFDIFFUSION_MODEL Complex_base_ckpt.pt
+OUTPUT_DIR /hpf/projects/btrost/Sophia/protein-binder-design/outputs//4lg9-test/
+
+STEP 0: Data Preparation
+
+Clean PDB
+No PDB cleaning done.
+
+Get Hotspots
+A232,A245,A271
+
+Get Contig
+Contig A152-201/0 A207-214/0 A222-513/0 A601-623/0 A701-860/0
+
+Data prep time elapsed: 00h:00m:02s seconds
+
+STEP 1: RFDiffusion
+Loading module...
+Loading RFDiffusion/1.1.0
+  Loading requirement: miniforge/3
+Activating conda...
+Running script...
+PDB_PATH /home/sxie/protein-binder-design/inputs/4lg9.pdb
+CONTIG A152-201/0 A207-214/0 A222-513/0 A601-623/0 A701-860/0
+HOTSPOTS A232,A245,A271
+MIN_LENGTH 5
+MAX_LENGTH 10
+NUM_STRUCTS 1
+RFDIFFUSION_MODEL Complex_base_ckpt.pt
+[2024-06-05 11:06:12,542][__main__][INFO] - ////////////////////////////////////////////////
+[2024-06-05 11:06:12,543][__main__][INFO] - ///// NO GPU DETECTED! Falling back to CPU /////
+[2024-06-05 11:06:12,543][__main__][INFO] - ////////////////////////////////////////////////
+Reading models from /hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/inference/../../models
+WARNING: You're overriding the checkpoint path from the defaults. Check that the model you're providing can run with the inputs you're providing.
+[2024-06-05 11:06:12,544][rfdiffusion.inference.model_runners][INFO] - Reading checkpoint from /hpf/tools/alma8/RFDiffusion/1.1.0//models/Complex_base_ckpt.pt
+This is inf_conf.ckpt_path
+/hpf/tools/alma8/RFDiffusion/1.1.0//models/Complex_base_ckpt.pt
+Assembling -model, -diffuser and -preprocess configs from checkpoint
+USING MODEL CONFIG: self._conf[model][n_extra_block] = 4
+USING MODEL CONFIG: self._conf[model][n_main_block] = 32
+USING MODEL CONFIG: self._conf[model][n_ref_block] = 4
+USING MODEL CONFIG: self._conf[model][d_msa] = 256
+USING MODEL CONFIG: self._conf[model][d_msa_full] = 64
+USING MODEL CONFIG: self._conf[model][d_pair] = 128
+USING MODEL CONFIG: self._conf[model][d_templ] = 64
+USING MODEL CONFIG: self._conf[model][n_head_msa] = 8
+USING MODEL CONFIG: self._conf[model][n_head_pair] = 4
+USING MODEL CONFIG: self._conf[model][n_head_templ] = 4
+USING MODEL CONFIG: self._conf[model][d_hidden] = 32
+USING MODEL CONFIG: self._conf[model][d_hidden_templ] = 32
+USING MODEL CONFIG: self._conf[model][p_drop] = 0.15
+USING MODEL CONFIG: self._conf[model][SE3_param_full] = {'num_layers': 1, 'num_channels': 32, 'num_degrees': 2, 'n_heads': 4, 'div': 4, 'l0_in_features': 8, 'l0_out_features': 8, 'l1_in_features': 3, 'l1_out_features': 2, 'num_edge_features': 32}
+USING MODEL CONFIG: self._conf[model][SE3_param_topk] = {'num_layers': 1, 'num_channels': 32, 'num_degrees': 2, 'n_heads': 4, 'div': 4, 'l0_in_features': 64, 'l0_out_features': 64, 'l1_in_features': 3, 'l1_out_features': 2, 'num_edge_features': 64}
+USING MODEL CONFIG: self._conf[model][freeze_track_motif] = False
+USING MODEL CONFIG: self._conf[model][use_motif_timestep] = True
+USING MODEL CONFIG: self._conf[diffuser][T] = 50
+USING MODEL CONFIG: self._conf[diffuser][b_0] = 0.01
+USING MODEL CONFIG: self._conf[diffuser][b_T] = 0.07
+USING MODEL CONFIG: self._conf[diffuser][schedule_type] = linear
+USING MODEL CONFIG: self._conf[diffuser][so3_type] = igso3
+USING MODEL CONFIG: self._conf[diffuser][crd_scale] = 0.25
+USING MODEL CONFIG: self._conf[diffuser][so3_schedule_type] = linear
+USING MODEL CONFIG: self._conf[diffuser][min_b] = 1.5
+USING MODEL CONFIG: self._conf[diffuser][max_b] = 2.5
+USING MODEL CONFIG: self._conf[diffuser][min_sigma] = 0.02
+USING MODEL CONFIG: self._conf[diffuser][max_sigma] = 1.5
+USING MODEL CONFIG: self._conf[preprocess][sidechain_input] = False
+USING MODEL CONFIG: self._conf[preprocess][motif_sidechain_input] = True
+USING MODEL CONFIG: self._conf[preprocess][d_t1d] = 24
+USING MODEL CONFIG: self._conf[preprocess][d_t2d] = 44
+USING MODEL CONFIG: self._conf[preprocess][prob_self_cond] = 0.5
+USING MODEL CONFIG: self._conf[preprocess][str_self_cond] = True
+USING MODEL CONFIG: self._conf[preprocess][predict_previous] = False
+[2024-06-05 11:06:17,126][rfdiffusion.inference.model_runners][INFO] - Loading checkpoint.
+[2024-06-05 11:06:23,861][rfdiffusion.diffusion][INFO] - Using cached IGSO3.
+--- Logging error ---
+Traceback (most recent call last):
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/logging/__init__.py", line 1087, in emit
+    self.flush()
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/logging/__init__.py", line 1067, in flush
+    self.stream.flush()
+OSError: [Errno 116] Stale file handle
+Call stack:
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0//scripts/run_inference.py", line 194, in <module>
+    main()
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0//scripts/run_inference.py", line 54, in main
+    sampler = iu.sampler_selector(conf)
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/inference/utils.py", line 511, in sampler_selector
+    sampler = model_runners.SelfConditioning(conf)
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/inference/model_runners.py", line 37, in __init__
+    self.initialize(conf)
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/inference/model_runners.py", line 130, in initialize
+    self.diffuser = Diffuser(**self._conf.diffuser, cache_dir=schedule_directory)
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/diffusion.py", line 582, in __init__
+    self.so3_diffuser = IGSO3(
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/diffusion.py", line 198, in __init__
+    self.igso3_vals = self._calc_igso3_vals(L=L)
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/diffusion.py", line 232, in _calc_igso3_vals
+    self._log.info("Using cached IGSO3.")
+Message: 'Using cached IGSO3.'
+Arguments: ()
+Successful diffuser __init__
+[2024-06-05 11:06:23,985][__main__][INFO] - Making design /hpf/projects/btrost/Sophia/protein-binder-design/outputs//4lg9-test//rfdiffusion/4lg9-test_0
+--- Logging error ---
+Traceback (most recent call last):
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/logging/__init__.py", line 1087, in emit
+    self.flush()
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/logging/__init__.py", line 1067, in flush
+    self.stream.flush()
+OSError: [Errno 116] Stale file handle
+Call stack:
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0//scripts/run_inference.py", line 194, in <module>
+    main()
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0//scripts/run_inference.py", line 77, in main
+    log.info(f"Making design {out_prefix}")
+Message: 'Making design /hpf/projects/btrost/Sophia/protein-binder-design/outputs//4lg9-test//rfdiffusion/4lg9-test_0'
+Arguments: ()
+[2024-06-05 11:06:24,023][rfdiffusion.inference.model_runners][INFO] - Using contig: ['A152-201/0 A207-214/0 A222-513/0 A601-623/0 A701-860/0  5-10']
+--- Logging error ---
+Traceback (most recent call last):
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/logging/__init__.py", line 1087, in emit
+    self.flush()
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/logging/__init__.py", line 1067, in flush
+    self.stream.flush()
+OSError: [Errno 116] Stale file handle
+Call stack:
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0//scripts/run_inference.py", line 194, in <module>
+    main()
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+  File "/hpf/tools/centos7/miniforge/3/envs/SE3nv/lib/python3.9/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0//scripts/run_inference.py", line 84, in main
+    x_init, seq_init = sampler.sample_init()
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/inference/model_runners.py", line 277, in sample_init
+    self.contig_map = self.construct_contig(self.target_feats)
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/inference/model_runners.py", line 239, in construct_contig
+    self._log.info(f'Using contig: {self.contig_conf.contigs}')
+Message: "Using contig: ['A152-201/0 A207-214/0 A222-513/0 A601-623/0 A701-860/0  5-10']"
+Arguments: ()
+Error executing job with overrides: ['inference.input_pdb=/home/sxie/protein-binder-design/inputs/4lg9.pdb', 'contigmap.contigs=[A152-201/0 A207-214/0 A222-513/0 A601-623/0 A701-860/0  5-10]', 'ppi.hotspot_res=[A232,A245,A271]', 'inference.num_designs=1', 'inference.ckpt_override_path=/hpf/tools/alma8/RFDiffusion/1.1.0//models/Complex_base_ckpt.pt', 'inference.output_prefix=/hpf/projects/btrost/Sophia/protein-binder-design/outputs//4lg9-test//rfdiffusion/4lg9-test', 'denoiser.noise_scale_ca=0', 'denoiser.noise_scale_frame=0']
+Traceback (most recent call last):
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0//scripts/run_inference.py", line 84, in main
+    x_init, seq_init = sampler.sample_init()
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/inference/model_runners.py", line 277, in sample_init
+    self.contig_map = self.construct_contig(self.target_feats)
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/inference/model_runners.py", line 240, in construct_contig
+    return ContigMap(target_feats, **self.contig_conf)
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/contigs.py", line 115, in __init__
+    ) = self.get_idx0()
+  File "/hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/contigs.py", line 342, in get_idx0
+    assert val in self.parsed_pdb["pdb_idx"], f"{val} is not in pdb file!"
+AssertionError: ('A', 601) is not in pdb file!
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
