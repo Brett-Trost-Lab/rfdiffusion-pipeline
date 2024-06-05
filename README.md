@@ -1,14 +1,30 @@
 # Protein Binder Design
 
-## Validation
-RFdiffusion --> ProteinMPNN --> AlphaFold2.
+## Validation Pipeline
 
 A collection of scripts that automates the validation process of [RFdiffusion](https://github.com/RosettaCommons/RFdiffusion) using [ProteinMPNN and AlphaFold2](https://github.com/nrbennet/dl_binder_design). Developed specifically for protein binder design.
  
-The pipeline designs a binder to specified hotspot residues on the target protein. It then evaluates how well the designed structure folds into its intended monomer structure, as well as how well it binds to its target.
+The pipeline designs binders to hotspot residues on the target protein. It then evaluates how well the designed structures will bind to their target.
  
 ### Input
-Specify all input parameters in `input.txt`. This file must follow the format provided in `inputs/input.txt`.
+Specify all input configurations in a single text file, one row per target protein. This file MUST follow the format provided in 'inputs/input.txt' with the headers included. The parameters are as follows:
+| Parameter | Description | Notes |
+| --- | --- | --- |
+| NAME | Name of the run | Must be unique. Can have two runs with the same target PDB but different names. |
+| PATH_TO_PDB | Absolute path to target PDB | Avoid ~, $HOME, .., etc. |
+| CLEAN | Whether to clean the target PDB (yes/no) | Avoid cleaning already cleaned PDBs |
+| HOTSPOTS | Hotspots for RFdiffusion | e.g. 'A232,A245,A271' (no spaces, separate with commas) OR 'predict' will sample hotspots from a predicted binding site |
+| MIN_LENGTH | Minimum length for binder (aa) | |
+| MAX_LENGTH | Maximum length for binder (aa) | |
+| NUM_STRUCTS | Number of RFdiffusion structures to generate | |
+| SEQUENCES_PER_STRUCT | Number of ProteinMPNN sequences to generate for each structure | |
+| MEM | Amount of memory for job to use | e.g. 128G |
+| TEMP | Amount of temporary space for job to use | e.g. 128G |
+| TIME | Maximum time allotted for job | e.g. 48:00:00 |
+| RFDIFFUSION_MODEL | RFdiffusion model to use | e.g. Complex_base_ckpt.pt |
+| OUTPUT_DIR | Output directory | |
+
+
  
 ### Usage
 ```
