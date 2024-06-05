@@ -20,6 +20,7 @@ import numpy as np
 import pandas as pd
 import os, re, sys, time
 import sys
+import pathlib
 
 pathstr = "\nPlease type the directory contains PDB files: \n"
 keepstr = ("\nIf you want to retain all chains, please type: all\n"
@@ -492,7 +493,8 @@ def main(path, keep, hydrogen, report):
                 seqGap_info.append(gaps)
                 
             if report == "c":
-                outputf = os.path.join(outputpath, fname)
+		pathlib.Path(outputpath).mkdir(parents=True, exist_ok=True)                
+		outputf = os.path.join(outputpath, fname)
                 save_cleaned_PDB(outputf, pdb_df)
                 if (save_ligands == "True" or save_ligands == "true" or save_ligands == "t"):
                     save_cleaned_PDB(outputpath + "/" + f[:4] + "_ligands.pdb", ligand)
