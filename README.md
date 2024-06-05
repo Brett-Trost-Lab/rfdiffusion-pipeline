@@ -35,7 +35,7 @@ Outputs are provided for the individual steps of the pipeline. The RFdiffusion d
  
 Successful designs and output scores are sorted in `<output_dir>/<pdb_name>/<pdb_name>.out.txt`.
 
-## Individual Steps of the Pipeline
+## Individual Components
 ### Extracting Ligands and Cleaning PDBs
 Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Clean PDBs and Ligands are outputed to the specified output path. The program will generate a cleaned PDB for all files in the specified folder. Example cleaned pdbs can be found in cleaning/clean_pdbs
 
