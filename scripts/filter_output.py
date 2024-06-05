@@ -27,8 +27,8 @@ def main():
                        (df['binder_aligned_rmsd'] < 1) & \
                        (df['plddt_binder'] > 80)
     
-    df.sort_values(['successful', 'pae_interaction','binder_aligned_rmsd','plddt_binder'], \
-                   ascending=[False, True, True, True], \
+    df.sort_values(['pae_interaction','successful','binder_aligned_rmsd','plddt_binder'], \
+                   ascending=[True, False, True, True], \
                    inplace=True)
 
     file_name = os.path.splitext(os.path.abspath(out_sc_file))[0] + '.txt'

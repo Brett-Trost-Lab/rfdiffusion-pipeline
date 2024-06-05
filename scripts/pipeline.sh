@@ -47,12 +47,12 @@ echo STEP 0: Data Preparation
 echo
 echo Clean PDB
 
-if [ "$clean" = "yes" ] || [ "clean" = "Yes" ]; then
-    # clean pdb
+if [ "$clean" = "yes" ]; then
+    # pdb cleaner
     temp_dir=$(mktemp -d)
     cp $pdb_path $temp_dir
 
-    cleaner_output=$(python $script_dir/pdb_cleaner.py $temp_dir $OUTPUT_DIR/pdb/ true)
+    cleaner_output=$(python $script_dir/pdb_cleaner.py $temp_dir $OUTPUT_DIR/data_prep/ true)
     echo "$cleaner_output"
 
     pdb_path=$(echo "$cleaner_output" | tail -1)
@@ -69,7 +69,27 @@ echo
 echo Get Hotspots
 
 # TODO: implement 'predict' and 'use_ligand'
-echo $hotspots
+
+if [ "$hotspots" = "predict" ]; then
+    echo Predicting hotspots using p2rank...
+    bash $script_dir/p2rank.sh $pdb_path $OUTPUT_DIR/data_prep/
+
+    pdb_filename=$(basename -- "$pdb_path")
+    pdb_filename="${pdb_filename%.*}"
+    predictions=$OUTPUT_DIR/data_prep/${pdb_filename}.pdb_predictions.csv
+    echo Predictions: $predictions 
+    
+    echo Extracting hotspots for best pocket...
+    python $script_dir/extract_hotspots.py $PDB_NAME $predictions 1
+
+    echo Sampling hotspots...
+    hotspots=$(python $script_dir/sample_hotspots.py ${OUTPUT_DIR}/data_prep/${PDB_NAME}_hotspots.txt)
+   
+else
+    echo Using provided hotspots.
+fi
+
+echo Hotspots $hotspots
 
 echo
 echo Get Contig

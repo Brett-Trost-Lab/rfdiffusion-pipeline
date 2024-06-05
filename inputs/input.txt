@@ -1,2 +1,2 @@
 NAME	PATH_TO_PDB	CLEAN	HOTSPOTS	MIN_LENGTH	MAX_LENGTH	NUM_STRUCTS	SEQUENCES_PER_STRUCT	MEM	TEMP	TIME	RFDIFFUSION_MODEL	OUTPUT_DIR
-4lg9-test	/home/sxie/protein-binder-design/inputs/4lg9.pdb	yes	A232,A245,A271	5	10	1	1	4G	4G	2:00:00	Complex_base_ckpt.pt	/hpf/projects/btrost/Sophia/protein-binder-design/outputs/
+4lg9	/home/sxie/protein-binder-design/inputs/4lg9_clean.pdb	no	predict	5	10	1	1	4G	4G	2:00:00	Complex_base_ckpt.pt	/hpf/projects/btrost/Sophia/
