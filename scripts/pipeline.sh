@@ -24,7 +24,7 @@ max_length=$7
 num_structs=$8
 seq_per_struct=$9
 rfdiffusion_model=${10}
-output_dir="${11}/${name}/"
+output_dir="${11}/${run_name}/"
 
 echo SCRIPT_DIR $script_dir
 echo RUN_NAME $run_name
