@@ -11,11 +11,17 @@ echo Activating conda...
 eval "$(conda shell.bash hook)"
 conda activate $repo_dir/af2_binder_design
 
+run_name=$1
+output_dir=$2
+
+echo RUN_NAME $1
+echo OUTPUT_DIR $2
+
 echo Running script...
 $repo_dir/base_dir/af2_initial_guess/predict.py \
--pdbdir $OUTPUT_DIR/proteinmpnn/ \
--outpdbdir $OUTPUT_DIR/af2/ \
--checkpoint_name ${OUTPUT_DIR}/${RUN_NAME}.check.point \
--scorefilename ${OUTPUT_DIR}/${RUN_NAME}.out.sc
+-pdbdir $output_dir/proteinmpnn/ \
+-outpdbdir $output_dir/af2/ \
+-checkpoint_name ${output_dir}/${run_name}.check.point \
+-scorefilename ${output_dir}/${run_name}.out.sc
 
 echo Done.
