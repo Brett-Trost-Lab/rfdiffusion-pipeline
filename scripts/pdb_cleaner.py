@@ -378,6 +378,9 @@ def main(path, keep, hydrogen, report):
     insert_info = []
     multiChains = []
     
+    outputf=''
+    ligand_path=''
+
     drawline = "".join(("\n", "-" * 79, "\n"))
     time_fmt = "The Used Time in this step is {:.4f} Seconds"
 
