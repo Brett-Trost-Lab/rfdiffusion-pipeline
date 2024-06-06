@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH -G 1
-#SBATCH --mem=16G --tmp=16G
+#SBATCH --mem=64G --tmp=64G
+#SBATCH -t 56:00:00
 
 set -e
 
@@ -10,7 +11,7 @@ export PDB_PATH=$1
 input_dir=$(dirname $(realpath $PDB_PATH))
 
 export PDB_NAME=$2
-export OUTPUT_DIR=$input_dir/../outputs/$PDB_NAME
+export OUTPUT_DIR=/hpf/projects/mtyers/connor/$PDB_NAME
 
 script_dir=$input_dir/../helper_scripts/
 

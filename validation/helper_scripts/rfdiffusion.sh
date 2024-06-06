@@ -18,12 +18,13 @@ echo Running script...
 
 $repo_dir/scripts/run_inference.py \
 inference.output_prefix=$OUTPUT_DIR/rfdiffusion/$PDB_NAME \
-inference.num_designs=2 \
-"contigmap.contigs=[$1 45-55]" \
+inference.num_designs=500 \
+"contigmap.contigs=[$1 70-100]" \
 inference.input_pdb=$PDB_PATH \
 "ppi.hotspot_res=[$2]" \
 denoiser.noise_scale_ca=0 \
-denoiser.noise_scale_frame=0
+denoiser.noise_scale_frame=0 \
+inference.ckpt_override_path=$repo_dir/models/Complex_beta_ckpt.pt
 
 echo
 echo Done.
