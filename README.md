@@ -58,11 +58,21 @@ usage: `python residue_selection/select_residues_using_AAdistance.py <pdb-of-int
 A collection of scripts that run protein binding site prediction methods. To be used when no known ligands are present, or novel binding sites are desired.
 
 Currently installed:
-#### [P2Rank](https://github.com/rdk/p2rank) (2018)
-* A rapid, template-free machine learning model based on Random Forest.
-* Usage: `sbatch prediction/p2rank/p2rank.sh` (specify the protein inside of the script)
-* Predicted pockets will be output in order of confidence to `<>.pdb_predictions.csv`.
-* One pocket and its hotspots can then be extracted and prepared for RFdiffusion: `python prediction/p2rank/extract_hotspots.py <pdb_name> <path_to_predictions.csv> <pocket_number>`
+#### [P2Rank](https://github.com/rdk/p2rank) (2018) (used in validation pipeline)
+A rapid, template-free machine learning model based on Random Forest.
+
+Usage: `sbatch scripts/p2rank.sh <input_pdb> <output_dir>`
+
+Predicted pockets will be output in order of confidence to `output_dir/<pdb_name>.pdb_predictions.csv`. Pockets and residues can be viewed by downloading and opening `output_dir/visualizations/`. One pocket and its hotspots can then be extracted into a text file:
+
+`python scripts/extract_hotspots.py <pdb_name> <<pdb_name>.pdb_predictions.csv> <pocket_number>`
+
+This `<pdb_name>_hotspots.txt` output will be created in the same location as `<pdb_name>.pdb_predictions.csv`. To sample and format hotspots to pass to RFdiffusion:
+
+`python scripts/sample_hotspots.py <<pdb_name>_hotspots.txt>`
+
+This will return a set of hotspots in the correct format for RFdiffusion. e.g. `A232,A245,A271`
+
 #### [ScanNet](https://github.com/jertubiana/ScanNet) (2022)
 * A geometric deep learning architecture for prediction.
-* Usage: `sbatch prediction/scannet/scannet.sh` (specify the protein inside of the script)
+* Usage: `sbatch helper_scripts/scannet/scannet.sh` (specify the protein inside of the script)
