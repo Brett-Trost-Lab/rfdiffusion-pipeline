@@ -3,15 +3,19 @@ from Bio.PDB import PDBParser
 import numpy as np
 import os
 
-def get_beta_carbons(structure):
+# List of hydrophobic residues
+HYDROPHOBIC_RESIDUES = ['ALA', 'VAL', 'LEU', 'ILE', 'MET', 'PHE', 'TYR', 'TRP', 'PRO']
+
+def get_hydrophobic_beta_carbons(structure):
     beta_carbons = []
     for model in structure:
         for chain in model:
             for residue in chain:
-                if 'CB' in residue:
-                    beta_carbons.append(residue['CB'])
-                elif 'CA' in residue and residue.get_resname() == 'GLY':  # Glycine has no CB
-                    beta_carbons.append(residue['CA'])
+                if residue.get_resname() in HYDROPHOBIC_RESIDUES:
+                    if 'CB' in residue:
+                        beta_carbons.append(residue['CB'])
+                    elif 'CA' in residue and residue.get_resname() == 'GLY':  # Glycine has no CB
+                        beta_carbons.append(residue['CA'])
     return beta_carbons
 
 def calculate_distances(cb_atoms_1, cb_atoms_2):
@@ -32,8 +36,8 @@ def get_top_closest_pairs(pdb_file1, pdb_file2, top_n, output_dir):
     structure1 = parser.get_structure('protein1', pdb_file1)
     structure2 = parser.get_structure('protein2', pdb_file2)
     
-    cb_atoms_1 = get_beta_carbons(structure1)
-    cb_atoms_2 = get_beta_carbons(structure2)
+    cb_atoms_1 = get_hydrophobic_beta_carbons(structure1)
+    cb_atoms_2 = get_hydrophobic_beta_carbons(structure2)
     
     distances = calculate_distances(cb_atoms_1, cb_atoms_2)
     distances.sort(key=lambda x: x[0])

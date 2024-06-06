@@ -1,0 +1,11 @@
+chain_identifier	residue_sequence_number
+A	173
+A	446
+A	462
+A	487
+A	395
+A	173
+A	245
+A	268
+A	270
+A	487

@@ -1,0 +1,11 @@
+chain_identifier	residue_sequence_number
+B	2383
+B	2425
+B	2583
+B	2599
+B	2599
+B	2673
+B	2626
+B	2626
+B	2583
+B	2626
