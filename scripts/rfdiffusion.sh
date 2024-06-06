@@ -37,7 +37,7 @@ inference.input_pdb=$pdb_path \
 "ppi.hotspot_res=[$hotspots]" \
 inference.num_designs=$num_structs \
 inference.ckpt_override_path=$repo_dir/models/$rfdiffusion_model \
-inference.output_prefix=$OUTPUT_DIR/rfdiffusion/$PDB_NAME \
+inference.output_prefix=$OUTPUT_DIR/rfdiffusion/$RUN_NAME \
 denoiser.noise_scale_ca=0 \
 denoiser.noise_scale_frame=0
 

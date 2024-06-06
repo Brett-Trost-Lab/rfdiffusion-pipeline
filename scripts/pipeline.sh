@@ -27,7 +27,7 @@ rfdiffusion_model=${10}
 output_dir="${11}/${name}/"
 
 echo SCRIPT_DIR $script_dir
-echo NAME $name
+echo RUN_NAME $run_name
 echo PDB_PATH $pdb_path
 echo CLEAN $clean
 echo HOTSPOTS $hotspots
@@ -38,7 +38,7 @@ echo SEQ_PER_STRUCT $seq_per_struct
 echo RFDIFFUSION_MODEL $rfdiffusion_model
 echo OUTPUT_DIR $output_dir
 
-export PDB_NAME=$name
+export RUN_NAME=$run_name
 export OUTPUT_DIR=$output_dir
 
 echo
@@ -80,10 +80,10 @@ if [ "$hotspots" = "predict" ]; then
     echo Predictions: $predictions 
     
     echo Extracting hotspots for best pocket...
-    python $script_dir/extract_hotspots.py $PDB_NAME $predictions 1
+    python $script_dir/extract_hotspots.py $RUN_NAME $predictions 1
 
     echo Sampling hotspots...
-    hotspots=$(python $script_dir/sample_hotspots.py ${OUTPUT_DIR}/data_prep/${PDB_NAME}_hotspots.txt)
+    hotspots=$(python $script_dir/sample_hotspots.py ${OUTPUT_DIR}/data_prep/${RUN_NAME}_hotspots.txt)
    
 else
     echo Using provided hotspots.
@@ -129,7 +129,7 @@ bash $script_dir/af2.sh
 
 # filter output scores
 echo Filtering output scores...
-python $script_dir/filter_output.py $OUTPUT_DIR/${PDB_NAME}.out.sc
+python $script_dir/filter_output.py $OUTPUT_DIR/${RUN_NAME}.out.sc
 
 echo
 echo AF2 time elapsed: $(convert_seconds $SECONDS) seconds

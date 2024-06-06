@@ -12,7 +12,7 @@ In this pipeline, RFdiffusion designs binders to hotspot residues on the target 
 Specify all input configurations in a single text file, one row per target protein. This file MUST follow the format provided in 'inputs/input.txt' with the headers included. The parameters are as follows:
 | Parameter | Description | Examples | Notes |
 | --- | --- | --- | --- |
-| NAME | Name of the run | test_run | Must be unique. Can have two runs with the same target PDB but different names. |
+| RUN_NAME | Name of the run | test_run | Must be unique. Can have two runs with the same target PDB but different names. |
 | PATH_TO_PDB | Absolute path to target PDB | /home/usr/inputs/target.pdb | Avoid ~, $HOME, .., etc. |
 | CLEAN | Whether to clean the target PDB (yes/no) | yes | Avoid cleaning already cleaned PDBs |
 | HOTSPOTS | Hotspots for RFdiffusion | A232,A245,A271 | Enter 'predict' to sample hotspots from a predicted binding site |

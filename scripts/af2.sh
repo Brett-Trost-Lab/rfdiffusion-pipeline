@@ -15,7 +15,7 @@ echo Running script...
 $repo_dir/base_dir/af2_initial_guess/predict.py \
 -pdbdir $OUTPUT_DIR/proteinmpnn/ \
 -outpdbdir $OUTPUT_DIR/af2/ \
--checkpoint_name ${OUTPUT_DIR}/${PDB_NAME}.check.point \
--scorefilename ${OUTPUT_DIR}/${PDB_NAME}.out.sc
+-checkpoint_name ${OUTPUT_DIR}/${RUN_NAME}.check.point \
+-scorefilename ${OUTPUT_DIR}/${RUN_NAME}.out.sc
 
 echo Done.
