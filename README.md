@@ -9,7 +9,7 @@ A collection of scripts that automates the validation process of RFdiffusion &#8
 In this pipeline, RFdiffusion designs binders to hotspot residues on the target protein. It then uses AF2 to evaluate how well the designs will fold into their intended monomer structures, as well as how likely they will bind to their target.
  
 ### Input
-Specify all input configurations in a single text file, one row per target protein. This file MUST follow the format provided in `inputs/input.txt` with the headers included. The parameters are as follows:
+Specify all input configurations in a single text file, one row per run. This file MUST follow the format provided in `inputs/input.txt` with the headers included. The parameters are as follows:
 | Parameter | Description | Examples | Notes |
 | --- | --- | --- | --- |
 | RUN_NAME | Name of the run | test_run | Must be unique. Can have two runs with the same target PDB but different names. |
