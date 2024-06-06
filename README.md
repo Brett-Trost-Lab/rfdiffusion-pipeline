@@ -46,7 +46,7 @@ usage: `python scripts/pdb_cleaner.py <folder-of-pdbs> <folder-for-output> <save
 
 ## Selecting Hotspot Residues
 
-### Proteins with a Ligand (outdated)
+### Proteins with a Ligand 
 For proteins with a known ligand, to generate accurate and effective hotspot residues to RFDiffusion, we developed 3 methods: 1) randomly select 6 hydrophobic residues within an 11-angstrom radius of the ligand centroid, 2) select the top 6 residues closest to ANY atom in the ligand, and 3) select 3 residues which have closest beta-Carbon atoms to the ligand. This suite of residue selectors ensures we may select "important" binding residues that RFDiffusion will accept.
 
 usage: `python helper_scripts/residue_selection/select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
