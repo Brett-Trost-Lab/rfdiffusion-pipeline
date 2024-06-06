@@ -61,15 +61,15 @@ Currently installed:
 #### [P2Rank](https://github.com/rdk/p2rank) (2018) (used in validation pipeline)
 A rapid, template-free machine learning model based on Random Forest.
 
-Usage: `sbatch scripts/p2rank.sh <input_pdb> <output_dir>`
+1. `sbatch scripts/p2rank.sh <input_pdb> <output_dir>`
 
 Predicted pockets will be output in order of confidence to `output_dir/<pdb_name>.pdb_predictions.csv`. Pockets and residues can be viewed by downloading and opening `output_dir/visualizations/`. One pocket and its hotspots can then be extracted into a text file:
 
-`python scripts/extract_hotspots.py <pdb_name> <<pdb_name>.pdb_predictions.csv> <pocket_number>`
+2. `python scripts/extract_hotspots.py <pdb_name> <<pdb_name>.pdb_predictions.csv> <pocket_number>`
 
 This `<pdb_name>_hotspots.txt` output will be created in the same location as `<pdb_name>.pdb_predictions.csv`. To sample and format hotspots to pass to RFdiffusion:
 
-`python scripts/sample_hotspots.py <<pdb_name>_hotspots.txt>`
+3. `python scripts/sample_hotspots.py <<pdb_name>_hotspots.txt>`
 
 This will return a set of hotspots in the correct format for RFdiffusion. e.g. `A232,A245,A271`
 
