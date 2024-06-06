@@ -88,7 +88,7 @@ Output contig is printed.
 
 2. Run script
    
-`sbatch --gpus 1 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <RFDIFFSION_MODEL>` (GPU required, specify more resources as necessary)
+`sbatch --gpus 1 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <RFDIFFUSION_MODEL>` (GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>/rfdiffusion/`.
 
