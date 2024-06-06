@@ -15,14 +15,18 @@ conda activate /hpf/tools/centos7/miniforge/3/envs/SE3nv
 
 echo Running script...
 
-pdb_path=$1
-contig=$2
-hotspots=$3
-min_length=$4
-max_length=$5
-num_structs=$6
-rfdiffusion_model=$7
+run_name=$1
+output_dir=$2
+pdb_path=$3
+contig=$4
+hotspots=$5
+min_length=$6
+max_length=$7
+num_structs=$8
+rfdiffusion_model=$9
 
+echo RUN_NAME $run_name
+echo OUTPUT_DIR $output_dir
 echo PDB_PATH $pdb_path
 echo CONTIG $contig
 echo HOTSPOTS $hotspots
@@ -37,7 +41,7 @@ inference.input_pdb=$pdb_path \
 "ppi.hotspot_res=[$hotspots]" \
 inference.num_designs=$num_structs \
 inference.ckpt_override_path=$repo_dir/models/$rfdiffusion_model \
-inference.output_prefix=$OUTPUT_DIR/rfdiffusion/$PDB_NAME \
+inference.output_prefix=$output_dir/rfdiffusion/$run_name \
 denoiser.noise_scale_ca=0 \
 denoiser.noise_scale_frame=0
 
