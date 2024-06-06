@@ -35,7 +35,7 @@ Output scores are provided in `<OUTPUT_DIR>/<NAME>/<NAME>.out.txt`.
 
 RFdiffusion designed structures in `<OUTPUT_DIR>/<NAME>/rfdiffusion/` can be compared with their respective AF2 predicted structures in `<OUTPUT_DIR>/<NAME>/af2/`.
 
-# Individual Steps of the Pipeline (outdated)
+# Individual Steps of the Pipeline
 
 The following explains how to run components of the pipeline individually.
 
@@ -46,7 +46,7 @@ usage: `python scripts/pdb_cleaner.py <folder-of-pdbs> <folder-for-output> <save
 
 ## Selecting Hotspot Residues
 
-### Proteins with a Ligand
+### Proteins with a Ligand (outdated)
 For proteins with a known ligand, to generate accurate and effective hotspot residues to RFDiffusion, we developed 2 methods: 1) randomly select 6 hydrophobic residues within an 11-angstrom radius of the ligand centroid, and 2) select the top 6 residues closest to ANY atom in the ligand. This ensures they are "important" binding residues and allows us to generate residues that RFDiffusion will accept.
 
 usage: `python residue_selection/select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
@@ -65,14 +65,43 @@ A rapid, template-free machine learning model based on Random Forest.
 
 Predicted pockets will be output in order of confidence to `output_dir/<pdb_name>.pdb_predictions.csv`. Pockets and residues can be viewed by downloading and opening `output_dir/visualizations/`. One pocket and its hotspots can then be extracted into a text file:
 
-2. `python scripts/extract_hotspots.py <pdb_name> <<pdb_name>.pdb_predictions.csv> <pocket_number>`
+2. `python scripts/extract_hotspots.py <pdb_name> <pdb_name>.pdb_predictions.csv <pocket_number>`
 
 This `<pdb_name>_hotspots.txt` output will be created in the same location as `<pdb_name>.pdb_predictions.csv`. To sample and format hotspots to pass to RFdiffusion:
 
-3. `python scripts/sample_hotspots.py <<pdb_name>_hotspots.txt>`
+3. `python scripts/sample_hotspots.py <pdb_name>_hotspots.txt`
 
 This will return a set of hotspots in the correct format for RFdiffusion. e.g. `A232,A245,A271`
 
 #### [ScanNet](https://github.com/jertubiana/ScanNet) (2022)
 * A geometric deep learning architecture for prediction.
 * Usage: `sbatch helper_scripts/scannet/scannet.sh` (specify the protein inside of the script)
+
+## RFdiffusion
+1. Get contig
+
+The contig tells RFdiffusion what section of the target protein to use. To extract the contig for the entire target protein:
+
+`python scripts/get_contigs.py <PATH_TO_PDB>`
+
+Output contig is printed.
+
+2. Run script
+   
+`sbatch --gpus 1 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <RFDIFFSION_MODEL>` (GPU required, specify more resources as necessary)
+
+Results are output to `<OUTPUT_DIR>/rfdiffusion/`.
+
+## ProteinMPNN
+RFdiffusion output must be in `<OUTPUT_DIR>/rfdiffusion/`.
+
+`sbatch scripts/proteinmpnn.sh <RUN_NAME> <OUTPUT_DIR> <SEQ_PER_STRUCT>` (no GPU required, specify more resources as necessary)
+
+Results are output to `<OUTPUT_DIR>/proteinmpnn/`.
+
+## AlphaFold2
+ProteinMPNN output must be in `<OUTPUT_DIR>/proteinmpnn/`.
+
+`sbatch --gpus 1 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR>` (GPU required, specify more resources as necessary)
+
+Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`.
