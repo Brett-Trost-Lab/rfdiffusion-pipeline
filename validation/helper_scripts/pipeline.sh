@@ -48,3 +48,4 @@ echo Done pipeline.
 
 total_seconds=$((total_seconds+SECONDS))
 echo Total time elapsed: $total_seconds seconds
+
