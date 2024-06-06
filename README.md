@@ -2,7 +2,7 @@
 
 In 2023, researchers at the Baker Lab published [RFdiffusion](https://github.com/RosettaCommons/RFdiffusion), a deep-learning framework for de novo protein design. Using [ProteinMPNN and AlphaFold2](https://github.com/nrbennet/dl_binder_design) for validation, the authors demonstrated RFdiffusion's ability to tackle a diverse range of design challenges, including the successful generation of high-affinity binders to desired target proteins.
 
-## Automated Pipeline
+# Automated Pipeline
 
 A collection of scripts that automates the validation process of RFdiffusion &#8594; ProteinMPNN &#8594; AlphaFold2 (AF2). Developed specifically for protein binder design.
 
@@ -35,23 +35,25 @@ Output scores are provided in `<OUTPUT_DIR>/<NAME>/<NAME>.out.txt`.
 
 RFdiffusion designed structures in `<OUTPUT_DIR>/<NAME>/rfdiffusion/` can be compared with their respective AF2 predicted structures in `<OUTPUT_DIR>/<NAME>/af2/`.
 
-## Individual Steps of the Pipeline (outdated)
+# Individual Steps of the Pipeline (outdated)
 
 The following explains how to run components of the pipeline individually.
 
-### Extracting Ligands and Cleaning PDBs
-Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Clean PDBs and Ligands are outputed to the specified output path. The program will generate a cleaned PDB for all files in the specified folder. Example cleaned pdbs can be found in cleaning/clean_pdbs
+## PDB Cleaning
+Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Clean PDBs and any ligands are outputted to the specified output path. The program will generate a cleaned PDB for all files in the specified folder.
 
-usage: `python cleaning/pdb_cleaner.py <folder-of-pdbs> <folder-for-output> <save_ligands(true/false)>`
+usage: `python scripts/pdb_cleaner.py <folder-of-pdbs> <folder-for-output> <save_ligands(true/false)>`
 
-### Selecting Hotspot Residues (for proteins with ligands)
-For proteins with a known ligand binder, to generate accurate and effective hotspot residues to RFDiffusion, we developed 2 methods: randomly select 6 hydrophobic residues within an 11 angstrom radius of the ligand centroid and select the top 6 residues closest to ANY atom in the ligand. This ensures they are "important" binding residues and allows us to generate residues which RFDiffusion will accept.
+## Selecting Hotspot Residues
+
+### Proteins with a Ligand
+For proteins with a known ligand, to generate accurate and effective hotspot residues to RFDiffusion, we developed 2 methods: 1) randomly select 6 hydrophobic residues within an 11-angstrom radius of the ligand centroid, and 2) select the top 6 residues closest to ANY atom in the ligand. This ensures they are "important" binding residues and allows us to generate residues that RFDiffusion will accept.
 
 usage: `python residue_selection/select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
 
 usage: `python residue_selection/select_residues_using_AAdistance.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
 
-### Prediction
+### Proteins without a Ligand
 
 A collection of scripts that run protein binding site prediction methods. To be used when no known ligands are present, or novel binding sites are desired.
 
