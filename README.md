@@ -107,3 +107,7 @@ ProteinMPNN output must be in `<OUTPUT_DIR>/proteinmpnn/`.
 `sbatch --gpus 1 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR>` (GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`.
+
+# Troubleshooting
+
+* No module named 'torch': Avoid running the automated pipeline from a compute node. RFdiffusion requires a specific Python module to run. If you're on a compute node with Python loaded, it may try to use packages from the newest Python version available.
