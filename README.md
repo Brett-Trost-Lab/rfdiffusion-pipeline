@@ -28,7 +28,7 @@ Specify all input configurations in a single text file, one row per run. This fi
  
 ### Usage
 ```
-bash validation/launch.sh inputs/input.txt
+bash launch.sh inputs/input.txt
 ```
 ### Output
 Output scores are provided in `<OUTPUT_DIR>/<NAME>/<NAME>.out.txt`.
