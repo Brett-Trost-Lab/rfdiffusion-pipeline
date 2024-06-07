@@ -80,34 +80,32 @@ This will return a set of hotspots in the correct format for RFdiffusion. e.g. `
 * Usage: `sbatch helper_scripts/scannet/scannet.sh` (specify the protein inside of the script)
 
 ## RFdiffusion
-1. Get contig
-
+#### 1. Get contig
 The contig tells RFdiffusion what section of the target protein to use. To extract the contig for the entire target protein:
 
 `python scripts/get_contigs.py <PATH_TO_PDB>`
 
 Output contig is printed.
 
-2. Run script
-   
+#### 2. Run script
 `sbatch --gpus 1 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <RFDIFFUSION_MODEL>` (GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>/rfdiffusion/`.
 
 ## ProteinMPNN
-RFdiffusion output must be in `<OUTPUT_DIR>/rfdiffusion/`.
+Pass the directory of RFdiffusion output PDBs as `<input_dir>`.
 
-`sbatch scripts/proteinmpnn.sh <RUN_NAME> <OUTPUT_DIR> <SEQ_PER_STRUCT>` (no GPU required, specify more resources as necessary)
+`sbatch scripts/proteinmpnn.sh <RUN_NAME> <OUTPUT_DIR> <SEQ_PER_STRUCT> <input_dir>` (no GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>/proteinmpnn/`.
 
 ## AlphaFold2
-ProteinMPNN output must be in `<OUTPUT_DIR>/proteinmpnn/`.
+Pass the directory of ProteinMPNN output PDBs as `<input_dir>`.
 
-`sbatch --gpus 1 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR>` (GPU required, specify more resources as necessary)
+`sbatch --gpus 1 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR> <input_dir>` (GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`.
 
 # Troubleshooting
 
-* No module named 'torch': Avoid running the automated pipeline from a compute node. RFdiffusion requires a specific Python module to run. If you're on a compute node with Python loaded, it may try to use packages from the newest Python version available.
+* **No module named 'torch':** Avoid running the automated pipeline from a compute node. RFdiffusion requires a specific Python module to run. If you're on a compute node with Python loaded, it may try to use packages from the newest Python version available.
