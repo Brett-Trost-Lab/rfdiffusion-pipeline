@@ -112,7 +112,7 @@ SECONDS=0
 echo
 echo STEP 2: ProteinMPNN
 
-bash $script_dir/proteinmpnn.sh "$run_name" "$output_dir" "$seq_per_struct"
+bash $script_dir/proteinmpnn.sh "$run_name" "$output_dir" "$seq_per_struct" "$output_dir/rfdiffusion/"
 
 echo
 echo ProteinMPNN time elapsed: $(convert_seconds $SECONDS) seconds
@@ -122,7 +122,7 @@ SECONDS=0
 echo
 echo STEP 3: AlphaFold2
 
-bash $script_dir/af2.sh "$run_name" "$output_dir"
+bash $script_dir/af2.sh "$run_name" "$output_dir" "$output_dir/proteinmpnn/"
 
 # filter output scores
 echo Filtering output scores...

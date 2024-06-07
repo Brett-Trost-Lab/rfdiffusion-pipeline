@@ -2,6 +2,9 @@
 
 set -e
 
+# $1: input pdb
+# $2: output dir
+
 echo Loading module...
 
 module load p2rank/2.4.1

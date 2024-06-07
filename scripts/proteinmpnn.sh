@@ -12,12 +12,15 @@ echo Running script...
 run_name=$1
 output_dir=$2
 seqs_per_struct=$3
+input_dir=$4
 
 echo RUN_NAME $run_name
 echo OUTPUT_DIR $output_dir
+echo SEQS_PER_STRUCT $seqs_per_struct
+echo INPUT_DIR $input_dir
 
 $repo_dir/base_dir/mpnn_fr/dl_interface_design.py \
--pdbdir $output_dir/rfdiffusion/ \
+-pdbdir $input_dir \
 -outpdbdir $output_dir/proteinmpnn/ \
 -relax_cycles 0 \
 -seqs_per_struct $seqs_per_struct \

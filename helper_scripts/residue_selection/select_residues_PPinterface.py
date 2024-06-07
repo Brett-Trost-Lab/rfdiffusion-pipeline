@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 # List of hydrophobic residues
-HYDROPHOBIC_RESIDUES = ['ALA', 'VAL', 'LEU', 'ILE', 'MET', 'PHE', 'TYR', 'TRP', 'PRO']
+HYDROPHOBIC_RESIDUES = ['GLY', 'ALA', 'VAL', 'LEU', 'ILE', 'PRO', 'PHE', 'MET', 'TRP']
 
 def get_hydrophobic_beta_carbons(structure):
     beta_carbons = []

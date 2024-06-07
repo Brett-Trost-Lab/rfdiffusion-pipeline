@@ -27,6 +27,8 @@ output_path = sys.argv[3]
 # 3. pick out hydrophobic residues closest to this point
 # 4. save and output them in some way. A file would be most useful
 
+HYDROPHOBIC_RESIDUES = ['GLY', 'ALA', 'VAL', 'LEU', 'ILE', 'PRO', 'PHE', 'MET', 'TRP']
+
 def distance(x1, y1, z1, x2, y2, z2):
     return np.sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2)
 
@@ -80,7 +82,7 @@ def main():
     lig_pdb = pdb_to_dataframe(ligand_path)
 
     # Filter hydrophobic residues
-    prot_pdb = prot_pdb[prot_pdb['residue_name'].isin(['ALA', 'VAL', 'ILE', 'LEU', 'MET', 'PHE', 'PRO', 'TRP'])]
+    prot_pdb = prot_pdb[prot_pdb['residue_name'].isin(HYDROPHOBIC_RESIDUES)]
     
     # Find all residue centers
     residue_centroids = prot_pdb.groupby(['chain_identifier', 'residue_sequence_number']).agg({

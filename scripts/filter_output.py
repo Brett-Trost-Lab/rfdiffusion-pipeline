@@ -32,7 +32,7 @@ def main():
                    inplace=True)
 
     file_name = os.path.splitext(os.path.abspath(out_sc_file))[0] + '.txt'
-    df.to_csv(file_name, sep='\t')
+    df.to_csv(file_name, sep='\t', index=False)
 
     print("Output scores:", file_name)
     

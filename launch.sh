@@ -40,7 +40,7 @@ echo Launching...
         echo OUTPUT_DIR $output_dir
     
         # ADD --gpus 1
-        sbatch --output slurm-$run_name-%j.out --gpus 1 --mem $mem --tmp $temp --time $time $script_dir/scripts/pipeline.sh $script_dir $run_name $path_to_pdb $clean $hotspots $min_length $max_length $num_structs $seq_per_struct $rfdiffusion_model $output_dir
+        sbatch --output slurm-$run_name-%j.out --partition=special_features --reservation=test_new_tcag_gpu --gpus 1 --mem $mem --tmp $temp --time $time $script_dir/scripts/pipeline.sh $script_dir $run_name $path_to_pdb $clean $hotspots $min_length $max_length $num_structs $seq_per_struct $rfdiffusion_model $output_dir
     done
 } < $tmpfile
 

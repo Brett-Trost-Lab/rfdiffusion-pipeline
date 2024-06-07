@@ -13,13 +13,15 @@ conda activate $repo_dir/af2_binder_design
 
 run_name=$1
 output_dir=$2
+input_dir=$3
 
-echo RUN_NAME $1
-echo OUTPUT_DIR $2
+echo RUN_NAME $run_name
+echo OUTPUT_DIR $output_dir
+echo INPUT_DIR $input_dir
 
 echo Running script...
 $repo_dir/base_dir/af2_initial_guess/predict.py \
--pdbdir $output_dir/proteinmpnn/ \
+-pdbdir $input_dir \
 -outpdbdir $output_dir/af2/ \
 -checkpoint_name ${output_dir}/${run_name}.check.point \
 -scorefilename ${output_dir}/${run_name}.out.sc
