@@ -9,7 +9,7 @@ A collection of scripts that automates the validation process of RFdiffusion &#8
 In this pipeline, RFdiffusion designs binders to hotspot residues on the target protein. It then uses AF2 to evaluate how well the designs will fold into their intended monomer structures, as well as how likely they will bind to their target.
  
 ### Input
-Specify all input configurations in a single text file, one row per target protein. This file MUST follow the format provided in `inputs/input.txt` with the headers included. The parameters are as follows:
+Specify all input configurations in a single text file, one row per run. This file MUST follow the format provided in `inputs/input.txt` with the headers included. The parameters are as follows:
 | Parameter | Description | Examples | Notes |
 | --- | --- | --- | --- |
 | RUN_NAME | Name of the run | test_run | Must be unique. Can have two runs with the same target PDB but different names. |
@@ -28,7 +28,7 @@ Specify all input configurations in a single text file, one row per target prote
  
 ### Usage
 ```
-bash validation/launch.sh inputs/input.txt
+bash launch.sh inputs/input.txt
 ```
 ### Output
 Output scores are provided in `<OUTPUT_DIR>/<NAME>/<NAME>.out.txt`.
@@ -46,12 +46,14 @@ usage: `python scripts/pdb_cleaner.py <folder-of-pdbs> <folder-for-output> <save
 
 ## Selecting Hotspot Residues
 
-### Proteins with a Ligand (outdated)
-For proteins with a known ligand, to generate accurate and effective hotspot residues to RFDiffusion, we developed 2 methods: 1) randomly select 6 hydrophobic residues within an 11-angstrom radius of the ligand centroid, and 2) select the top 6 residues closest to ANY atom in the ligand. This ensures they are "important" binding residues and allows us to generate residues that RFDiffusion will accept.
+### Proteins with a Ligand 
+For proteins with a known ligand, to generate accurate and effective hotspot residues to RFDiffusion, we developed 3 methods: 1) randomly select 6 hydrophobic residues within an 11-angstrom radius of the ligand centroid, 2) select the top 6 residues closest to ANY atom in the ligand, and 3) select 3 residues which have closest beta-Carbon atoms to the ligand. This suite of residue selectors ensures we may select "important" binding residues that RFDiffusion will accept.
 
-usage: `python residue_selection/select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
+usage: `python helper_scripts/residue_selection/select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
 
-usage: `python residue_selection/select_residues_using_AAdistance.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
+usage: `python helper_scripts/residue_selection/select_residues_using_AAdistance.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
+
+usage: `python helper_scripts/residue_selection/select_residues_using_PPinterface.py <pdb-of-interest> <pdb-of-ligand> <number-of-residues> <output-path>`
 
 ### Proteins without a Ligand
 
@@ -105,3 +107,7 @@ ProteinMPNN output must be in `<OUTPUT_DIR>/proteinmpnn/`.
 `sbatch --gpus 1 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR>` (GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`.
+
+# Troubleshooting
+
+* No module named 'torch': Avoid running the automated pipeline from a compute node. RFdiffusion requires a specific Python module to run. If you're on a compute node with Python loaded, it may try to use packages from the newest Python version available.
