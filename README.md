@@ -104,7 +104,11 @@ Pass the directory of ProteinMPNN output PDBs as `<input_dir>`.
 
 `sbatch --gpus 1 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR> <input_dir>` (GPU required, specify more resources as necessary)
 
-Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`.
+Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`. To sort the output scores:
+
+`python scripts/filter_output.py <OUTPUT_DIR>/<RUN_NAME>.out.sc`
+
+The filtered text file will be created as `<OUTPUT_DIR>/<RUN_NAME>.out.txt`.
 
 # Troubleshooting
 
