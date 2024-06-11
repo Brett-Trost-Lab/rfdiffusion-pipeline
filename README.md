@@ -39,6 +39,12 @@ RFdiffusion designed structures in `<OUTPUT_DIR>/<NAME>/rfdiffusion/` can be com
 
 The following explains how to run components of the pipeline individually.
 
+To run python scripts:
+```
+srun --pty bash -l  # enter a compute node
+module load python/3.11.3  # this python version has required packages (numpy, pandas, etc.)
+```
+
 ## PDB Cleaning
 Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Clean PDBs and any ligands are outputted to the specified output path. The program will generate a cleaned PDB for all files in the specified folder.
 
