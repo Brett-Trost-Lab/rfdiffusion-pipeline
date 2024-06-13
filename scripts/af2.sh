@@ -19,11 +19,14 @@ echo RUN_NAME $run_name
 echo OUTPUT_DIR $output_dir
 echo INPUT_DIR $input_dir
 
+mkdir -p $output_dir
+
 echo Running script...
 $repo_dir/base_dir/af2_initial_guess/predict.py \
 -pdbdir $input_dir \
 -outpdbdir $output_dir/af2/ \
 -checkpoint_name ${output_dir}/${run_name}.check.point \
--scorefilename ${output_dir}/${run_name}.out.sc
+-scorefilename ${output_dir}/${run_name}.out.sc \
+-recycle 3
 
 echo Done.
