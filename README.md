@@ -94,7 +94,7 @@ The contig tells RFdiffusion what section of the target protein to use. To extra
 Output contig is printed.
 
 #### 2. Run script
-`sbatch --gpus 1 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <RFDIFFUSION_MODEL>` (GPU required, specify more resources as necessary)
+`sbatch --gpus 1 --mem 32G --tmp 32G --time 12:00:00 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <RFDIFFUSION_MODEL>` (GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>/rfdiffusion/`.
 
@@ -108,7 +108,7 @@ Results are output to `<OUTPUT_DIR>/proteinmpnn/`.
 ## AlphaFold2
 Pass the directory of ProteinMPNN output PDBs as `<input_dir>`.
 
-`sbatch --gpus 1 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR> <input_dir>` (GPU required, specify more resources as necessary)
+`sbatch --gpus 1 --mem 64G --tmp 64G --time 12:00:00 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR> <input_dir>` (GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`. To sort the output scores:
 
