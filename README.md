@@ -1,12 +1,12 @@
 # Protein Binder Design
 
-In 2023, researchers at the Baker Lab published [RFdiffusion](https://github.com/RosettaCommons/RFdiffusion), a deep-learning framework for de novo protein design. Using [ProteinMPNN and AlphaFold2](https://github.com/nrbennet/dl_binder_design) for validation, the authors demonstrated RFdiffusion's ability to tackle a diverse range of design challenges, including the successful generation of high-affinity binders to desired target proteins.
+In 2023, the Baker Lab published [RFdiffusion](https://github.com/RosettaCommons/RFdiffusion), a deep-learning framework for *de novo* protein design. Using [ProteinMPNN and AlphaFold2](https://github.com/nrbennet/dl_binder_design) for validation, the authors demonstrated RFdiffusion's ability to tackle a diverse range of design challenges, including the successful generation of high-affinity binders to desired target proteins.
 
 # Automated Pipeline
 
-A collection of scripts that automates the validation process of RFdiffusion &#8594; ProteinMPNN &#8594; AlphaFold2 (AF2). Developed specifically for protein binder design.
+A collection of scripts that automates the validation process of **RFdiffusion &#8594; ProteinMPNN &#8594; AlphaFold2 (AF2)**. Developed specifically for protein binder design on the SickKids High-Performance Computing (HPC) cluster.
 
-In this pipeline, RFdiffusion designs binders to hotspot residues on the target protein. It then uses AF2 to evaluate how well the designs will fold into their intended monomer structures, as well as how likely they will bind to their target.
+In this pipeline, *RFdiffusion* designs binders to hotspot residues on the target protein. It then uses *ProteinMPNN* to generate sequences for the designed structures. Finally, *AlphaFold2* reconstructs the binders and evaluates how likely they will bind to their target.
  
 ### Input
 Specify all input configurations in a single text file, one row per run. This file MUST follow the format provided in `inputs/input.txt` with the headers included. The parameters are as follows:
@@ -14,8 +14,8 @@ Specify all input configurations in a single text file, one row per run. This fi
 | --- | --- | --- | --- |
 | RUN_NAME | Name of the run | test_run | Must be unique. Can have two runs with the same target PDB but different names. |
 | PATH_TO_PDB | Absolute path to target PDB | /home/usr/inputs/target.pdb | Avoid ~, $HOME, .., etc. |
-| CLEAN | Whether to clean the target PDB (yes/no) | yes | Avoid cleaning already cleaned PDBs |
-| HOTSPOTS | Hotspots for RFdiffusion | A232,A245,A271 | Enter 'predict' to sample hotspots from a predicted binding site |
+| CLEAN | Whether to clean the target PDB (yes/no) | no | Removes ligand, waters, etc. For more complex PDBs, this may have unintended effects. We recommend manually cleaning your target proteins in [PyMOL](https://www.pymol.org/). |
+| HOTSPOTS | Hotspot residues for RFdiffusion | A232,A245,A271 | Comma-separated list of <chain><residue>, no spaces. Enter 'predict' to sample hotspots from a predicted binding site. |
 | MIN_LENGTH | Minimum length for binder (aa) | 20 | |
 | MAX_LENGTH | Maximum length for binder (aa) | 60 | |
 | NUM_STRUCTS | Number of RFdiffusion structures to generate  | 1000 | |
@@ -31,9 +31,9 @@ Specify all input configurations in a single text file, one row per run. This fi
 bash launch.sh inputs/input.txt
 ```
 ### Output
-Output scores are provided in `<OUTPUT_DIR>/<NAME>/<NAME>.out.txt`.
+AF2 output scores are provided in `<OUTPUT_DIR>/<NAME>/<NAME>.out.txt`, sorted from best to worst design. The `successful` column indicates whether that design passed all three criteria (`pae_interaction` < 10, `plddt_binder` > 80, `binder_aligned_rmsd` < 1).
 
-RFdiffusion designed structures in `<OUTPUT_DIR>/<NAME>/rfdiffusion/` can be compared with their respective AF2 predicted structures in `<OUTPUT_DIR>/<NAME>/af2/`.
+AF2 predicted structures .pdbs in `<OUTPUT_DIR>/<NAME>/af2/` can be visualized and compared with their respective RFdiffusion designs in `<OUTPUT_DIR>/<NAME>/rfdiffusion/`.
 
 # Individual Steps of the Pipeline
 
@@ -42,24 +42,26 @@ The following explains how to run components of the pipeline individually.
 To run python scripts:
 ```
 srun --pty bash -l  # enter a compute node
-module load python/3.11.3  # this python version has required packages (numpy, pandas, etc.)
+module load python/3.11.3  # this python version has the required packages for the scripts used
 ```
 
 ## PDB Cleaning
-Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Clean PDBs and any ligands are outputted to the specified output path. The program will generate a cleaned PDB for all files in the specified folder.
+Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Clean PDBs and any ligands are outputted to the specified output path. The program will generate a cleaned PDB for all files in the input folder.
 
-usage: `python scripts/pdb_cleaner.py <folder-of-pdbs> <folder-for-output> <save_ligands(true/false)>`
+usage: `python scripts/pdb_cleaner.py <folder-of-input-pdbs> <folder-for-output> <save_ligands(true/false)>`
 
 ## Selecting Hotspot Residues
 
 ### Proteins with a Ligand 
-For proteins with a known ligand, to generate accurate and effective hotspot residues to RFDiffusion, we developed 3 methods: 1) randomly select 6 hydrophobic residues within an 11-angstrom radius of the ligand centroid, 2) select the top 6 residues closest to ANY atom in the ligand, and 3) select 3 residues which have closest beta-Carbon atoms to the ligand. This suite of residue selectors ensures we may select "important" binding residues that RFDiffusion will accept.
+For proteins with a known ligand, to generate accurate and effective hotspot residues to RFDiffusion, we developed 3 methods: 1) randomly select 6 hydrophobic residues within an 11-angstrom radius of the ligand centroid, 2) select the top 6 residues closest to ANY atom in the ligand, and 3) select residues which have closest beta-Carbon atoms to the ligand. This suite of residue selectors ensures we may select "important" binding residues that RFDiffusion will accept.
 
-usage: `python helper_scripts/residue_selection/select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
+Usage:
 
-usage: `python helper_scripts/residue_selection/select_residues_using_AAdistance.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
+1) `python helper_scripts/residue_selection/select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
 
-usage: `python helper_scripts/residue_selection/select_residues_using_PPinterface.py <pdb-of-interest> <pdb-of-ligand> <number-of-residues> <output-path>`
+2) `python helper_scripts/residue_selection/select_residues_using_AAdistance.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
+
+3) `python helper_scripts/residue_selection/select_residues_using_PPinterface.py <pdb-of-interest> <pdb-of-ligand> <number-of-residues> <output-path>`
 
 ### Proteins without a Ligand
 
