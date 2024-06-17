@@ -49,22 +49,30 @@ module load python/3.11.3  # this python version has the required packages for t
 ```
 
 ## PDB Cleaning
-Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Clean PDBs and any ligands are outputted to the specified output path. The program will generate a cleaned PDB for all files in the input folder.
+Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Clean PDBs and any ligands are outputted to the specified output path. The program will generate a cleaned PDB for all files in the input folder. Usage:
 
-usage: `python scripts/pdb_cleaner.py <folder-of-input-pdbs> <folder-for-output> <save_ligands(true/false)>`
+```
+python scripts/pdb_cleaner.py <folder-of-input-pdbs> <folder-for-output> <save_ligands(true/false)>
+```
 
 ## Selecting Hotspot Residues
 
 ### Proteins with a Ligand 
 For proteins with a known ligand, to generate accurate and effective hotspot residues to RFDiffusion, we developed 3 methods: 1) randomly select 6 hydrophobic residues within an 11-angstrom radius of the ligand centroid, 2) select the top 6 residues closest to ANY atom in the ligand, and 3) select residues which have closest beta-Carbon atoms to the ligand. This suite of residue selectors ensures we may select "important" binding residues that RFDiffusion will accept.
 
-Usage:
+Usages:
 
-1) `python helper_scripts/residue_selection/select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
+```
+python helper_scripts/residue_selection/select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>
+```
 
-2) `python helper_scripts/residue_selection/select_residues_using_AAdistance.py <pdb-of-interest> <pdb-of-ligand> <output-path>`
+```
+python helper_scripts/residue_selection/select_residues_using_AAdistance.py <pdb-of-interest> <pdb-of-ligand> <output-path>
+```
 
-3) `python helper_scripts/residue_selection/select_residues_using_PPinterface.py <pdb-of-interest> <pdb-of-ligand> <number-of-residues> <output-path>`
+```
+python helper_scripts/residue_selection/select_residues_using_PPinterface.py <pdb-of-interest> <pdb-of-ligand> <number-of-residues> <output-path>
+```
 
 ### Proteins without a Ligand
 
@@ -74,15 +82,21 @@ Currently installed:
 #### [P2Rank](https://github.com/rdk/p2rank) (2018) (used in validation pipeline)
 A rapid, template-free machine learning model based on Random Forest.
 
-1. `sbatch scripts/p2rank.sh <input_pdb> <output_dir>`
+```
+sbatch scripts/p2rank.sh <input_pdb> <output_dir>
+```
 
 Predicted pockets will be output in order of confidence to `output_dir/<pdb_name>.pdb_predictions.csv`. Pockets and residues can be viewed by downloading and opening `output_dir/visualizations/`. One pocket and its hotspots can then be extracted into a text file:
 
-2. `python scripts/extract_hotspots.py <pdb_name> <pdb_name>.pdb_predictions.csv <pocket_number>`
+```
+python scripts/extract_hotspots.py <pdb_name> <pdb_name>.pdb_predictions.csv <pocket_number>
+```
 
 This `<pdb_name>_hotspots.txt` output will be created in the same location as `<pdb_name>.pdb_predictions.csv`. To sample and format hotspots to pass to RFdiffusion:
 
-3. `python scripts/sample_hotspots.py <pdb_name>_hotspots.txt`
+```
+python scripts/sample_hotspots.py <pdb_name>_hotspots.txt
+```
 
 This will return a set of hotspots in the correct format for RFdiffusion. e.g. `A232,A245,A271`
 
@@ -94,33 +108,46 @@ This will return a set of hotspots in the correct format for RFdiffusion. e.g. `
 #### 1. Get contig
 The contig tells RFdiffusion what section of the target protein to use. To extract the contig for the entire target protein:
 
-`python scripts/get_contigs.py <PATH_TO_PDB>`
+```
+python scripts/get_contigs.py <PATH_TO_PDB>
+```
 
 Output contig is printed.
 
 #### 2. Run script
-`sbatch --gpus 1 --mem 32G --tmp 32G --time 12:00:00 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <RFDIFFUSION_MODEL>` (GPU required, specify more resources as necessary)
+```
+sbatch --gpus 1 --mem 32G --tmp 32G --time 12:00:00 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <RFDIFFUSION_MODEL>
+```
+(GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>/rfdiffusion/`.
 
 ## ProteinMPNN
 Pass the directory of RFdiffusion output PDBs as `<input_dir>`.
 
-`sbatch scripts/proteinmpnn.sh <RUN_NAME> <OUTPUT_DIR> <SEQ_PER_STRUCT> <input_dir>` (no GPU required, specify more resources as necessary)
+```
+sbatch scripts/proteinmpnn.sh <RUN_NAME> <OUTPUT_DIR> <SEQ_PER_STRUCT> <input_dir>
+```
+(no GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>/proteinmpnn/`.
 
 ## AlphaFold2
 Pass the directory of ProteinMPNN output PDBs as `<input_dir>`.
 
-`sbatch --gpus 1 --mem 64G --tmp 64G --time 12:00:00 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR> <input_dir>` (GPU required, specify more resources as necessary)
+```
+sbatch --gpus 1 --mem 64G --tmp 64G --time 12:00:00 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR> <input_dir>
+```
+(GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`. To sort the output scores:
 
-`python scripts/filter_output.py <OUTPUT_DIR>/<RUN_NAME>.out.sc`
+```
+python scripts/filter_output.py <OUTPUT_DIR>/<RUN_NAME>.out.sc
+```
 
 The filtered text file will be created as `<OUTPUT_DIR>/<RUN_NAME>.out.txt`.
 
 # Troubleshooting
 
-* **No module named 'torch':** Avoid running the automated pipeline from a compute node. RFdiffusion requires a specific Python module to run. If you're on a compute node with Python loaded, it may try to use packages from the newest Python version available.
+* **No module named 'MODULE_NAME':** Avoid running the automated pipeline from a compute node. RFdiffusion requires a specific Python module to run. If you're on a compute node with Python loaded, it may try to use packages from the newest Python version available.
