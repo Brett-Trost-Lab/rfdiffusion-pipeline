@@ -6,6 +6,8 @@ In 2023, the Baker Lab published [RFdiffusion](https://github.com/RosettaCommons
 
 A collection of scripts that automates the validation process of **RFdiffusion &#8594; ProteinMPNN &#8594; AlphaFold2 (AF2)**. Developed specifically for protein binder design on the SickKids High-Performance Computing (HPC) cluster.
 
+![image](https://github.com/sophia-xie/protein-binder-design/assets/154448471/cdb40b9f-e6a0-4d2e-885a-9dafce6dd8da)
+
 In this pipeline, *RFdiffusion* designs binders to hotspot residues on the target protein. It then uses *ProteinMPNN* to generate sequences for the designed structures. Finally, *AlphaFold2* reconstructs the binders and evaluates how likely they will bind to their target.
  
 ### Input
