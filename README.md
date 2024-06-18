@@ -17,7 +17,7 @@ Specify all input configurations in a single text file, one row per run. This fi
 | --- | --- | --- | --- |
 | RUN_NAME | Name of the run | test_run | Must be unique. Can have two runs with the same target PDB but different names. |
 | PATH_TO_PDB | Absolute path to target PDB | /home/usr/inputs/target.pdb | Avoid ~, $HOME, .., etc. |
-| CLEAN | Whether to clean the target PDB (yes/no) | no | Removes ligand, waters, etc. For more complex PDBs, this may have unintended effects. We recommend manually cleaning your target proteins in [PyMOL](https://www.pymol.org/). |
+| CLEAN | Whether to clean the target PDB (yes/no) | no | Removes ligand, waters, etc. For more complex PDBs, this may have unintended effects. We recommend manually cleaning your target proteins in [PyMOL](https://www.pymol.org/) instead. |
 | HOTSPOTS | Hotspot residues for RFdiffusion | A232,A245,A271 | Comma-separated list of <chain><residue>, no spaces. Enter 'predict' to sample hotspots from a predicted binding site. |
 | MIN_LENGTH | Minimum length for binder (aa) | 20 | |
 | MAX_LENGTH | Maximum length for binder (aa) | 60 | |
@@ -41,6 +41,54 @@ AF2 predicted structures .pdbs in `<OUTPUT_DIR>/<NAME>/af2/` can be visualized a
 # Individual Steps of the Pipeline
 
 The following explains how to run components of the pipeline individually.
+
+## RFdiffusion
+#### 1. Get contig
+The contig tells RFdiffusion what section of the target protein to use. To extract the contig for the entire target protein:
+
+```
+python scripts/get_contigs.py <PATH_TO_PDB>
+```
+
+Output contig is printed.
+
+#### 2. Run script
+```
+sbatch --gpus 1 --mem 32G --tmp 32G --time 12:00:00 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <RFDIFFUSION_MODEL>
+```
+(GPU required, specify more resources as necessary)
+
+Results are output to `<OUTPUT_DIR>/rfdiffusion/`.
+
+## ProteinMPNN
+Pass the directory of RFdiffusion output PDBs as `<input_dir>`.
+
+```
+sbatch scripts/proteinmpnn.sh <RUN_NAME> <OUTPUT_DIR> <SEQ_PER_STRUCT> <input_dir>
+```
+(no GPU required, specify more resources as necessary)
+
+Results are output to `<OUTPUT_DIR>/proteinmpnn/`.
+
+## AlphaFold2
+Pass the directory of ProteinMPNN output PDBs as `<input_dir>`.
+
+```
+sbatch --gpus 1 --mem 64G --tmp 64G --time 12:00:00 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR> <input_dir>
+```
+(GPU required, specify more resources as necessary)
+
+Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`. To sort the output scores:
+
+```
+python scripts/filter_output.py <OUTPUT_DIR>/<RUN_NAME>.out.sc
+```
+
+The filtered text file will be created as `<OUTPUT_DIR>/<RUN_NAME>.out.txt`.
+
+# Additional Functionalities
+
+Here we provide a set of scripts to run additional, optional functionalities for the pipeline.
 
 To run python scripts:
 ```
@@ -103,50 +151,6 @@ This will return a set of hotspots in the correct format for RFdiffusion. e.g. `
 #### [ScanNet](https://github.com/jertubiana/ScanNet) (2022)
 * A geometric deep learning architecture for prediction.
 * Usage: `sbatch helper_scripts/scannet/scannet.sh` (specify the protein inside of the script)
-
-## RFdiffusion
-#### 1. Get contig
-The contig tells RFdiffusion what section of the target protein to use. To extract the contig for the entire target protein:
-
-```
-python scripts/get_contigs.py <PATH_TO_PDB>
-```
-
-Output contig is printed.
-
-#### 2. Run script
-```
-sbatch --gpus 1 --mem 32G --tmp 32G --time 12:00:00 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <RFDIFFUSION_MODEL>
-```
-(GPU required, specify more resources as necessary)
-
-Results are output to `<OUTPUT_DIR>/rfdiffusion/`.
-
-## ProteinMPNN
-Pass the directory of RFdiffusion output PDBs as `<input_dir>`.
-
-```
-sbatch scripts/proteinmpnn.sh <RUN_NAME> <OUTPUT_DIR> <SEQ_PER_STRUCT> <input_dir>
-```
-(no GPU required, specify more resources as necessary)
-
-Results are output to `<OUTPUT_DIR>/proteinmpnn/`.
-
-## AlphaFold2
-Pass the directory of ProteinMPNN output PDBs as `<input_dir>`.
-
-```
-sbatch --gpus 1 --mem 64G --tmp 64G --time 12:00:00 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR> <input_dir>
-```
-(GPU required, specify more resources as necessary)
-
-Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`. To sort the output scores:
-
-```
-python scripts/filter_output.py <OUTPUT_DIR>/<RUN_NAME>.out.sc
-```
-
-The filtered text file will be created as `<OUTPUT_DIR>/<RUN_NAME>.out.txt`.
 
 # Troubleshooting
 
