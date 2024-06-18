@@ -164,3 +164,4 @@ python helper_scripts/integrate_binders.py <old_target_proteinmpnn_outdir> <path
 # Troubleshooting
 
 * **No module named 'MODULE_NAME':** Avoid running the automated pipeline from a compute node. RFdiffusion requires a specific Python module to run. If you're on a compute node with Python loaded, it may try to use packages from the newest Python version available.
+* **Struct with tag <SAMETAG> failed in 0 seconds with error: <class 'EXCEPTION'>:** See [dl_binder_design: Troubleshooting](https://github.com/nrbennet/dl_binder_design?tab=readme-ov-file#troubleshooting-)
