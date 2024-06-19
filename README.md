@@ -12,7 +12,7 @@ A collection of scripts that automates the validation process of **RFdiffusion &
 In this pipeline, *RFdiffusion* designs binders to hotspot residues on the target protein. It then uses *ProteinMPNN* to generate sequences for the designed structures. Finally, *AlphaFold2* reconstructs the binders and evaluates how likely they will bind to their target.
  
 ### Input
-Specify all input configurations in a single text file, one row per run. This file MUST follow the format provided in `inputs/input.txt` with the headers included. The parameters are as follows:
+The input parameters to the pipeline are as follows:
 | Parameter | Description | Examples | Notes |
 | --- | --- | --- | --- |
 | RUN_NAME | Name of the run | test_run | Must be unique. Can have two runs with the same target PDB but different names. |
@@ -22,7 +22,7 @@ Specify all input configurations in a single text file, one row per run. This fi
 | MIN_LENGTH | Minimum length for binder (aa) | 20 | |
 | MAX_LENGTH | Maximum length for binder (aa) | 60 | |
 | NUM_STRUCTS | Number of RFdiffusion structures to generate  | 1000 | |
-| SEQUENCES_PER_STRUCT | Number of ProteinMPNN sequences to generate for each structure | 2 | |
+| SEQ_PER_STRUCT | Number of ProteinMPNN sequences to generate for each structure | 2 | |
 | MEM | Amount of memory for job to use | 128G | See [Slurm HPC Quickstart](https://hpc.ccm.sickkids.ca/w/index.php/Slurm_HPC_Quickstart) for syntax |
 | TEMP | Amount of temporary space for job to use | 128G | |
 | TIME | Maximum time allotted for job | 48:00:00 | |
@@ -30,6 +30,14 @@ Specify all input configurations in a single text file, one row per run. This fi
 | OUTPUT_DIR | Output directory | /home/usr/outputs/ | |
  
 ### Usage
+#### Single run
+To run one job:
+```
+sbatch --gpus 1 --mem <MEM> --tmp <TMP> --time <TIME> scripts/pipeline.sh /path/to/protein-binder-design <RUN_NAME> <PATH_TO_PDB> <CLEAN> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <SEQ_PER_STRUCT> <RFDIFFUSION_MODEL> <OUTPUT_DIR>
+```
+
+#### Bulk run
+To run multiple jobs at once, specify all input configurations in a single text file, one row per run. This file MUST follow the format provided in `inputs/input.txt` with the headers included. 
 ```
 bash launch.sh inputs/input.txt
 ```
@@ -66,25 +74,27 @@ Pass the directory of RFdiffusion output PDBs as `<input_dir>`.
 ```
 sbatch scripts/proteinmpnn.sh <RUN_NAME> <OUTPUT_DIR> <SEQ_PER_STRUCT> <input_dir>
 ```
-(no GPU required, specify more resources as necessary)
+(GPU optional, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>/proteinmpnn/`.
 
 ## AlphaFold2
 Pass the directory of ProteinMPNN output PDBs as `<input_dir>`.
 
+#### 1. Run script
 ```
 sbatch --gpus 1 --mem 64G --tmp 64G --time 12:00:00 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR> <input_dir>
 ```
 (GPU required, specify more resources as necessary)
 
-Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`. To sort the output scores:
+Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`.
 
+#### 2. Sort output
 ```
 python scripts/filter_output.py <OUTPUT_DIR>/<RUN_NAME>.out.sc
 ```
 
-The filtered text file will be created as `<OUTPUT_DIR>/<RUN_NAME>.out.txt`.
+The sorted text file will be created as `<OUTPUT_DIR>/<RUN_NAME>.out.txt`.
 
 # Additional Functionalities
 
