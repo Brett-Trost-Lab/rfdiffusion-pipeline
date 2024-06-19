@@ -27,7 +27,7 @@ mkdir -p $output_dir
     do
         if [ "$successful" = "True" ]; then
             file_name="${description%_af2pred}"            
-            echo Copying $file_name
+            echo Copying $file_name, pAE_interaction=$pae_interaction
             cp $input_dir/$file_name* $output_dir
         fi
     done
