@@ -165,10 +165,17 @@ This will return a set of hotspots in the correct format for RFdiffusion. e.g. `
 ## Mix and Match Binders
 You may be interested in designing binders to one target protein, but validating them on another. This could be to analyze the specificity of the binders to similar proteins. Or, the protein was truncated for RFdiffusion, but the entire structure is to be used in AF2 validation.
 
-The script below takes the designed binders from ProteinMPNN-generated PDBs and adds them to a separate target PDB. This output can then be passed to AF2, allowing the designed binders to be validated on proteins they weren't designed for.
+The script below takes designed binders from ProteinMPNN-generated PDBs and adds them to a separate target PDB. This output can then be passed to AF2, allowing the designed binders to be validated on proteins they weren't designed for.
 
 ```
 python helper_scripts/integrate_binders.py <old_target_proteinmpnn_outdir> <path_to_new_target_pdb> <new_output_dir>
+```
+
+## Isolate Successful Designs
+Given the `.out.txt` file, you may wish to move all successful PDBs into their own directory. This can be done for either ProteinMPNN-generated PDBs (to validate the successful sequences on another target, for example) or to isolate the successful AF2 reconstructed designs.
+
+```
+bash helper_scripts/move_successful.sh <.out.txt> <folder_with_all_pdbs> <new_folder_for_successful_pdbs_only>
 ```
 
 # Troubleshooting
