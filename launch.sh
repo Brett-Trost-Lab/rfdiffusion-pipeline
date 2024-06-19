@@ -15,6 +15,9 @@ echo SCRIPT_DIR $script_dir
 tmpfile=$(mktemp)
 sed 's/\r//g' < $1 > $tmpfile
 
+# add new line to end of file
+echo "" >> $tmpfile
+
 echo input.txt:
 cat $tmpfile
 
