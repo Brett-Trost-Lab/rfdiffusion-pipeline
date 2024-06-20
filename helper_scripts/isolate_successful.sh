@@ -29,15 +29,15 @@ mkdir -p $output_dir
             file_name="${description%_af2pred}"            
 
             # check for proteinmpnn pdb
-            if [ -e "${file_name}.pdb" ]; then
+            if [ -e "${input_dir}/${file_name}.pdb" ]; then
                 cp $input_dir/${file_name}.pdb $output_dir
                 echo Copied ${file_name}.pdb, pAE_interaction=$pae_interaction
             fi            
 
             # check for af2 pdb
-            if [ -e "${description}.pdb" ]; then
-                cp $input_dir/${description}pdb $output_dir
-                echo Copied ${file_name}.pdb, pAE_interaction=$pae_interaction
+            if [ -e "${input_dir}/${description}.pdb" ]; then
+                cp $input_dir/${description}.pdb $output_dir
+                echo Copied ${description}.pdb, pAE_interaction=$pae_interaction
             fi
         fi
     done
