@@ -1,6 +1,7 @@
 import os
 import argparse
 import string
+from pathlib import Path
 
 """
 Integrate binders from ProteinMPNN outputs into a separate target protein PDB.
@@ -70,7 +71,7 @@ def process_folder(folder_path, target_pdb, output_folder):
             pdb_path = os.path.join(folder_path, file_name)
             try:
                 binder_chain_lines = extract_chain(pdb_path, 'A')
-                output_pdb = os.path.join(output_folder, "{}_combined.pdb".format(os.path.splitext(file_name)[0]))
+                output_pdb = os.path.join(output_folder, "{}_on_{}.pdb".format(os.path.splitext(file_name)[0], Path(target_pdb).stem))
                 combine_structures(target_pdb, binder_chain_lines, output_pdb)
                 print("Processed {}, output saved to {}".format(file_name, output_pdb))
             except ValueError as e:
