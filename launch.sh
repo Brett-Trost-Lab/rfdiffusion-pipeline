@@ -15,9 +15,6 @@ echo SCRIPT_DIR $script_dir
 tmpfile=$(mktemp)
 sed 's/\r//g' < $1 > $tmpfile
 
-# add new line to end of file
-echo "" >> $tmpfile
-
 echo input.txt:
 cat $tmpfile
 
@@ -25,7 +22,7 @@ echo Launching...
 
 {
     read  # skip header
-    while read -r run_name path_to_pdb clean hotspots min_length max_length num_structs seq_per_struct mem temp time rfdiffusion_model output_dir || # iterate through rows
+    while read -r run_name path_to_pdb clean hotspots min_length max_length num_structs seq_per_struct mem temp time rfdiffusion_model output_dir || [ -n "$name" ] # iterate through rows
     do
 	echo
         echo RUN_NAME $run_name 
@@ -42,7 +39,7 @@ echo Launching...
         echo RFDIFFUSION_MODEL $rfdiffusion_model
         echo OUTPUT_DIR $output_dir
     
-        sbatch --partition=special_features --reservation=test_new_tcag_gpu --output slurm-$run_name-%j.out --gpus 1 --mem $mem --tmp $temp --time $time $script_dir/scripts/pipeline.sh $script_dir $run_name $path_to_pdb $clean $hotspots $min_length $max_length $num_structs $seq_per_struct $rfdiffusion_model $output_dir
+        sbatch --output slurm-$run_name-%j.out --gpus 1 --mem $mem --tmp $temp --time $time $script_dir/scripts/pipeline.sh $script_dir $run_name $path_to_pdb $clean $hotspots $min_length $max_length $num_structs $seq_per_struct $rfdiffusion_model $output_dir
     done
 } < $tmpfile
 
