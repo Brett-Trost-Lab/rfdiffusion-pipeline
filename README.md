@@ -129,7 +129,7 @@ python helper_scripts/residue_selection/select_residues_using_AAdistance.py <pdb
 ```
 
 ```
-python helper_scripts/residue_selection/select_residues_using_PPinterface.py <pdb-of-interest> <pdb-of-ligand> <number-of-residues> <output-path>
+python helper_scripts/residue_selection/select_residues_PPinterface.py <pdb-of-interest> <pdb-of-ligand> <number-of-residues> <output-path>
 ```
 
 ### Proteins without a Ligand
