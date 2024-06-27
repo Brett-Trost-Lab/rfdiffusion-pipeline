@@ -17,8 +17,8 @@ The input parameters to the pipeline are as follows:
 | --- | --- | --- | --- |
 | RUN_NAME | Name of the run | test_run | Must be unique. Can have two runs with the same target PDB but different names. |
 | PATH_TO_PDB | Absolute path to target PDB | /home/usr/inputs/target.pdb | Avoid ~, $HOME, .., etc. |
-| CLEAN | Whether to clean the target PDB (yes/no) | no | Removes ligand, waters, etc. For more complex PDBs, this may have unintended effects. We recommend manually cleaning your target proteins in [PyMOL](https://www.pymol.org/) instead. |
-| HOTSPOTS | Hotspot residues for RFdiffusion | A232,A245,A271 | Comma-separated list of <chain><residue>, no spaces. Enter 'predict' to sample hotspots from a predicted binding site. |
+| CLEAN | Whether to clean the target PDB (yes/no) | no | Removes ligand, waters, etc. For more complex PDBs, this may have unintended effects. We **recommend manually cleaning** your target proteins in [PyMOL](https://www.pymol.org/) instead. |
+| HOTSPOTS | Hotspot residues for RFdiffusion | A232,A245,A271 | Comma-separated list of <chain><residue>, no spaces. Enter 'predict' to sample hotspots from a predicted binding site. If replacing a known ligand, use helper scripts to find closest residues to that ligand. |
 | MIN_LENGTH | Minimum length for binder (aa) | 20 | |
 | MAX_LENGTH | Maximum length for binder (aa) | 60 | |
 | NUM_STRUCTS | Number of RFdiffusion structures to generate  | 1000 | |
