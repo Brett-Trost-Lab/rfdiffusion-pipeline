@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 repo_dir=/hpf/tools/alma8/dl_binder_design/v1.0.1
 

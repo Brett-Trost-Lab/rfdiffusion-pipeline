@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eo pipefail
 
 repo_dir=/hpf/tools/alma8/RFDiffusion/1.1.0/
 

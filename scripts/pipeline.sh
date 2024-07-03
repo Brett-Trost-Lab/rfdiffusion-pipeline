@@ -2,7 +2,7 @@
 
 # Runs the validation pipeline from RFDiffusion -> ProteinMPNN -> AlphaFold2.
 
-set -e
+set -euo pipefail
 
 convert_seconds() {
     printf '%02dh:%02dm:%02ds\n' $((${1}/3600)) $((${1}%3600/60)) $((${1}%60))
@@ -65,7 +65,7 @@ fi
 echo
 echo Get Hotspots
 
-# TODO: implement 'predict' and 'use_ligand'
+# TODO: implement 'use_ligand'
 
 if [ "$hotspots" = "predict" ]; then
     echo Predicting hotspots using p2rank...
@@ -95,7 +95,7 @@ contig=$(python $script_dir/get_contigs.py "$pdb_path")
 echo Contig $contig
 
 echo
-echo Data prep time elapsed: $(convert_seconds $SECONDS) seconds
+echo Data prep time elapsed: $(convert_seconds $SECONDS)
 total_seconds=$((total_seconds+SECONDS))
 SECONDS=0
 
@@ -105,7 +105,7 @@ echo STEP 1: RFDiffusion
 bash $script_dir/rfdiffusion.sh "$run_name" "$output_dir" "$pdb_path" "$contig" "$hotspots" "$min_length" "$max_length" "$num_structs" "$rfdiffusion_model"
 
 echo
-echo RFDiffusion time elapsed: $(convert_seconds $SECONDS) seconds
+echo RFDiffusion time elapsed: $(convert_seconds $SECONDS)
 total_seconds=$((total_seconds+SECONDS))
 SECONDS=0
 
@@ -115,7 +115,7 @@ echo STEP 2: ProteinMPNN
 bash $script_dir/proteinmpnn.sh "$run_name" "$output_dir" "$seq_per_struct" "$output_dir/rfdiffusion/"
 
 echo
-echo ProteinMPNN time elapsed: $(convert_seconds $SECONDS) seconds
+echo ProteinMPNN time elapsed: $(convert_seconds $SECONDS)
 total_seconds=$((total_seconds+SECONDS))
 SECONDS=0
 
@@ -129,9 +129,9 @@ echo Filtering output scores...
 python $script_dir/filter_output.py ${output_dir}/${run_name}.out.sc
 
 echo
-echo AF2 time elapsed: $(convert_seconds $SECONDS) seconds
+echo AF2 time elapsed: $(convert_seconds $SECONDS)
 total_seconds=$((total_seconds+SECONDS))
-echo Total time elapsed: $(convert_seconds $total_seconds) seconds
+echo Total time elapsed: $(convert_seconds $total_seconds)
 
 echo
 echo Done pipeline.
