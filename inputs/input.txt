@@ -1,3 +1,3 @@
-ME	PATH_TO_PDB	HOTSPOTS	MIN_LENGTH	MAX_LENGTH	NUM_STRUCTS	SEQUENCES_PER_STRUCT	OUTPUT_DIR	SBATCH_FLAGS
+RUN_NAME	PATH_TO_PDB	HOTSPOTS	MIN_LENGTH	MAX_LENGTH	NUM_STRUCTS	SEQUENCES_PER_STRUCT	OUTPUT_DIR	SBATCH_FLAGS
 test_run1	/home/sxie/rfdiffusion-pipeline/inputs/test1.pdb	E416,E455,E475,E492,E496	56	65	200	5	/hpf/projects/btrost/Sophia	--mem=128G --tmp=128G --time=48:00:00 --partition=special_features --reservation=test_new_tcag_gpu
 test_run2	/home/sxie/rfdiffusion-pipeline/inputs/test2.pdb	E416,E455,E475,E492,E496	56	65	50	2	/hpf/projects/btrost/Sophia	--mem=128G --tmp=128G --time=12:00:00
