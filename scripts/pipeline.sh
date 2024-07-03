@@ -17,29 +17,29 @@ module load python/3.11.3
 script_dir=$1/scripts/
 run_name=$2
 pdb_path=$3
-clean=$4
-hotspots=$5
-min_length=$6
-max_length=$7
-num_structs=$8
-seq_per_struct=$9
-rfdiffusion_model=${10}
-output_dir="${11}/${run_name}/"
+hotspots=$4
+min_length=$5
+max_length=$6
+num_structs=$7
+seq_per_struct=$8
+output_dir="$9/${run_name}/"
 
 echo SCRIPT_DIR $script_dir
 echo RUN_NAME $run_name
 echo PDB_PATH $pdb_path
-echo CLEAN $clean
 echo HOTSPOTS $hotspots
 echo MIN_LENGTH $min_length
 echo MAX_LENGTH $max_length
 echo NUM_STRUCTS $num_structs
 echo SEQ_PER_STRUCT $seq_per_struct
-echo RFDIFFUSION_MODEL $rfdiffusion_model
 echo OUTPUT_DIR $output_dir
 
 echo
 echo STEP 0: Data Preparation
+
+: '
+
+PDB CLEANING: DEPRECATED DUE TO UNRELIABILITY
 
 echo
 echo Clean PDB
@@ -61,6 +61,8 @@ if [ "$clean" = "yes" ]; then
 else
     echo No PDB cleaning done.
 fi
+
+'
 
 echo
 echo Get Hotspots
@@ -102,7 +104,7 @@ SECONDS=0
 echo
 echo STEP 1: RFDiffusion
 
-bash $script_dir/rfdiffusion.sh "$run_name" "$output_dir" "$pdb_path" "$contig" "$hotspots" "$min_length" "$max_length" "$num_structs" "$rfdiffusion_model"
+bash $script_dir/rfdiffusion.sh "$run_name" "$output_dir" "$pdb_path" "$contig" "$hotspots" "$min_length" "$max_length" "$num_structs"
 
 echo
 echo RFDiffusion time elapsed: $(convert_seconds $SECONDS)

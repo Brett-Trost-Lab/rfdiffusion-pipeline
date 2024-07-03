@@ -22,24 +22,27 @@ echo Launching...
 
 {
     read  # skip header
-    while read -r run_name path_to_pdb clean hotspots min_length max_length num_structs seq_per_struct mem temp time rfdiffusion_model output_dir || [ -n "$name" ] # iterate through rows
+    while read -r run_name path_to_pdb hotspots min_length max_length num_structs seq_per_struct output_dir sbatch_flags || [ -n "$name" ] # iterate through rows
     do
 	echo
         echo RUN_NAME $run_name 
         echo PDB $path_to_pdb
-	echo CLEAN $clean
         echo HOTSPOTS $hotspots 
         echo MIN_LENGTH $min_length
         echo MAX_LENGTH $max_length
         echo NUM_STRUCTS $num_structs
         echo SEQ_PER_STRUCT $seq_per_struct 
-        echo MEM $mem 
-        echo TEMP $temp
-        echo TIME $time 
-        echo RFDIFFUSION_MODEL $rfdiffusion_model
         echo OUTPUT_DIR $output_dir
+	echo SBATCH_FLAGS $sbatch_flags
     
-        sbatch --output slurm-$run_name-%j.out --gpus 1 --mem $mem --tmp $temp --time $time $script_dir/scripts/pipeline.sh $script_dir $run_name $path_to_pdb $clean $hotspots $min_length $max_length $num_structs $seq_per_struct $rfdiffusion_model $output_dir
+        command="sbatch --output slurm-$run_name-%j.out --gpus 1 $sbatch_flags $script_dir/scripts/pipeline.sh $script_dir $run_name $path_to_pdb $hotspots $min_length $max_length $num_structs $seq_per_struct $output_dir"
+
+	echo 
+	echo $command
+
+	echo
+	$command
+
     done
 } < $tmpfile
 
