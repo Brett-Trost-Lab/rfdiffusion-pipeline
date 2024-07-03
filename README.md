@@ -13,27 +13,23 @@ In this pipeline, *RFdiffusion* designs binders to hotspot residues on the targe
  
 ### Input
 The input parameters to the pipeline are as follows:
-| Parameter | Description | Examples | Notes |
+| Parameter | Description | Example | Notes |
 | --- | --- | --- | --- |
-| RUN_NAME | Name of the run | test_run | Must be unique. Can have two runs with the same target PDB but different names. |
-| PATH_TO_PDB | Absolute path to target PDB | /home/usr/inputs/target.pdb | Avoid ~, $HOME, .., etc. |
-| CLEAN | Whether to clean the target PDB (yes/no) | no | Removes ligand, waters, etc. For more complex PDBs, this may have unintended effects. We **recommend manually cleaning** your target proteins in [PyMOL](https://www.pymol.org/) instead. |
-| HOTSPOTS | Hotspot residues for RFdiffusion | A232,A245,A271 | Comma-separated list of <chain><residue>, no spaces. Enter `predict` to sample hotspots from a predicted binding site. If replacing a known ligand, use helper scripts to find closest residues to that ligand. |
+| RUN_NAME | Name of the run | test_run1 | Must be unique. Can have two runs with the same target PDB but different names. |
+| PATH_TO_PDB | Absolute path to target PDB | /home/usr/inputs/target.pdb | Avoid ~, $HOME, .., etc. Must be clean of waters, small molecules, noncanonical amino acids, etc. Use helper script to clean. |
+| HOTSPOTS | Hotspot residues for RFdiffusion | A232,A245,A271 | Comma-separated list of <chain><residue>, no spaces. Enter `predict` to sample hotspots from a predicted binding site. If replacing a known ligand, use helper script to find closest residues to that ligand. |
 | MIN_LENGTH | Minimum length for binder (aa) | 20 | |
 | MAX_LENGTH | Maximum length for binder (aa) | 60 | |
-| NUM_STRUCTS | Number of RFdiffusion structures to generate  | 1000 | |
-| SEQ_PER_STRUCT | Number of ProteinMPNN sequences to generate for each structure | 2 | |
-| MEM | Amount of memory for job to use | 128G | See [Slurm HPC Quickstart](https://hpc.ccm.sickkids.ca/w/index.php/Slurm_HPC_Quickstart) for syntax |
-| TEMP | Amount of temporary space for job to use | 128G | |
-| TIME | Maximum time allotted for job | 48:00:00 | |
-| RFDIFFUSION_MODEL | RFdiffusion model to use | Complex_base_ckpt.pt | Alternative option: Complex_beta_ckpt.pt |
+| NUM_STRUCTS | Number of RFdiffusion structures to generate  | 500 | |
+| SEQUENCES_PER_STRUCT | Number of ProteinMPNN sequences to generate for each structure | 2 | |
 | OUTPUT_DIR | Output directory | /home/usr/outputs/ | |
- 
+| SBATCH_FLAGS | Flags to pass to sbatch command | --mem=128G --tmp=128G --time=48:00:00 | See [Slurm HPC Quickstart](https://hpc.ccm.sickkids.ca/w/index.php/Slurm_HPC_Quickstart) for formatting and defaults |
+
 ### Usage
 #### Single run
 To run one job:
 ```
-sbatch --gpus 1 --mem <MEM> --tmp <TMP> --time <TIME> scripts/pipeline.sh /path/to/protein-binder-design <RUN_NAME> <PATH_TO_PDB> <CLEAN> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <SEQ_PER_STRUCT> <RFDIFFUSION_MODEL> <OUTPUT_DIR>
+sbatch --output slurm-<RUN_NAME>-%j.out--gpus 1 $SBATCH_FLAGS scripts/pipeline.sh /path/to/protein-binder-design <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <SEQUENCES_PER_STRUCT> <OUTPUT_DIR>
 ```
 
 #### Bulk run
@@ -107,7 +103,9 @@ module load python/3.11.3  # this python version has the required packages for t
 ```
 
 ## PDB Cleaning
-Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Clean PDBs and any ligands are outputted to the specified output path. The program will generate a cleaned PDB for all files in the input folder. Usage:
+Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Removes ligand, waters, etc. For more complex PDBs, this may have unintended effects. We **recommend manually cleaning** your target proteins in [PyMOL](https://www.pymol.org/) instead. |
+
+Clean PDBs and any ligands are outputted to the specified output path. The program will generate a cleaned PDB for all files in the input folder. Usage:
 
 ```
 python scripts/pdb_cleaner.py <folder-of-input-pdbs> <folder-for-output> <save_ligands(true/false)>
