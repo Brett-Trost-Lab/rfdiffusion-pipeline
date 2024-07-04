@@ -29,8 +29,8 @@ def calculate_distances(cb_atoms_1, cb_atoms_2):
 def format_residue(residue, distance):
     chain_id = residue.get_parent().id
     resnum = residue.id[1]
-    hydro = "hydrophobic" if (residue.get_id() in HYDROPHOBIC_RESIDUES) else "NON-hydrophobic"
-    return "{}\t{}\t{}\t{}".format(chain_id, resnum, distance, hydro)
+    hydro = "hydrophobic" if (residue.resname in HYDROPHOBIC_RESIDUES) else "NON-hydrophobic"
+    return "{}\t{}\t{}\t{}\t{}".format(chain_id, resnum, distance, residue.resname, hydro)
 
 def get_top_closest_pairs(pdb_file1, pdb_file2, top_n, output_dir):
     parser = PDBParser(QUIET=True)
@@ -51,7 +51,7 @@ def get_top_closest_pairs(pdb_file1, pdb_file2, top_n, output_dir):
     protein_name = filename.split('_')[0]
 
     with open((output_dir + "/" + protein_name + "_hotspots.txt"), 'w') as out_file:
-        out_file.write("chain_identifier\tresidue_sequence_number\tdistance\thydrophobic\n")  # Writing column headers
+        out_file.write("chain_identifier\tresidue_sequence_number\tdistance\tresidue_name\thydrophobic\n")  # Writing column headers
         for distance, res1, res2 in distances[:top_n]:
             res1_info = format_residue(res1, distance)
             out_file.write(res1_info + '\n')
