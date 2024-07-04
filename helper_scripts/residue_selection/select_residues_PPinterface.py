@@ -37,6 +37,7 @@ def get_top_closest_pairs(pdb_file1, pdb_file2, top_n, output_dir):
     structure1 = parser.get_structure('protein1', pdb_file1)
     structure2 = parser.get_structure('protein2', pdb_file2)
     
+    print("Parsed Structures\n")
     cb_atoms_1 = get_beta_carbons(structure1)
     cb_atoms_2 = get_beta_carbons(structure2)
     
@@ -51,8 +52,9 @@ def get_top_closest_pairs(pdb_file1, pdb_file2, top_n, output_dir):
     protein_name = filename.split('_')[0]
 
     seen_residues = set()
-
+    
     with open((output_dir + "/" + protein_name + "_hotspots.txt"), 'w') as out_file:
+        print("Writing output to file: " + out_file.name)
         out_file.write("chain_identifier\tresidue_sequence_number\tdistance\tresidue_name\thydrophobic\n")  # Writing column headers
         count = 0
         for distance, res1, res2 in distances:
@@ -71,5 +73,6 @@ if __name__ == "__main__":
     parser.add_argument('top_n', type=int, help='Number of top closest pairs to retrieve')
     parser.add_argument('output_dir', type=str, help='Output file for residue information')
     
+    print("Starting Program\n")
     args = parser.parse_args()
     get_top_closest_pairs(args.pdb_file1, args.pdb_file2, args.top_n, args.output_dir)
