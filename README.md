@@ -16,7 +16,7 @@ The input parameters to the pipeline are as follows:
 | Parameter | Description | Example | Notes |
 | --- | --- | --- | --- |
 | RUN_NAME | Name of the run | test_run1 | Must be unique. Can have two runs with the same target PDB but different names. |
-| PATH_TO_PDB | Absolute path to target PDB | /home/usr/inputs/target.pdb | Avoid ~, $HOME, .., etc. Must be clean of waters, small molecules, noncanonical amino acids, etc. Use helper script to clean. |
+| PATH_TO_PDB | Absolute path to target PDB | /home/usr/inputs/target.pdb | Avoid ~, $HOME, .., etc. Must be clean of waters, small molecules, noncanonical amino acids, etc. Use helper script or clean manually. |
 | HOTSPOTS | Hotspot residues for RFdiffusion | A232,A245,A271 | Comma-separated list of <chain><residue>, no spaces. Enter `predict` to sample hotspots from a predicted binding site. If replacing a known ligand, use helper script to find closest residues to that ligand. |
 | MIN_LENGTH | Minimum length for binder (aa) | 20 | |
 | MAX_LENGTH | Maximum length for binder (aa) | 60 | |
@@ -108,7 +108,7 @@ Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Removes l
 Clean PDBs and any ligands are outputted to the specified output path. The program will generate a cleaned PDB for all files in the input folder. Usage:
 
 ```
-python scripts/pdb_cleaner.py <folder-of-input-pdbs> <folder-for-output> <save_ligands(true/false)>
+python helper_scripts/pdb_cleaner.py <folder-of-input-pdbs> <folder-for-output> <save_ligands(true/false)>
 ```
 
 ## Selecting Hotspot Residues
