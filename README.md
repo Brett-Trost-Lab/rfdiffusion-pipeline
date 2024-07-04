@@ -170,7 +170,7 @@ python helper_scripts/integrate_binders.py <old_target_proteinmpnn_outdir> <path
 ```
 
 ## Isolate Successful Designs
-Given the `.out.txt` file, you may wish to move all successful PDBs into their own directory. This can be done for either ProteinMPNN-generated PDBs (to validate the successful sequences on another target, for example) or to isolate the successful AF2 reconstructed designs.
+Given the `.out.txt` file, you may wish to copy  all successful PDBs into their own directory. This can be done for either ProteinMPNN-generated PDBs (to validate the successful sequences on another target, for example) or to isolate the successful AF2 reconstructed designs.
 
 ```
 bash helper_scripts/isolate_successful.sh <.out.txt> <folder_with_all_pdbs> <new_folder_for_successful_pdbs_only>
