@@ -80,15 +80,14 @@ def main():
 
     prot_pdb = pdb_to_dataframe(prot_path)
     lig_pdb = pdb_to_dataframe(ligand_path)
-    
+    print("Parsed Structures")
+
     # Find all residue centers
     residue_centroids = prot_pdb.groupby(['chain_identifier', 'residue_sequence_number', 'residue_name']).agg({
         'x_coordinate': 'mean',
         'y_coordinate': 'mean',
         'z_coordinate': 'mean'
     }).reset_index()
-
-    print(residue_centroids)
 
     # Calculate minimum distance from each residue centroid to any atom in the ligand
     residue_centroids['min_distance_to_ligand'] = residue_centroids.apply(min_distance_to_ligand, lig_pdb=lig_pdb, axis=1)
@@ -119,10 +118,12 @@ def main():
 
     # Save the selected residues to a text file
     output_file = output_path + "/" + protein_name + "_hotspots.txt"
+    print("Writing output to file: "+ output_file)
     close_hydrophobic_residues.to_csv(output_file, index=False, sep='\t')
 
 
 
 
 if __name__ == "__main__":
+    print("Starting Program\n")
     main()
