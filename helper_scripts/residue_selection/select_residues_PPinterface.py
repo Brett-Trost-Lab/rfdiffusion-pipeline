@@ -29,7 +29,7 @@ def calculate_distances(cb_atoms_1, cb_atoms_2):
 def format_residue(residue, distance):
     chain_id = residue.get_parent().id
     resnum = residue.id[1]
-    hydro = "hydrophobic" if (residue.resname in HYDROPHOBIC_RESIDUES) else "NON-hydrophobic"
+    hydro = "True" if (residue.resname in HYDROPHOBIC_RESIDUES) else "False"
     return "{}\t{}\t{}\t{}\t{}".format(chain_id, resnum, distance, residue.resname, hydro)
 
 def get_top_closest_pairs(pdb_file1, pdb_file2, top_n, output_dir):
@@ -50,11 +50,19 @@ def get_top_closest_pairs(pdb_file1, pdb_file2, top_n, output_dir):
     # Split the filename and get the protein name
     protein_name = filename.split('_')[0]
 
+    seen_residues = set()
+
     with open((output_dir + "/" + protein_name + "_hotspots.txt"), 'w') as out_file:
         out_file.write("chain_identifier\tresidue_sequence_number\tdistance\tresidue_name\thydrophobic\n")  # Writing column headers
-        for distance, res1, res2 in distances[:top_n]:
-            res1_info = format_residue(res1, distance)
-            out_file.write(res1_info + '\n')
+        count = 0
+        for distance, res1, res2 in distances:
+            if count >= top_n:
+                break
+            if res1.id[1] not in seen_residues:
+                res1_info = format_residue(res1, distance)
+                out_file.write(res1_info + '\n')
+                seen_residues.add(res1.id[1])
+                count += 1
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Select top closest Cβ atom pairs between two proteins.')
