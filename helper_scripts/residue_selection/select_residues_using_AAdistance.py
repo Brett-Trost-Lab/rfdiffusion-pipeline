@@ -80,12 +80,9 @@ def main():
 
     prot_pdb = pdb_to_dataframe(prot_path)
     lig_pdb = pdb_to_dataframe(ligand_path)
-
-    # Filter hydrophobic residues
-    prot_pdb = prot_pdb[prot_pdb['residue_name'].isin(HYDROPHOBIC_RESIDUES)]
     
     # Find all residue centers
-    residue_centroids = prot_pdb.groupby(['chain_identifier', 'residue_sequence_number']).agg({
+    residue_centroids = prot_pdb.groupby(['chain_identifier', 'residue_sequence_number', 'residue_name']).agg({
         'x_coordinate': 'mean',
         'y_coordinate': 'mean',
         'z_coordinate': 'mean'
@@ -109,6 +106,9 @@ def main():
 
 
     close_hydrophobic_residues.sort_values(by=['min_distance_to_ligand'], inplace=True)
+
+    close_hydrophobic_residues['is_hydrophobic'] = close_hydrophobic_residues['residue_name'].isin(HYDROPHOBIC_RESIDUES)
+    close_hydrophobic_residues = close_hydrophobic_residues.drop(columns=['x_coordinate', 'y_coordinate', 'z_coordinate'])
 
     # find the protein name for naming convention
     # Extract the filename from the path
