@@ -35,7 +35,7 @@ echo Launching...
         echo OUTPUT_DIR $output_dir
 	echo SBATCH_FLAGS $sbatch_flags
     
-        command="sbatch --output slurm-$run_name-%j.out --gpus 1 $sbatch_flags $script_dir/scripts/pipeline.sh $script_dir $run_name $path_to_pdb $hotspots $min_length $max_length $num_structs $seq_per_struct $output_dir"
+        command="sbatch --output slurm-$run_name-%j.out --gpus 1 --job-name=$run_name $sbatch_flags $script_dir/scripts/pipeline.sh $script_dir $run_name $path_to_pdb $hotspots $min_length $max_length $num_structs $seq_per_struct $output_dir"
 
 	echo 
 	echo $command
