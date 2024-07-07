@@ -29,7 +29,7 @@ The input parameters to the pipeline are as follows:
 #### Single run
 To run one job:
 ```
-sbatch --output slurm-<RUN_NAME>-%j.out--gpus 1 $SBATCH_FLAGS scripts/pipeline.sh /path/to/protein-binder-design <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <SEQUENCES_PER_STRUCT> <OUTPUT_DIR>
+sbatch --output slurm-<RUN_NAME>-%j.out --gpus 1 $SBATCH_FLAGS --job-name=$RUN_NAME scripts/pipeline.sh /path/to/protein-binder-design <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <SEQUENCES_PER_STRUCT> <OUTPUT_DIR>
 ```
 
 #### Bulk run
