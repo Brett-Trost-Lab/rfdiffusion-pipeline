@@ -9,8 +9,13 @@ A collection of scripts that automates the validation process of **RFdiffusion &
 ![image](https://github.com/sophia-xie/protein-binder-design/assets/154448471/28c5fb17-8c1a-4819-af37-63d485732065)
 <sub>Image adapted from [Watson et al.](https://www.nature.com/articles/s41586-023-06415-8)</sub>
 
-In this pipeline, *RFdiffusion* designs binders to hotspot residues on the target protein. It then uses *ProteinMPNN* to generate sequences for the designed structures. Finally, *AlphaFold2* reconstructs the binders and evaluates how likely they will bind to their target.
- 
+In this pipeline, *RFdiffusion* designs binders to hotspot residues on the target protein. It then uses *ProteinMPNN* to generate sequences for the designed structures. Finally, *AlphaFold2* reconstructs the binders onto the target and evaluates their likelihood of success.
+
+*In silico* success is defined by three confidence metrics produced by *AlphaFold2*:
+1. **pae_interaction < 10**: how likely binder will bind to target (key indicator of success)
+2. **plddt_binder > 80**: how likely binder will fold into its intended structure
+3. **binder_aligned_rmsd < 1**: similarity between RFdiffusion and AF2 binder structures
+
 ### Input
 The input parameters to the pipeline are as follows:
 | Parameter | Description | Example | Notes |
