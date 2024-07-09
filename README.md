@@ -103,7 +103,7 @@ module load python/3.11.3  # this python version has the required packages for t
 ```
 
 ## PDB Cleaning
-Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Removes ligand, waters, etc. For more complex PDBs, this may have unintended effects. We **recommend manually cleaning** your target proteins in [PyMOL](https://www.pymol.org/) instead. |
+Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Removes ligand, waters, etc. For more complex PDBs, this may have unintended effects. We **recommend manually cleaning** your target proteins in [PyMOL](https://www.pymol.org/) instead.
 
 Clean PDBs and any ligands are outputted to the specified output path. The program will generate a cleaned PDB for all files in the input folder. Usage:
 
