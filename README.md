@@ -29,7 +29,7 @@ The input parameters to the pipeline are as follows:
 #### Single run
 To run one job:
 ```
-sbatch --output slurm-<RUN_NAME>-%j.out--gpus 1 $SBATCH_FLAGS scripts/pipeline.sh /path/to/protein-binder-design <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <SEQUENCES_PER_STRUCT> <OUTPUT_DIR>
+sbatch --output slurm-<RUN_NAME>-%j.out --gpus 1 $SBATCH_FLAGS --job-name=$RUN_NAME scripts/pipeline.sh /path/to/protein-binder-design <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <SEQUENCES_PER_STRUCT> <OUTPUT_DIR>
 ```
 
 #### Bulk run
@@ -103,7 +103,7 @@ module load python/3.11.3  # this python version has the required packages for t
 ```
 
 ## PDB Cleaning
-Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Removes ligand, waters, etc. For more complex PDBs, this may have unintended effects. We **recommend manually cleaning** your target proteins in [PyMOL](https://www.pymol.org/) instead. |
+Adapted from [PDB_Cleaner](https://github.com/LePingKYXK/PDB_cleaner). Removes ligand, waters, etc. For more complex PDBs, this may have unintended effects. We **recommend manually cleaning** your target proteins in [PyMOL](https://www.pymol.org/) instead.
 
 Clean PDBs and any ligands are outputted to the specified output path. The program will generate a cleaned PDB for all files in the input folder. Usage:
 
