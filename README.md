@@ -64,7 +64,7 @@ Output contig is printed.
 
 #### 2. Run script
 ```
-sbatch --gpus 1 --mem 32G --tmp 32G --time 12:00:00 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <RFDIFFUSION_MODEL>
+sbatch --gpus 1 --mem 32G --tmp 32G --time 12:00:00 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS>
 ```
 (GPU required, specify more resources as necessary)
 
