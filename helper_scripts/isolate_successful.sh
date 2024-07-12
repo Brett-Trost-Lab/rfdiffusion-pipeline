@@ -5,7 +5,7 @@
 ### REQUIRED ARGUMENTS
 # $1. .out.txt
 # $2. path to all PDBs (ProteinMPNN output OR AF2 output)
-# 3. path to new output dir
+# $3. path to new output dir
 
 out_txt=$1
 input_dir=$2
@@ -36,7 +36,7 @@ mkdir -p $output_dir
 
             # check for af2 pdb
             if [ -e "${input_dir}/${description}.pdb" ]; then
-                cp $input_dir/${description}.pdb $output_dir
+                mv $input_dir/${description}.pdb $output_dir
                 echo Copied ${description}.pdb, pAE_interaction=$pae_interaction
             fi
         fi
@@ -44,3 +44,4 @@ mkdir -p $output_dir
 
 } < $tmpfile 
 
+echo Done.

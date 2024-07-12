@@ -86,6 +86,7 @@ def main():
     args = parser.parse_args()
     
     process_folder(args.input_folder, args.target_pdb, args.output_folder)
+    print('Done.')
 
 if __name__ == "__main__":
     main()

@@ -37,58 +37,8 @@ echo OUTPUT_DIR $output_dir
 echo
 echo STEP 0: Data Preparation
 
-: '
-
-PDB CLEANING: DEPRECATED DUE TO UNRELIABILITY
-
 echo
-echo Clean PDB
-
-if [ "$clean" = "yes" ]; then
-    # pdb cleaner
-    temp_dir=$(mktemp -d)
-    cp $pdb_path $temp_dir
-
-    cleaner_output=$(python $script_dir/pdb_cleaner.py $temp_dir ${output_dir}/data_prep/ true)
-    echo "$cleaner_output"
-
-    pdb_path=$(echo "$cleaner_output" | tail -1)
-    ligand_path=$(echo "$cleaner_output" | tail -2 | head -1)
-    
-    echo    
-    echo New pdb path: $pdb_path
-    echo Ligand path: $ligand_path
-else
-    echo No PDB cleaning done.
-fi
-
-'
-
-echo
-echo Get Hotspots
-
-# TODO: implement 'use_ligand'
-
-if [ "$hotspots" = "predict" ]; then
-    echo Predicting hotspots using p2rank...
-    bash $script_dir/p2rank.sh $pdb_path ${output_dir}/data_prep/
-
-    pdb_filename=$(basename -- "$pdb_path")
-    pdb_filename="${pdb_filename%.*}"
-    predictions=${output_dir}/data_prep/${pdb_filename}.pdb_predictions.csv
-    echo Predictions: $predictions 
-    
-    echo Extracting hotspots for best pocket...
-    python $script_dir/extract_hotspots.py $run_name $predictions 1
-
-    echo Sampling hotspots...
-    hotspots=$(python $script_dir/sample_hotspots.py ${output_dir}/data_prep/${run_name}_hotspots.txt)
-   
-else
-    echo Using provided hotspots.
-fi
-
-echo Hotspots $hotspots
+echo Using hotspots $hotspots
 
 echo
 echo Get Contig
