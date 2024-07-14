@@ -21,7 +21,7 @@ The input parameters to the pipeline are as follows:
 | Parameter | Description | Example | Notes |
 | --- | --- | --- | --- |
 | RUN_NAME | Name of the run | test_run1 | Must be unique. Can have two runs with the same target PDB but different names. |
-| PATH_TO_PDB | Absolute path to target PDB | /home/usr/inputs/target.pdb | Avoid ~, $HOME, .., etc. Must be clean of waters, small molecules, noncanonical amino acids, etc. Use helper script or clean manually. |
+| PATH_TO_PDB | Absolute path to target PDB | /home/usr/inputs/target.pdb | Avoid ~, $HOME, .., etc. Note that RFdiffusion can only process standard residues designated ATOM. |
 | HOTSPOTS | Hotspot residues for RFdiffusion | A232,A245,A271 | Comma-separated list of <chain><residue>, no spaces. Use helper scripts to find hydrophobic residues closest to a known ligand or to sample hotspots from a predicted binding site. |
 | MIN_LENGTH | Minimum length for binder (aa) | 40 | |
 | MAX_LENGTH | Maximum length for binder (aa) | 60 | |
