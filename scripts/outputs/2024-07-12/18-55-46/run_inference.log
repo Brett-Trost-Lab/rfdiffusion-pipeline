@@ -1,4 +1,0 @@
-[2024-07-12 18:55:47,174][__main__][INFO] - Found GPU with device_name NVIDIA A100 80GB PCIe. Will run RFdiffusion on NVIDIA A100 80GB PCIe
-[2024-07-12 18:55:47,175][rfdiffusion.inference.model_runners][INFO] - Reading checkpoint from /hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/inference/../../models/Complex_Fold_base_ckpt.pt
-[2024-07-12 18:55:50,353][rfdiffusion.inference.model_runners][INFO] - Loading checkpoint.
-[2024-07-12 18:55:53,107][rfdiffusion.diffusion][INFO] - Using cached IGSO3.
