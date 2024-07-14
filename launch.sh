@@ -3,8 +3,7 @@
 # Launches a series of PDBs for RFdiffusion design and validation.
 
 ### REQUIRED ARGUMENTS
-# $1. path/to/protein-binder-design/
-# $2. 'input.txt'
+# $1. 'input.txt'
 
 set -e
 
