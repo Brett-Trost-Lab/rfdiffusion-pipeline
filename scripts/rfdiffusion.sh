@@ -31,6 +31,7 @@ echo MIN_LENGTH $min_length
 echo MAX_LENGTH $max_length
 echo NUM_STRUCTS $num_structs
 
+echo
 echo Running script...
 
 $repo_dir/scripts/run_inference.py \

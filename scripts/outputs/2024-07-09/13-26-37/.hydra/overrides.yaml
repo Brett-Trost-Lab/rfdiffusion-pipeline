@@ -1,0 +1,11 @@
+- scaffoldguided.target_path=../inputs/6m0j_clean.pdb
+- inference.output_prefix=/home/sxie/test/test
+- scaffoldguided.scaffoldguided=True
+- ppi.hotspot_res=[E416,E455,E475,E492,E496]
+- scaffoldguided.target_pdb=True
+- scaffoldguided.target_ss=../inputs/target_scaffold/6m0j_clean_ss.pt
+- scaffoldguided.target_adj=../inputs/target_scaffold/6m0j_clean_adj.pt
+- scaffoldguided.scaffold_dir=../inputs/binder_scaffolds/
+- inference.num_designs=10
+- denoiser.noise_scale_ca=0
+- denoiser.noise_scale_frame=0

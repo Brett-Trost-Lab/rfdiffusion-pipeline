@@ -26,8 +26,6 @@ echo Activating conda...
 eval "$(conda shell.bash hook)"
 conda activate /hpf/tools/centos7/miniforge/3/envs/SE3nv
 
-echo Running script...
-
 run_name=$1
 output_dir=$2
 pdb_path=$3
@@ -45,6 +43,9 @@ echo NUM_STRUCTS $num_structs
 echo TARGET_SS $target_ss
 echo TARGET_ADJ $target_adj
 echo SCAFFOLD_DIR $scaffold_dir
+
+echo
+echo Running script...
 
 $repo_dir/scripts/run_inference.py \
 	scaffoldguided.target_path=$pdb_path \

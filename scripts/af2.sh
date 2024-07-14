@@ -21,7 +21,9 @@ echo INPUT_DIR $input_dir
 
 mkdir -p $output_dir
 
+echo
 echo Running script...
+
 $repo_dir/base_dir/af2_initial_guess/predict.py \
 -pdbdir $input_dir \
 -outpdbdir $output_dir/af2/ \

@@ -17,6 +17,7 @@ echo OUTPUT_DIR $output_dir
 echo SEQS_PER_STRUCT $seqs_per_struct
 echo INPUT_DIR $input_dir
 
+echo
 echo Running script...
 
 $repo_dir/base_dir/mpnn_fr/dl_interface_design.py \

@@ -1,0 +1,13 @@
+- scaffoldguided.target_path=True
+- scaffoldguided.target_path=/home/sxie/rfdiffusion_pipeline/inputs/6m0j_clean.pdb
+- contigmap.contigs=[E333-526/0 ]
+- ppi.hotspot_res=[E416,E455,E475,E492,E496]
+- scaffoldguided.target_pdb=True
+- scaffoldguided.target_ss=/home/sxie/rfdiffusion-pipeline/inputs/target_scaffold/6m0j_clean_ss.pt
+- scaffoldguided.target_adj=/home/sxie/rfdiffusion-pipeline/inputs/target_scaffold/6m0j_clean_adj.pt
+- scaffoldguided.scaffold_dir=/home/sxie/rfdiffusion-pipeline/inputs/binder_scaffolds/
+- inference.num_designs=10
+- inference.output_prefix=/hpf/projects/btrost/Sophia//rfdiffusion/fold-416-455-475-492-496
+- denoiser.noise_scale_ca=0
+- denoiser.noise_scale_frame=0
+- scaffoldguided.mask_loops=False

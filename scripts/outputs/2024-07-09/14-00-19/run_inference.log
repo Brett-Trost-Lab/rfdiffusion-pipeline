@@ -1,0 +1,4 @@
+[2024-07-09 14:00:19,186][__main__][INFO] - Found GPU with device_name Tesla V100-PCIE-32GB. Will run RFdiffusion on Tesla V100-PCIE-32GB
+[2024-07-09 14:00:19,187][rfdiffusion.inference.model_runners][INFO] - Reading checkpoint from /hpf/tools/alma8/RFDiffusion/1.1.0/rfdiffusion/inference/../../models/Complex_Fold_base_ckpt.pt
+[2024-07-09 14:00:35,048][rfdiffusion.inference.model_runners][INFO] - Loading checkpoint.
+[2024-07-09 14:00:38,923][rfdiffusion.diffusion][INFO] - Using cached IGSO3.
