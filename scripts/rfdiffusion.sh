@@ -13,8 +13,6 @@ echo Activating conda...
 eval "$(conda shell.bash hook)"
 conda activate /hpf/tools/centos7/miniforge/3/envs/SE3nv
 
-echo Running script...
-
 run_name=$1
 output_dir=$2
 pdb_path=$3
@@ -32,6 +30,8 @@ echo HOTSPOTS $hotspots
 echo MIN_LENGTH $min_length
 echo MAX_LENGTH $max_length
 echo NUM_STRUCTS $num_structs
+
+echo Running script...
 
 $repo_dir/scripts/run_inference.py \
 inference.input_pdb=$pdb_path \

@@ -26,7 +26,7 @@ def pdb_to_dataframe(pdb_file_path):
     # Read the PDB file and parse the relevant lines
     with open(pdb_file_path, 'r') as file:
         for line in file:
-            if (line.startswith("ATOM") or line.startswith("HETATM")):
+            if line.startswith("ATOM"):
                 record = {
                     "record_name": line[0:6].strip(),
                     "atom_serial_number": int(line[6:11].strip()),

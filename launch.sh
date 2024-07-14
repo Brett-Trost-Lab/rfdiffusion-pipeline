@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Launches a series of PDBs for RFdiffusion design and validation.
+# Launches a series of jobs for RFdiffusion design and validation.
 
 ### REQUIRED ARGUMENTS
 # $1. 'input.txt'
