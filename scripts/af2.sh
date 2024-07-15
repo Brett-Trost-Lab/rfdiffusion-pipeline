@@ -31,4 +31,5 @@ $repo_dir/base_dir/af2_initial_guess/predict.py \
 -scorefilename ${output_dir}/${run_name}.out.sc \
 -recycle 3
 
+echo
 echo Done.
