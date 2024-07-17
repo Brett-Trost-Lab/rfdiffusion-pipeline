@@ -34,7 +34,7 @@ The input parameters to the pipeline are as follows:
 #### Single run
 To run one job:
 ```
-sbatch --job-name=$RUN_NAME --output slurm-<RUN_NAME>-%j.out --gpus 1 <SBATCH_FLAGS> scripts/pipeline.sh /path/to/rfdiffusion-pipeline <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <SEQUENCES_PER_STRUCT> <OUTPUT_DIR>
+sbatch --gpus 1 <SBATCH_FLAGS> scripts/pipeline.sh /path/to/rfdiffusion-pipeline <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <SEQUENCES_PER_STRUCT> <OUTPUT_DIR>
 ```
 
 #### Bulk run
@@ -165,9 +165,9 @@ bash helper_scripts/make_scaffolds.sh <target_pdb> <target_scaffold_outdir>
 ```
 This will create a secondary structure (`*_ss.pt`) and block adjacency (`_*adj.pt`) file for the target.
 
-#### 3. Run RFdiffusion with fold conditioning
+#### 3. Run pipeline with fold conditioning
 ```
-sbatch --gpus 1 --mem 32G --tmp 32G --time 12:00:00 scripts/rfd_fold_conditioning.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <HOTSPOTS> <NUM_STRUCTS> <target_scaffold_outdir>/<*_ss.pt> <target_scaffold_outdir>/<*_adj.pt> <binder_scaffolds_outdir>
+sbatch --gpus 1 <SBATCH_FLAGS> scripts/pipeline_fold_conditioning.sh /path/to/rfdiffusion-pipeline <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <NUM_STRUCTS <SEQUENCES_PER_STRUCT> <OUTPUT_DIR> <target_scaffold_outdir>/<*_ss.pt> <target_scaffold_outdir>/<*_adj.pt> <binder_scaffolds_outdir>
 ```
 
 ## Mix and Match Binders
