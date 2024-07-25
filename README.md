@@ -126,7 +126,7 @@ Here we provide a set of scripts to run additional, optional functionalities for
 
 To run python scripts:
 ```
-srun --pty bash -l  # enter a compute node
+srun --pty bash  # enter a compute node
 module load python/3.11.3  # this python version has the required packages for all scripts used below
 ```
 
@@ -147,15 +147,15 @@ For proteins with a known ligand, to generate accurate and effective hotspot res
 Usages:
 
 ```
-python helper_scripts/residue_selection/select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>
+python helper_scripts/hotspot_selection/select_residues_using_centroid.py <pdb-of-interest> <pdb-of-ligand> <output-path>
 ```
 
 ```
-python helper_scripts/residue_selection/select_residues_using_AAdistance.py <pdb-of-interest> <pdb-of-ligand> <output-path>
+python helper_scripts/hotspot_selection/select_residues_using_AAdistance.py <pdb-of-interest> <pdb-of-ligand> <output-path>
 ```
 
 ```
-python helper_scripts/residue_selection/select_residues_PPinterface.py <pdb-of-interest> <pdb-of-ligand> <number-of-residues> <output-path>
+python helper_scripts/hotspot_selection/select_residues_PPinterface.py <pdb-of-interest> <pdb-of-ligand> <number-of-residues> <output-path>
 ```
 
 ### Proteins without a Ligand
@@ -167,7 +167,7 @@ Currently installed:
 A rapid, template-free machine learning model based on Random Forest.
 
 ```
-sbatch scripts/p2rank.sh <input_pdb> <output_dir>
+sbatch helper_scripts/p2rank.sh <input_pdb> <output_dir>
 ```
 
 Predicted pockets will be output in order of confidence to `output_dir/<pdb_name>.pdb_predictions.csv`. Pockets and residues can be viewed by downloading and opening `output_dir/visualizations/`.
@@ -182,7 +182,7 @@ python helper_scripts/integrate_binders.py <old_target_proteinmpnn_outdir> <path
 ```
 
 ## Isolate Successful Designs
-Given the `.out.txt` file, you may wish to copy all successful PDBs into their own directory. This can be done for either ProteinMPNN-generated PDBs (to validate the successful sequences on another target, for example) or to isolate the successful AF2 reconstructed designs.
+Given the `.out.txt` file, you may wish to move all successful PDBs into their own directory. This can be done for either ProteinMPNN-generated PDBs (to validate the successful sequences on another target, for example) or to isolate the successful AF2 reconstructed designs.
 
 ```
 bash helper_scripts/isolate_successful.sh <.out.txt> <folder_with_all_pdbs> <new_folder_for_successful_pdbs_only>
@@ -190,5 +190,4 @@ bash helper_scripts/isolate_successful.sh <.out.txt> <folder_with_all_pdbs> <new
 
 # Troubleshooting
 
-* **No module named 'MODULE_NAME':** Avoid running the automated pipeline from a compute node. RFdiffusion requires a specific Python module to run. If you're on a compute node with Python loaded, it may try to use packages from the newest Python version available.
 * **Struct with tag <SAMETAG> failed in 0 seconds with error: <class 'EXCEPTION'>:** See [dl_binder_design: Troubleshooting](https://github.com/nrbennet/dl_binder_design?tab=readme-ov-file#troubleshooting-)
