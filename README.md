@@ -87,11 +87,16 @@ The following explains how to run the individual components of the pipeline. The
 ## RFdiffusion
 #### Without fold conditioning:
 ```
+sbatch --gpus 1 --mem 8G --tmp 8G --time=2:00:00 scripts/rfdiffusion.sh <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <OUTPUT_DIR>
+```
+
+#### With fold conditioning:
+```
 # make binder scaffolds if not already made
 sbatch scripts/make_scaffolds.sh <INPUT_PDBS> <SCAFFOLD_DIR>
 
 # run script
-sbatch --gpus 1 --mem 8G --tmp 8G --time=2:00:00 scripts/rfdiffusion.sh <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <NUM_STRUCTS> <OUTPUT_DIR> <SCAFFOLD_DIR>
+sbatch --gpus 1 --mem 8G --tmp 8G --time=2:00:00 scripts/fold_conditioning.sh <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <NUM_STRUCTS> <OUTPUT_DIR> <SCAFFOLD_DIR>
 ```
 
 Results are output to `<OUTPUT_DIR>/rfdiffusion/`.
