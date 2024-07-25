@@ -2,9 +2,9 @@
 
 ### REQUIRED POSITIONAL ARGUMENTS
 run_name=$1
-input_dir=$2
+input_dir=$(realpath $2)
 seqs_per_struct=$3
-output_dir=$4
+output_dir=$(realpath $4)
 ##############################
 
 set -euo pipefail
