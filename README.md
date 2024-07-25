@@ -75,9 +75,9 @@ bash launch.sh inputs/input.txt
 ```
 
 ### Output
-AF2 output scores are provided in `<OUTPUT_DIR>/<RUN_NAME>/<RUN_NAME>.out.txt`, sorted from best to worst design. The `successful` column indicates whether the design passed all three criteria (`pae_interaction` < 10, `plddt_binder` > 80, `binder_aligned_rmsd` < 1).
+AF2 scores are output to `<OUTPUT_DIR>/<RUN_NAME>/<RUN_NAME>.out.txt`, sorted from best to worst design. The `successful` column indicates whether the design passed all three criteria (`pae_interaction` < 10, `plddt_binder` > 80, `binder_aligned_rmsd` < 1).
 
-AF2 predicted structures .pdbs in `<OUTPUT_DIR>/<RUN_NAME>/af2/` can be visualized and compared with their respective RFdiffusion designs in `<OUTPUT_DIR>/<RUN_NAME>/rfdiffusion/`.
+AF2 predicted structure .pdbs in `<OUTPUT_DIR>/<RUN_NAME>/af2/` can be visualized and compared with their respective RFdiffusion designs in `<OUTPUT_DIR>/<RUN_NAME>/rfdiffusion/`.
 
 # Individual Steps of the Pipeline
 
