@@ -91,6 +91,7 @@ sbatch --gpus 1 --mem 8G --tmp 8G --time=2:00:00 scripts/rfdiffusion.sh <RUN_NAM
 ```
 
 #### With fold conditioning:
+This feature allows you to prespecify desired topologies for your binders. This is done by passing information from other PDBs with those desired topologies, which will act as scaffolds.
 ```
 # make binder scaffolds if not already made
 sbatch scripts/make_scaffolds.sh <INPUT_PDBS> <SCAFFOLD_DIR>
@@ -170,26 +171,6 @@ sbatch scripts/p2rank.sh <input_pdb> <output_dir>
 ```
 
 Predicted pockets will be output in order of confidence to `output_dir/<pdb_name>.pdb_predictions.csv`. Pockets and residues can be viewed by downloading and opening `output_dir/visualizations/`.
-
-## Fold Conditioning
-*RFdiffusion* has a fold conditioning feature that allows you to prespecify desired topologies for your binders. This is done by passing information from other PDBs with those desired topologies; these will act as scaffolds. Running *RFdiffusion* with fold conditioning requires three steps:
-
-#### 1. Generate scaffolds for the PDBs with desired binder topologies
-```
-bash helper_scripts/make_scaffolds.sh <pdb_dir> <binder_scaffolds_outdir>
-```
-This will create a secondary structure (`*_ss.pt`) and block adjacency (`_*adj.pt`) file for each PDB.
-
-#### 2. Generate scaffold for target
-```
-bash helper_scripts/make_scaffolds.sh <target_pdb> <target_scaffold_outdir>
-```
-This will create a secondary structure (`*_ss.pt`) and block adjacency (`_*adj.pt`) file for the target.
-
-#### 3. Run pipeline with fold conditioning
-```
-sbatch --gpus 1 <SBATCH_FLAGS> scripts/pipeline_fold_conditioning.sh /path/to/rfdiffusion-pipeline <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <NUM_STRUCTS <SEQUENCES_PER_STRUCT> <OUTPUT_DIR> <target_scaffold_outdir>/<*_ss.pt> <target_scaffold_outdir>/<*_adj.pt> <binder_scaffolds_outdir>
-```
 
 ## Mix and Match Binders
 You may be interested in designing binders to one target protein, but validating them on another. This could be to analyze the specificity of the binders to similar proteins. Or, the protein was truncated for RFdiffusion, but the entire structure is to be used in AF2 validation.
