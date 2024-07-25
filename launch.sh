@@ -5,10 +5,9 @@
 ### REQUIRED ARGUMENTS
 # $1. input file
 
-set -euo pipefail
-
 input_file=$1
 
+set -euo pipefail
 module load python/3.11.3
 
 echo Launching...
@@ -18,10 +17,8 @@ echo Launching...
     do
 	echo
 	echo $line
-
 	eval python run_pipeline.py $line
 	echo
-
     done
 } < $input_file
 
