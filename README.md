@@ -81,25 +81,17 @@ AF2 predicted structure .pdbs in `<OUTPUT_DIR>/<RUN_NAME>/af2/` can be visualize
 
 # Individual Steps of the Pipeline
 
-The following explains how to run components of the pipeline individually.
+The following explains how to run the individual components of the pipeline. The provided commands submit slurm jobs but the scripts can also be run from an interactive node using bash.
 
 ## RFdiffusion
-#### 1. Get contig
-The contig tells RFdiffusion what section of the target protein to use. To extract the contig for the entire target protein:
-
+#### Without fold conditioning:
 ```
-python scripts/get_contigs.py <PATH_TO_PDB>
+sbatch --gpus 1 --mem 8G --tmp 8G --time=2:00:00 scripts/rfdiffusion.sh <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <OUTPUT_DIR>
 ```
-
-Output contig is printed.
-
-#### 2. Run script
-```
-sbatch --gpus 1 --mem 32G --tmp 32G --time 12:00:00 scripts/rfdiffusion.sh <RUN_NAME> <OUTPUT_DIR> <PATH_TO_PDB> <CONTIG> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS>
-```
-(GPU required, specify more resources as necessary)
 
 Results are output to `<OUTPUT_DIR>/rfdiffusion/`.
+
+For more options and other design tasks, see [https://github.com/RosettaCommons/RFdiffusion](https://github.com/RosettaCommons/RFdiffusion).
 
 ## ProteinMPNN
 Pass the directory of RFdiffusion output PDBs as `<input_dir>`.
