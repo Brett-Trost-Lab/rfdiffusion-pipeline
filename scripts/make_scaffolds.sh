@@ -8,7 +8,7 @@ set -eo pipefail
 # $1: input (can be PDB or directory of PDBs to scaffold)
 # $2: output dir
 
-repo_dir=/hpf/tools/alma8/RFDiffusion/1.1.0/
+RFDIFFUSION_DIR=/hpf/tools/alma8/RFDiffusion/1.1.0/
 
 input=$1
 output_dir=$2
@@ -29,14 +29,14 @@ if [[ -d $input ]]; then
     echo $input is a directory.
     echo Running script...
 
-    $repo_dir/helper_scripts/make_secstruc_adj.py \
+    $RFDIFFUSION_DIR/helper_scripts/make_secstruc_adj.py \
         --pdb_dir $input \
         --out_dir $output_dir    
 
 elif [[ -f $input ]]; then
     echo $input if a file.
 
-    $repo_dir/helper_scripts/make_secstruc_adj.py \
+    $RFDIFFUSION_DIR/helper_scripts/make_secstruc_adj.py \
         --input_pdb $input \
         --out_dir $output_dir
 else
@@ -45,4 +45,3 @@ else
 fi
 
 echo Done.
-
