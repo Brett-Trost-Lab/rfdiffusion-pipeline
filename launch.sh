@@ -1,49 +1,29 @@
 #!/bin/bash
 
-# Launches a series of jobs for RFdiffusion design and validation.
+# Launches a series of jobs for the RFdiffusion pipeline.
 
 ### REQUIRED ARGUMENTS
-# $1. 'input.txt'
+# $1. input file
 
-set -e
+set -euo pipefail
 
-script_dir=$(dirname $(realpath "$0"))
-echo SCRIPT_DIR $script_dir
+input_file=$1
 
-# remove carriage return characters
-tmpfile=$(mktemp)
-sed 's/\r//g' < $1 > $tmpfile
-
-echo input.txt:
-cat $tmpfile
+module load python/3.11.3
 
 echo Launching...
 
 {
-    read  # skip header
-    while read -r run_name path_to_pdb hotspots min_length max_length num_structs seq_per_struct output_dir sbatch_flags || [ -n "$name" ] # iterate through rows
+    while read -r line || [ -n "$line" ] # iterate through rows
     do
 	echo
-        echo RUN_NAME $run_name 
-        echo PDB $path_to_pdb
-        echo HOTSPOTS $hotspots 
-        echo MIN_LENGTH $min_length
-        echo MAX_LENGTH $max_length
-        echo NUM_STRUCTS $num_structs
-        echo SEQ_PER_STRUCT $seq_per_struct 
-        echo OUTPUT_DIR $output_dir
-	echo SBATCH_FLAGS $sbatch_flags
-    
-        command="sbatch --output slurm-$run_name-%j.out --gpus 1 --job-name=$run_name $sbatch_flags $script_dir/scripts/pipeline.sh $script_dir $run_name $path_to_pdb $hotspots $min_length $max_length $num_structs $seq_per_struct $output_dir"
+	echo $line
 
-	echo 
-	echo $command
-
+	eval python run_pipeline.py $line
 	echo
-	$command
 
     done
-} < $tmpfile
+} < $input_file
 
 echo
 echo Done launching.
