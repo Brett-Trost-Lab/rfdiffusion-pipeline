@@ -48,7 +48,7 @@ echo Getting Contig...
 
 module load python/3.11.3
 
-contig=$(python ${pipeline_dir}/helper_scripts/get_contig.py "$path_to_pdb")
+contig=$(python ${pipeline_dir}/scripts/get_contig.py "$path_to_pdb")
 echo Contig $contig
 
 module unload python/3.11.3
@@ -85,7 +85,7 @@ if [ "$scaffold_dir" = "None" ]; then
     
 else
     echo Generating target scaffolds for fold conditioning...
-    bash ${pipeline_dir}/helper_scripts/make_scaffolds.sh "$path_to_pdb" "${output_dir}/target_scaffold/"
+    bash ${pipeline_dir}/scripts/make_scaffolds.sh "$path_to_pdb" "${output_dir}/target_scaffold/"
 
     pdb_name=$(basename -- "$path_to_pdb")
     pdb_name="${pdb_name%.*}"
@@ -162,7 +162,7 @@ module unload dl_binder_design/v1.0.1
 echo
 echo Filtering output scores...
 module load python/3.11.3
-python $pipeline_dir/helper_scripts/filter_output.py ${output_dir}/${run_name}.out.sc
+python $pipeline_dir/scripts/filter_output.py ${output_dir}/${run_name}.out.sc
 
 echo
 echo AF2 time elapsed: $(convert_seconds $SECONDS)
