@@ -30,7 +30,7 @@ def main(args):
     print("output_dir:", output_dir)
     print("scaffold_dir:", scaffold_dir, "\n")
 
-    sbatch_command = f"sbatch {args.sbatch_flags} {PIPELINE_DIR}/scripts/pipeline.sh {PIPELINE_DIR} {args.run_name} {path_to_pdb} {args.hotspots} {min_length} {max_length} {args.num_structs} {args.sequences_per_struct} {output_dir} {scaffold_dir}"
+    sbatch_command = f"sbatch --job-name {args.run_name} --output {output_dir}/{args.run_name}/slurm-{args.run_name}-%j.out {args.sbatch_flags} {PIPELINE_DIR}/scripts/pipeline.sh {PIPELINE_DIR} {args.run_name} {path_to_pdb} {args.hotspots} {min_length} {max_length} {args.num_structs} {args.sequences_per_struct} {output_dir} {scaffold_dir}"
     print(sbatch_command, "\n")
     os.system(sbatch_command)
 
