@@ -2,16 +2,14 @@
 # Make secondary structure and block adjacency pytorch files from a PDB.
 # Used for RFdiffusion fold conditioning.
 
+### REQUIRED POSITIONAL ARGUMENTS
+input=$(realpath $1)  # can be PDB or directory of PDBs to scaffold
+output_dir=$(realpath $2)
+##############################
+
 set -eo pipefail
 
-# REQUIRED ARGUMENTS:
-# $1: input (can be PDB or directory of PDBs to scaffold)
-# $2: output dir
-
 RFDIFFUSION_DIR=/hpf/tools/alma8/RFDiffusion/1.1.0/
-
-input=$1
-output_dir=$2
 
 echo Loading modules...
 module load RFDiffusion/1.1.0
