@@ -51,9 +51,10 @@ optional arguments:
   --output_dir OUTPUT_DIR
                         Output directory (default: current directory)
   --scaffold_dir SCAFFOLD_DIR
-                        Scaffold directory if using fold conditioning. If this
-                        is provided we will ignore min_length and max_length.
-                        (default: None)
+                        Scaffold directory if using fold conditioning. Use
+                        make_scaffold.sh to make binder scaffolds from PDBs.
+                        If this is provided we will ignore min_length and
+                        max_length. (default: None)
   --sbatch_flags SBATCH_FLAGS
                         Flags to pass to sbatch command. GPU is required
                         (default: "-gpus 1 --mem=8G --time=2:00:00")
