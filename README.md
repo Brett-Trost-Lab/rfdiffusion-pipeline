@@ -18,28 +18,59 @@ In this pipeline, *RFdiffusion* designs binders to hotspot residues on the targe
 
 ### Input
 The input parameters to the pipeline are as follows:
-| Parameter | Description | Example | Notes |
-| --- | --- | --- | --- |
-| RUN_NAME | Name of the run | test_run1 | Must be unique. Can have two runs with the same target PDB but different names. |
-| PATH_TO_PDB | Absolute path to target PDB | /home/usr/inputs/target.pdb | Avoid ~, $HOME, .., etc. Note that RFdiffusion can only process standard residues designated ATOM. |
-| HOTSPOTS | Hotspot residues for RFdiffusion | A232,A245,A271 | Comma-separated list of <chain><residue>, no spaces. Use helper scripts to find hydrophobic residues closest to a known ligand or to sample hotspots from a predicted binding site. |
-| MIN_LENGTH | Minimum length for binder (aa) | 40 | |
-| MAX_LENGTH | Maximum length for binder (aa) | 60 | |
-| NUM_STRUCTS | Number of RFdiffusion structures to generate  | 500 | |
-| SEQUENCES_PER_STRUCT | Number of ProteinMPNN sequences to generate for each structure | 2 | |
-| OUTPUT_DIR | Output directory | /home/usr/outputs/ | |
-| SBATCH_FLAGS | Flags to pass to sbatch command | --mem=128G --tmp=128G --time=48:00:00 | See [Slurm HPC Quickstart](https://hpc.ccm.sickkids.ca/w/index.php/Slurm_HPC_Quickstart) for formatting and defaults. `--gpus 1` is already included. |
+```
+usage: run_pipeline.py [-h] [--run_name RUN_NAME] --path_to_pdb PATH_TO_PDB
+                       --hotspots HOTSPOTS [--min_length MIN_LENGTH]
+                       [--max_length MAX_LENGTH] [--num_structs NUM_STRUCTS]
+                       [--sequences_per_struct SEQUENCES_PER_STRUCT]
+                       [--output_dir OUTPUT_DIR] [--scaffold_dir SCAFFOLD_DIR]
+                       [--sbatch_flags SBATCH_FLAGS]
+
+required arguments:
+  --path_to_pdb PATH_TO_PDB
+                        Path to target PDB. Note that RFdiffusion will only
+                        process standard residues designated ATOM.
+  --hotspots HOTSPOTS   Hotspot residues. Comma-separated list of
+                        <chain_id><residue_index>, no spaces e.g.
+                        "A30,A33,A34"
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --run_name RUN_NAME   Name of run. Must be unique as this is used to name
+                        the output files and directory (default: test_run)
+  --min_length MIN_LENGTH
+                        Minimum binder length (default: 50)
+  --max_length MAX_LENGTH
+                        Maximum binder length (default: 90)
+  --num_structs NUM_STRUCTS
+                        Number of RFdiffusion structures to generate (default:
+                        2)
+  --sequences_per_struct SEQUENCES_PER_STRUCT
+                        Number of sequences to generate per structure
+                        (default: 2)
+  --output_dir OUTPUT_DIR
+                        Output directory (default: current directory)
+  --scaffold_dir SCAFFOLD_DIR
+                        Scaffold directory if using fold conditioning. If this
+                        is provided we will ignore min_length and max_length.
+                        (default: None)
+  --sbatch_flags SBATCH_FLAGS
+                        Flags to pass to sbatch command. GPU is required
+                        (default: "-gpus 1 --mem=8G --time=2:00:00")
+```
 
 ### Usage
 #### Single run
 To run one job:
 ```
-sbatch --gpus 1 <SBATCH_FLAGS> scripts/pipeline.sh /path/to/rfdiffusion-pipeline <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <MIN_LENGTH> <MAX_LENGTH> <NUM_STRUCTS> <SEQUENCES_PER_STRUCT> <OUTPUT_DIR>
+srun --pty bash  # enter compute node
+python run_pipeline.py <ARGUMENTS>
 ```
 
 #### Bulk run
-To run multiple jobs at once, specify all input configurations in a single text file, one row per run. This file MUST follow the format provided in `inputs/input.txt` with the headers included. 
+To run multiple jobs at once, specify all arguments in a single text file, one row per run. See `inputs/input.txt` for an example. 
 ```
+srun --pty bash  # enter compute node
 bash launch.sh inputs/input.txt
 ```
 
