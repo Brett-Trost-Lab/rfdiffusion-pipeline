@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -eo pipefail
-
 ### REQUIRED POSITIONAL ARGUMENTS
 run_name=$1
 path_to_pdb=$(realpath $2)
@@ -11,6 +9,8 @@ max_length=$5
 num_structs=$6
 output_dir=$(realpath $7)
 ##############################
+
+set -eo pipefail
 
 RFDIFFUSION_DIR=/hpf/tools/alma8/RFDiffusion/1.1.0/
 
