@@ -105,31 +105,19 @@ For more options and other design tasks, see [https://github.com/RosettaCommons/
 
 ## ProteinMPNN
 Pass the directory of RFdiffusion output PDBs as `<input_dir>`.
-
 ```
-sbatch scripts/proteinmpnn.sh <RUN_NAME> <OUTPUT_DIR> <SEQ_PER_STRUCT> <input_dir>
+sbatch scripts/proteinmpnn.sh <RUN_NAME> <input_dir> <SEQ_PER_STRUCT> <OUTPUT_DIR>
 ```
-(GPU optional, specify more resources as necessary)
-
 Results are output to `<OUTPUT_DIR>/proteinmpnn/`.
 
 ## AlphaFold2
 Pass the directory of ProteinMPNN output PDBs as `<input_dir>`.
-
-#### 1. Run script
 ```
-sbatch --gpus 1 --mem 64G --tmp 64G --time 12:00:00 scripts/af2.sh <RUN_NAME> <OUTPUT_DIR> <input_dir>
+sbatch --gpus 1 --mem 8G --tmp 8G --time 2:00:00 scripts/af2.sh <RUN_NAME> <input_dir> <OUTPUT_DIR>
 ```
-(GPU required, specify more resources as necessary)
+Results are output to `<OUTPUT_DIR>/af2/`.
 
-Results are output to `<OUTPUT_DIR>` and `<OUTPUT_DIR>/af2/`.
-
-#### 2. Sort output
-```
-python scripts/filter_output.py <OUTPUT_DIR>/<RUN_NAME>.out.sc
-```
-
-The sorted text file will be created as `<OUTPUT_DIR>/<RUN_NAME>.out.txt`.
+The sorted score file will be created as `<OUTPUT_DIR>/<RUN_NAME>.out.txt`.
 
 # Additional Functionalities
 
