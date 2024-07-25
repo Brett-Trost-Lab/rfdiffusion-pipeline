@@ -76,6 +76,8 @@ bash launch.sh inputs/input.txt
 ```
 
 ### Output
+Logging will be written in `<OUTPUT_DIR>/<RUN_NAME>/slurm-<RUN_NAME>-<job_id>.out`.
+
 AF2 scores are output to `<OUTPUT_DIR>/<RUN_NAME>/<RUN_NAME>.out.txt`, sorted from best to worst design. The `successful` column indicates whether the design passed all three criteria (`pae_interaction` < 10, `plddt_binder` > 80, `binder_aligned_rmsd` < 1).
 
 AF2 predicted structure .pdbs in `<OUTPUT_DIR>/<RUN_NAME>/af2/` can be visualized and compared with their respective RFdiffusion designs in `<OUTPUT_DIR>/<RUN_NAME>/rfdiffusion/`.
