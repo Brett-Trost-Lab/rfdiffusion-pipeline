@@ -11,7 +11,7 @@ set -eo pipefail
 
 RFDIFFUSION_DIR=/hpf/tools/alma8/RFDiffusion/1.1.0/
 
-echo Loading modules...
+echo Loading module...
 module load RFDiffusion/1.1.0
 
 echo Activating conda...
@@ -32,7 +32,7 @@ if [[ -d $input ]]; then
         --out_dir $output_dir    
 
 elif [[ -f $input ]]; then
-    echo $input if a file.
+    echo $input is a file.
 
     $RFDIFFUSION_DIR/helper_scripts/make_secstruc_adj.py \
         --input_pdb $input \
