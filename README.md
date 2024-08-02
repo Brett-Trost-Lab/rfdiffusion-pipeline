@@ -17,13 +17,14 @@ In this pipeline, *RFdiffusion* designs binders to hotspot residues on the targe
 3. **binder_aligned_rmsd < 1**: similarity between RFdiffusion and AF2 binder structures
 
 ### Input
-The input parameters to the pipeline are as follows:
+The input arguments to the pipeline are as follows:
 ```
 usage: run_pipeline.py [-h] [--run_name RUN_NAME] --path_to_pdb PATH_TO_PDB
                        --hotspots HOTSPOTS [--min_length MIN_LENGTH]
                        [--max_length MAX_LENGTH] [--num_structs NUM_STRUCTS]
                        [--sequences_per_struct SEQUENCES_PER_STRUCT]
-                       [--output_dir OUTPUT_DIR] [--scaffold_dir SCAFFOLD_DIR]
+                       [--min_helices MIN_HELICES] [--output_dir OUTPUT_DIR]
+                       [--scaffold_dir SCAFFOLD_DIR]
                        [--sbatch_flags SBATCH_FLAGS]
 
 required arguments:
@@ -48,13 +49,17 @@ optional arguments:
   --sequences_per_struct SEQUENCES_PER_STRUCT
                         Number of sequences to generate per structure
                         (default: 2)
+  --min_helices MIN_HELICES
+                        Minimum number of helices for the binders. Note that
+                        this is coded as a filtering step after RFdiffusion so
+                        it would take extra time (default: None)
   --output_dir OUTPUT_DIR
                         Output directory (default: current directory)
   --scaffold_dir SCAFFOLD_DIR
                         Scaffold directory if using fold conditioning. Use
                         make_scaffold.sh to make binder scaffolds from PDBs.
-                        If this is provided we will ignore min_length and
-                        max_length. (default: None)
+                        If this is provided we will ignore min_length,
+                        max_length, and min_helices (default: None)
   --sbatch_flags SBATCH_FLAGS
                         Flags to pass to sbatch command. GPU is required
                         (default: "-gpus 1 --mem=8G --time=2:00:00")
