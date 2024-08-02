@@ -179,6 +179,15 @@ sbatch helper_scripts/p2rank.sh <input_pdb> <output_dir>
 
 Predicted pockets will be output in order of confidence to `output_dir/<pdb_name>.pdb_predictions.csv`. Pockets and residues can be viewed by downloading and opening `output_dir/visualizations/`.
 
+## Filter Binders by Number of Helical Bundles
+The *RFdiffusion* authors did not order any binder designs with two helices or fewer. These do not form a well-packed protein core and are therefore unlikely to express in solution. We developed functionality for filtering binders by a minimum number of helices. This can be applied directly after RFdiffusion (so that the binder is not passed through ProteinMPNN and AlphaFold2) or after AlphaFold2.
+
+```
+bash helper_scripts/filter_binders.sh <pdb_dir> <min_helices>
+```
+
+Binders that don't meet the threshold will be moved to a subdirectory within `<pdb_dir>`.
+
 ## Mix and Match Binders
 You may be interested in designing binders to one target protein, but validating them on another. This could be to analyze the specificity of the binders to similar proteins. Or, the protein was truncated for RFdiffusion, but the entire structure is to be used in AF2 validation.
 
