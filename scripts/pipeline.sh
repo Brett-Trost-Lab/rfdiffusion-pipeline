@@ -23,8 +23,9 @@ min_length=$5
 max_length=$6
 num_structs=$7
 seq_per_struct=$8
-output_dir="$9/${run_name}/"
-scaffold_dir="${10}"
+min_helices=$9
+output_dir="${10}/${run_name}/"
+scaffold_dir="${11}"
 
 echo PIPELINE_DIR $pipeline_dir
 echo RUN_NAME $run_name
@@ -34,8 +35,10 @@ echo MIN_LENGTH $min_length
 echo MAX_LENGTH $max_length
 echo NUM_STRUCTS $num_structs
 echo SEQ_PER_STRUCT $seq_per_struct
+echo MIN_HELICES $min_helices
 echo OUTPUT_DIR $output_dir
 echo SCAFFOLD_DIR $scaffold_dir
+
 
 echo
 echo STEP 0: Data Preparation
@@ -57,6 +60,7 @@ echo
 echo Data prep time elapsed: $(convert_seconds $SECONDS)
 total_seconds=$((total_seconds+SECONDS))
 SECONDS=0
+
 
 echo
 echo STEP 1: RFDiffusion
@@ -114,19 +118,64 @@ else
 
 fi
 
-conda deactivate
-module unload RFDiffusion/1.1.0
-
 echo
 echo RFDiffusion time elapsed: $(convert_seconds $SECONDS)
 total_seconds=$((total_seconds+SECONDS))
 SECONDS=0
 
-echo
-echo STEP 2: ProteinMPNN
+conda deactivate
+module unload RFDiffusion/1.1.0
 
+echo
 echo Loading module...
 module load dl_binder_design/v1.0.1
+
+echo
+echo Filtering by number of helices...
+if [ "$min_helices" -gt 1 ]; then
+
+    echo
+    echo Isolating binders from their PDB complexes...
+    python $pipeline_dir/scripts/isolate_binders.py $output_dir/rfdiffusion/ $output_dir/rfdiffusion/binders_only/
+
+    echo
+    echo Making binder secondary structures...
+    python $pipeline_dir/scripts/make_secstruc.py \
+        --pdb_dir $output_dir/rfdiffusion/binders_only/ \
+	--out_dir $output_dir/rfdiffusion/binders_only/sec_structs/
+
+    mkdir -p $output_dir/rfdiffusion/below_threshold/
+    
+    for design in $output_dir/rfdiffusion/*.pdb; do
+        design_name=$(basename "${design%.pdb}")
+
+        echo
+        echo Design $design_name
+
+        binder_pdb=$output_dir/rfdiffusion/binders_only/${design_name}_binder.pdb
+        ss_file=$output_dir/rfdiffusion/binders_only/sec_structs/${design_name}_binder_ss.pt
+    
+        if [ -f $ss_file ] && [ -f $binder_pdb ]; then
+	    echo Sec struct file $ss_file
+ 	    num_helices=$(python $pipeline_dir/scripts/count_helices.py $ss_file)
+	    echo Number of helices: $num_helices
+
+	    if [ "$num_helices" -lt "$min_helices" ]; then
+	        echo Does not pass threshold. Moving design to $output_dir/rfdiffusion/below_threshold/
+	        mv $output_dir/rfdiffusion/$design_name.* $binder_pdb $output_dir/rfdiffusion/below_threshold/
+	    fi
+
+        else
+	    echo Sec struct file does not exist.
+        fi
+    done
+
+else
+    echo No filtering.
+fi
+
+echo
+echo STEP 2: ProteinMPNN
 
 echo Running ProteinMPNN...
 
@@ -142,6 +191,7 @@ echo
 echo ProteinMPNN time elapsed: $(convert_seconds $SECONDS)
 total_seconds=$((total_seconds+SECONDS))
 SECONDS=0
+
 
 echo
 echo STEP 3: AlphaFold2

@@ -28,14 +28,6 @@ if [ -z "${min_helices}" ]; then
     exit 125
 fi
 
-echo
-echo Loading module...
-module load RFDiffusion/1.1.0
-
-echo Activating conda...
-eval "$(conda shell.bash hook)"
-conda activate /hpf/tools/centos7/miniforge/3/envs/SE3nv
-
 echo Loading module with pyrosetta...
 module load dl_binder_design/v1.0.1
 
@@ -70,7 +62,7 @@ for design in $pdb_dir/*.pdb; do
 
 	if [ "$num_helices" -lt "$min_helices" ]; then
 	    echo Does not pass threshold. Moving design to $pdb_dir/below_threshold/
-	    mv $design $binder_pdb $pdb_dir/below_threshold/
+	    mv $pdb_dir/$design_name.* $binder_pdb $pdb_dir/below_threshold/
 	fi
 
     else
