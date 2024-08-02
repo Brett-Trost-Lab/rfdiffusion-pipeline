@@ -192,4 +192,5 @@ bash helper_scripts/isolate_successful.sh <.out.txt> <folder_with_all_pdbs> <new
 
 # Troubleshooting
 
-* **Struct with tag <SAMETAG> failed in 0 seconds with error: <class 'EXCEPTION'>:** See [dl_binder_design: Troubleshooting](https://github.com/nrbennet/dl_binder_design?tab=readme-ov-file#troubleshooting-)
+* **Activating conda... ModuleNotFoundError: No module named 'MODULE':** The conda environment required for the script may be conflicting with your local conda environment. To unreference your local conda environment, remove the `>>> conda initialize <<<` portion of your `.bashrc` file.
+* **Struct with tag 'SAMETAG' failed in 0 seconds with error: <class 'EXCEPTION'>:** See [dl_binder_design: Troubleshooting](https://github.com/nrbennet/dl_binder_design?tab=readme-ov-file#troubleshooting-)
