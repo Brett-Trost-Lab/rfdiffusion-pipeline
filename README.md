@@ -185,8 +185,9 @@ The *RFdiffusion* authors did not order any binder designs with two helical bund
 
 ```
 srun --pty bash  # enter compute node
-bash helper_scripts/filter_binders.sh <pdb_dir> <min_helices>
+sbatch --time=2:00:00 helper_scripts/filter_binders.sh <pdb_dir> <min_helices>
 ```
+Takes about 45 minutes for 1000 binders.
 
 Binders that don't meet the threshold will be moved to a subdirectory within `<pdb_dir>`.
 
