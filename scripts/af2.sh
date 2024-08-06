@@ -11,7 +11,7 @@ set -eo pipefail
 DL_BINDER_DESIGN_DIR=/hpf/tools/alma8/dl_binder_design/v1.0.1/base_dir/
 
 # get path to pipeline directory
-if [ -n "${SLURM_JOB_ID:-}" ]; then  # slurm job
+if [ -n "${SLURM_JOB_ID:-}" ] && [ "${SLURM_JOB_RESERVATION}" != "interactive" ]; then  # slurm job
     script_path=$(scontrol show job "$SLURM_JOB_ID" | awk -F= '/Command=/{print $2}')
 else  # started with bash
     script_path=$(realpath "$0")
