@@ -17,9 +17,14 @@ set -eo pipefail
 RFDIFFUSION_DIR=/hpf/tools/alma8/RFDiffusion/1.1.0/
 
 # get path to pipeline directory
-if [ -n "${SLURM_JOB_ID:-}" ] && [ "${SLURM_JOB_RESERVATION}" != "interactive" ]; then  # slurm job
-    script_path=$(scontrol show job "$SLURM_JOB_ID" | awk -F= '/Command=/{print $2}')
-else  # started with bash
+if [ -n "${SLURM_JOB_ID:-}" ]; then  # job
+    batch_job=$(scontrol show job ${SLURM_JOB_ID} | grep BatchFlag | awk -F "BatchFlag=" '{print $2}' | awk '{print $1}')
+    if [ "${batch_job}" = "1" ]; then  # batch job
+        script_path=$(scontrol show job "$SLURM_JOB_ID" | awk -F= '/Command=/{print $2}')
+    else  # interactive shell
+        script_path=$(realpath "$0")
+    fi
+else
     script_path=$(realpath "$0")
 fi
 
