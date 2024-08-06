@@ -51,15 +51,15 @@ optional arguments:
                         (default: 2)
   --min_helices MIN_HELICES
                         Minimum number of helices for the binders. Note that
-                        this is coded as a filtering step after RFdiffusion so
-                        it would take extra time (default: None)
+                        this is coded as a filtering step after RFdiffusion
+                        (default: None)
   --output_dir OUTPUT_DIR
                         Output directory (default: current directory)
   --scaffold_dir SCAFFOLD_DIR
                         Scaffold directory if using fold conditioning. Use
                         make_scaffold.sh to make binder scaffolds from PDBs.
-                        If this is provided we will ignore min_length,
-                        max_length, and min_helices (default: None)
+                        If this is provided we will ignore min_length and
+                        max_length (default: None)
   --sbatch_flags SBATCH_FLAGS
                         Flags to pass to sbatch command. GPU is required
                         (default: "-gpus 1 --mem=8G --time=2:00:00")
