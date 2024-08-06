@@ -48,7 +48,7 @@ if __name__ == "__main__":
     optional.add_argument("--max_length", type=int, default=90, help="Maximum binder length (default: 90)")
     optional.add_argument("--num_structs", type=int, default=2, help="Number of RFdiffusion structures to generate (default: 2)")
     optional.add_argument("--sequences_per_struct", type=int, default=2, help="Number of sequences to generate per structure (default: 2)")
-    optional.add_argument("--min_helices", type=int, default=1, help="Minimum number of helices for the binders. Note that this is coded as a filtering step after RFdiffusion so it would take extra time (default: None)")
+    optional.add_argument("--min_helices", type=int, default=1, help="Minimum number of helices for the binders. Note that this is coded as a filtering step after RFdiffusion (default: None)")
     optional.add_argument("--output_dir", type=str, default=".", help="Output directory (default: current directory)")
     optional.add_argument("--scaffold_dir", type=str, help="Scaffold directory if using fold conditioning. Use make_scaffold.sh to make binder scaffolds from PDBs. If this is provided we will ignore min_length and max_length (default: None)")
     optional.add_argument("--sbatch_flags", default="-G 1 --mem=8G --time=2:00:00", help='Flags to pass to sbatch command. GPU is required (default: "-gpus 1 --mem=8G --time=2:00:00")')
