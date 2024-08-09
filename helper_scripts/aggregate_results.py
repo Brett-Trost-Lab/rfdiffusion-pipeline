@@ -13,6 +13,7 @@ def main(args):
 
     input_dirs = args.input_dir
     max_designs = sys.maxsize if args.max_designs is None else args.max_designs
+    copy_designs = args.copy_designs
     non_distinct = args.non_distinct
     include_failed = args.include_failed
     output_dir = os.path.abspath(args.output_dir)
@@ -72,16 +73,18 @@ def main(args):
                     ascending=[False, True, False, True], \
                     inplace=True)
     
-    pathlib.Path(output_dir + '/aggregate_designs/').mkdir(parents=True, exist_ok=True)
+    pathlib.Path(output_dir).mkdir(parents=True, exist_ok=True)
 
-    def copy_file(row):
-        source = row['directory'] + '/' + row['description'] + '.pdb'
-        destination = output_dir + '/aggregate_designs/' + row['description'] + '.pdb'
-        
-        print('\nCopying', source, 'to', output_dir + '/aggregate_designs/')
-        shutil.copyfile(source, destination)
-    
-    df.apply(copy_file, axis=1)
+    if copy_designs:
+        pathlib.Path(output_dir + '/aggregate_designs/').mkdir(parents=True, exist_ok=True)
+        def copy_file(row):
+            source = row['directory'] + '/' + row['description'] + '.pdb'
+            destination = output_dir + '/aggregate_designs/' + row['description'] + '.pdb'
+
+            print('\nCopying', source, 'to', output_dir + '/aggregate_designs/')
+            shutil.copyfile(source, destination)
+            
+        df.apply(copy_file, axis=1)
 
     # create output file
     output_file = output_dir + '/' + 'scores.out.txt'
@@ -94,6 +97,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-i", "--input_dir", type=str, action='append', required=True, help="Output directory of RFdiffusion pipeline. Use this flag multiple times, once for each directory (required)")
     parser.add_argument("--max_designs", type=int, default=None, help="Maximum number of designs to aggregate (default: None)")
+    parser.add_argument("--copy_designs", action='store_true', help="Copy designs to a new directory")
     parser.add_argument("--non_distinct", action='store_true', help="Do not filter for distinct binders")
     parser.add_argument("--include_failed", action='store_true', help="Include failed designs")
     parser.add_argument("--output_dir", type=str, default='.', help="Directory to move successful designs to and create output file (default: current directory)")
