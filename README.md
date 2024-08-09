@@ -228,7 +228,7 @@ options:
                         current directory)
 ```
 
-Example:
+This creates a new, sorted `<.out.txt>` file and copies all successful AF2 designs into `<output_dir>/aggregate_designs/`. Example:
 ```
 python helper_scripts/aggregate_results.py -i outdir/test_run1 -i outdir/test_run2 --max_designs 200
 ```
