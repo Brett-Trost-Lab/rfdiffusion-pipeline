@@ -211,8 +211,8 @@ bash helper_scripts/isolate_successful.sh <.out.txt> <folder_with_all_pdbs> <new
 Aggregates the results from multiple runs. Usage:
 
 ```
-usage: aggregate_results.py [-h] -i INPUT_DIR [--max_designs MAX_DESIGNS] [--non_distinct]
-                            [--include_failed] [--output_dir OUTPUT_DIR]
+usage: aggregate_results.py [-h] -i INPUT_DIR [--max_designs MAX_DESIGNS] [--copy_designs]
+                            [--non_distinct] [--include_failed] [--output_dir OUTPUT_DIR]
 
 options:
   -h, --help            show this help message and exit
@@ -221,6 +221,7 @@ options:
                         once for each directory (required)
   --max_designs MAX_DESIGNS
                         Maximum number of designs to aggregate (default: None)
+  --copy_designs        Copy designs to a new directory
   --non_distinct        Do not filter for distinct binders
   --include_failed      Include failed designs
   --output_dir OUTPUT_DIR
@@ -228,9 +229,9 @@ options:
                         current directory)
 ```
 
-This creates a new, sorted `<.out.txt>` file and copies all successful AF2 designs into `<output_dir>/aggregate_designs/`. Example:
+This creates a new, sorted `<.out.txt>` file. Optionally copies all successful AF2 designs into `<output_dir>/aggregate_designs/`. Example:
 ```
-python helper_scripts/aggregate_results.py -i outdir/test_run1 -i outdir/test_run2 --max_designs 200
+python helper_scripts/aggregate_results.py -i outdir/test_run1 -i outdir/test_run2 --max_designs 200 --copy_designs
 ```
 
 # Troubleshooting
