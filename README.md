@@ -207,6 +207,32 @@ Given the `.out.txt` file, you may wish to move all successful PDBs into their o
 bash helper_scripts/isolate_successful.sh <.out.txt> <folder_with_all_pdbs> <new_folder_for_successful_pdbs_only>
 ```
 
+## Aggregate Results
+Aggregates the results from multiple runs. Usage:
+
+```
+usage: aggregate_results.py [-h] -i INPUT_DIR [--max_designs MAX_DESIGNS] [--non_distinct]
+                            [--include_failed] [--output_dir OUTPUT_DIR]
+
+options:
+  -h, --help            show this help message and exit
+  -i INPUT_DIR, --input_dir INPUT_DIR
+                        Output directory of RFdiffusion pipeline. Use this flag multiple times,
+                        once for each directory (required)
+  --max_designs MAX_DESIGNS
+                        Maximum number of designs to aggregate (default: None)
+  --non_distinct        Do not filter for distinct binders
+  --include_failed      Include failed designs
+  --output_dir OUTPUT_DIR
+                        Directory to move successful designs to and create output file (default:
+                        current directory)
+```
+
+Example:
+```
+python helper_scripts/aggregate_results.py -i outdir/test_run1 -i outdir/test_run2 --max_designs 200
+```
+
 # Troubleshooting
 
 * **Activating conda... ModuleNotFoundError: No module named 'MODULE':** The conda environment required for the script may be conflicting with your local conda environment. To unreference your local conda environment, remove the `>>> conda initialize <<<` portion of your `.bashrc` file.
