@@ -238,7 +238,7 @@ To quickly get all folders in a directory, use this bash command to create a str
 ```
 dirs=""
 for dir in *; do
-    dirs+=" -i ${dir}",
+    dirs+=" -i ${dir}"
 done
 echo $dirs
 ```
