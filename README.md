@@ -234,6 +234,15 @@ This creates a new, sorted `<.out.txt>` file. Optionally copies all successful A
 python helper_scripts/aggregate_results.py -i outdir/test_run1 -i outdir/test_run2 --max_designs 200 --copy_designs
 ```
 
+To quickly get all folders in a directory, use this bash command to create a string:
+```
+dirs=""
+for dir in *; do
+    dirs+=" -i ${dir}"
+done
+echo $dirs
+```
+
 # Troubleshooting
 
 * **Activating conda... ModuleNotFoundError: No module named 'MODULE':** The conda environment required for the script may be conflicting with your local conda environment. To unreference your local conda environment, remove the `>>> conda initialize <<<` portion of your `.bashrc` file.
