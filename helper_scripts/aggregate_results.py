@@ -62,7 +62,12 @@ def main(args):
 
             # filter for distinct designs
             if not non_distinct:
-                df['struct'] = df['description'].str.split('_').apply(lambda x: int(x[-4]))
+                def get_struct(description):
+                    parts = description.rsplit('_', 4)
+                    struct = '_'.join(parts[:-1])
+                    return struct
+
+                df['struct'] = df['description'].apply(lambda x: get_struct(x))
                 df.drop_duplicates('struct', keep='first', inplace=True)
                 df.drop('struct', axis=1, inplace=True)
 
