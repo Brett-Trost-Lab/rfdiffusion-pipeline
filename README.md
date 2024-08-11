@@ -237,9 +237,10 @@ python helper_scripts/aggregate_results.py -i outdir/test_run1 -i outdir/test_ru
 To quickly get all folders in a directory, use this bash command to create a string:
 ```
 dirs=""
-for dir in .; do
+for dir in *; do
     dirs+=" -i ${dir}",
 done
+echo $dirs
 ```
 
 # Troubleshooting
