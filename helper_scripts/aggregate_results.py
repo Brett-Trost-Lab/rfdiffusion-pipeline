@@ -47,11 +47,11 @@ def main(args):
             
             df = pd.read_csv(out_txt, sep='\t')
             
-            if df.empty:
-                continue
-
             if not include_failed:
                 df = df[df['successful'] == True]
+
+            if df.empty:
+                continue
 
             df = df[['description', 'pae_interaction', 'plddt_binder', 'binder_aligned_rmsd', 'successful']]
             df['directory'] = input_dir + '/af2/'
