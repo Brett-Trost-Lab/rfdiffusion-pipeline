@@ -63,12 +63,13 @@ def main(args):
             # filter for distinct designs
             if not non_distinct:
                 def get_struct(description):
-                    parts = description.rsplit('_', 4)
-                    struct = '_'.join(parts[:-1])
+                    parts = description.split('_')
+                    struct = '_'.join(parts[:-2])
                     return struct
 
                 df['struct'] = df['description'].apply(lambda x: get_struct(x))
                 df.drop_duplicates('struct', keep='first', inplace=True)
+                print(df['struct'])
                 df.drop('struct', axis=1, inplace=True)
 
             list_of_dfs.append(df)
