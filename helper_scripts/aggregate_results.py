@@ -69,7 +69,6 @@ def main(args):
 
                 df['struct'] = df['description'].apply(lambda x: get_struct(x))
                 df.drop_duplicates('struct', keep='first', inplace=True)
-                print(df['struct'])
                 df.drop('struct', axis=1, inplace=True)
 
             list_of_dfs.append(df)
