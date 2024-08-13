@@ -180,6 +180,12 @@ bash helper_scripts/p2rank.sh <input_pdb> <output_dir>
 
 Predicted pockets will be output in order of confidence to `output_dir/<pdb_name>.pdb_predictions.csv`. Pockets and residues can be viewed by downloading and opening `output_dir/visualizations/`.
 
+## Isolate Successful Designs
+Given the `.out.txt` file, you may wish to move all successful PDBs into their own directory. This can be done for either ProteinMPNN-generated PDBs (to validate the successful sequences on another target, for example) or to isolate the successful AF2 reconstructed designs.
+
+```
+bash helper_scripts/isolate_successful.sh <.out.txt> <folder_with_all_pdbs> <new_folder_for_successful_pdbs_only>
+```
 
 ## Mix and Match Binders
 You may be interested in designing binders to one target protein, but validating them on another. This could be to analyze the specificity of the binders to similar proteins. Or, the protein was truncated for RFdiffusion, but the entire structure is to be used in AF2 validation.
@@ -188,13 +194,6 @@ The script below takes designed binders from ProteinMPNN-generated PDBs and adds
 
 ```
 python helper_scripts/integrate_binders.py <old_target_proteinmpnn_outdir> <path_to_new_target_pdb> <new_output_dir>
-```
-
-## Isolate Successful Designs
-Given the `.out.txt` file, you may wish to move all successful PDBs into their own directory. This can be done for either ProteinMPNN-generated PDBs (to validate the successful sequences on another target, for example) or to isolate the successful AF2 reconstructed designs.
-
-```
-bash helper_scripts/isolate_successful.sh <.out.txt> <folder_with_all_pdbs> <new_folder_for_successful_pdbs_only>
 ```
 
 ## Filter by Number of Helices
