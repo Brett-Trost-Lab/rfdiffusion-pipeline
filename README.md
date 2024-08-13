@@ -213,7 +213,7 @@ To filter out binders not within a certain range:
 
 ```
 srun --pty bash  # enter compute node
-python helper_scripts/filter_binder_length.sh <pdb_dir> <min_length> <max_length>
+python helper_scripts/filter_binder_length.py <pdb_dir> <min_length> <max_length>
 ```
 Binders shorter than `<min_length>` or longer than `<max_length>` will be moved to a subdirectory within `<pdb_dir>`.
 
@@ -252,6 +252,14 @@ for dir in *; do
 done
 echo $dirs
 ```
+
+## Extract Binder Sequences
+```
+srun --pty bash  # enter compute node
+python helper_scripts/pdb_to_sequence.py <pdb_dir> <out_txt>
+```
+Binder sequences will be output to `<sequences.txt>`.
+
 
 # Troubleshooting
 
