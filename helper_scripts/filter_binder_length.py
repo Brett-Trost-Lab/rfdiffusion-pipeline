@@ -3,19 +3,18 @@ Given a directory of PDB complexes, get the length of the binders (chain A).
 Move binders outside of the given range to a different directory.
 
 argv[1]: input PDB dir
-argv[2]: output dir
-argv[3]: minimum binder length
-argv[4]: maximum binder length
+argv[2]: minimum binder length
+argv[3]: maximum binder length
 """
 
 import os
 import sys
 import shutil
+from pathlib import Path
 
 input_dir = sys.argv[1]
-output_dir = sys.argv[2]
-min_length = int(sys.argv[3])
-max_length = int(sys.argv[4])
+min_length = int(sys.argv[2])
+max_length = int(sys.argv[3])
 
 def extract_chain_length(pdb_file, chain_id='A'):
     with open(pdb_file, 'r') as file:
@@ -30,6 +29,10 @@ def extract_chain_length(pdb_file, chain_id='A'):
     return len(residues)
 
 def main():
+
+    destination = input_dir + '/outside_length_range/'
+    Path(destination).mkdir(parents=True, exist_ok=True)
+
     for file_name in os.listdir(input_dir):
         if file_name.endswith('.pdb'):
             pdb_path = os.path.join(input_dir, file_name)
@@ -38,8 +41,8 @@ def main():
                 print(f"{file_name}\t{binder_length}")
 
                 if binder_length < min_length or binder_length > max_length:
-                    print(f"Exceeds range, moving to {output_dir}\n")
-                    shutil.move(pdb_path, output_dir)
+                    print(f"Exceeds range, moving to {destination}\n")
+                    shutil.move(pdb_path, destination)
 
             except ValueError as e:
                 print("Error processing {}: {}".format(file_name, e))
