@@ -180,16 +180,6 @@ bash helper_scripts/p2rank.sh <input_pdb> <output_dir>
 
 Predicted pockets will be output in order of confidence to `output_dir/<pdb_name>.pdb_predictions.csv`. Pockets and residues can be viewed by downloading and opening `output_dir/visualizations/`.
 
-## Filter by Number of Helices
-The *RFdiffusion* authors did not order any binder designs with two helical bundles or fewer. These do not form a well-packed protein core and are therefore unlikely to express in solution. We developed functionality for filtering binders by a minimum number of helices. This can be applied directly after RFdiffusion (so that the binder is not passed through ProteinMPNN and AlphaFold2) or after AlphaFold2.
-
-```
-srun --pty bash  # enter compute node
-sbatch --time=2:00:00 helper_scripts/filter_helices.sh <pdb_dir> <min_helices>
-```
-Takes about 45 minutes for 1000 binders.
-
-Binders that don't meet the threshold will be moved to a subdirectory within `<pdb_dir>`.
 
 ## Mix and Match Binders
 You may be interested in designing binders to one target protein, but validating them on another. This could be to analyze the specificity of the binders to similar proteins. Or, the protein was truncated for RFdiffusion, but the entire structure is to be used in AF2 validation.
@@ -206,6 +196,26 @@ Given the `.out.txt` file, you may wish to move all successful PDBs into their o
 ```
 bash helper_scripts/isolate_successful.sh <.out.txt> <folder_with_all_pdbs> <new_folder_for_successful_pdbs_only>
 ```
+
+## Filter by Number of Helices
+The *RFdiffusion* authors did not order any binder designs with two helical bundles or fewer. These do not form a well-packed protein core and are therefore unlikely to express in solution. We developed functionality for filtering binders by a minimum number of helices. This can be applied directly after RFdiffusion (so that the binder is not passed through ProteinMPNN and AlphaFold2) or after AlphaFold2.
+
+```
+srun --pty bash  # enter compute node
+sbatch --time=2:00:00 helper_scripts/filter_helices.sh <pdb_dir> <min_helices>
+```
+Takes about 45 minutes for 1000 binders.
+
+Binders that don't meet the threshold will be moved to a subdirectory within `<pdb_dir>`.
+
+## Filter by Binder Length
+To filter out binders not within a certain range:
+
+```
+srun --pty bash  # enter compute node
+python helper_scripts/filter_binder_length.sh <pdb_dir> <min_length> <max_length>
+```
+Binders shorter than `<min_length>` or longer than `<max_length>` will be moved to a subdirectory within `<pdb_dir>`.
 
 ## Aggregate Results
 Aggregates the results from multiple runs. Usage:
