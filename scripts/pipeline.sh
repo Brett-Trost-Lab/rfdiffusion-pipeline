@@ -89,7 +89,10 @@ if [ "$scaffold_dir" = "None" ]; then
     
 else
     echo Generating target scaffolds for fold conditioning...
-    bash ${pipeline_dir}/scripts/make_scaffolds.sh "$path_to_pdb" "${output_dir}/target_scaffold/"
+    
+    $RFDIFFUSION_DIR/helper_scripts/make_secstruc_adj.py \
+        --input_pdb $path_to_pdb \
+        --out_dir "${output_dir}/target_scaffold/"
 
     pdb_name=$(basename -- "$path_to_pdb")
     pdb_name="${pdb_name%.*}"

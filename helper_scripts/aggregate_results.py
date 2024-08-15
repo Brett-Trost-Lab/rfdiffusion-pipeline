@@ -22,9 +22,10 @@ def main(args):
         num_designs = None
 
     print('\nInput directories:', input_dirs)
-    print('Include failed:', include_failed)
+    print('Copy designs:', copy_designs)
     print('Max designs:', max_designs)
     print('Non distinct:', non_distinct)
+    print('Include failed:', include_failed)
     print('Output directory:', output_dir)
 
     # create aggregated out_txt

@@ -18,9 +18,6 @@ echo Activating conda...
 eval "$(conda shell.bash hook)"
 conda activate /hpf/tools/centos7/miniforge/3/envs/SE3nv
 
-echo Loading module with pyrosetta...
-module load dl_binder_design/v1.0.1
-
 # check if input is a directory or single file
 
 if [[ -d $input ]]; then
