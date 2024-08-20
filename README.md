@@ -20,6 +20,9 @@ In 2023, the Baker Lab published [RFdiffusion](https://github.com/RosettaCommons
   - [Filter by Binder Length](#filter-by-binder-length)
   - [Aggregate Results](#aggregate-results)
   - [Extract Binder Sequences](#extract-binder-sequences)
+- [Troubleshooting](#troubleshooting)
+
+----
   
 # Automated Pipeline
 
@@ -106,6 +109,8 @@ AF2 scores are output to `<OUTPUT_DIR>/<RUN_NAME>/<RUN_NAME>.out.txt`, sorted fr
 
 AF2 predicted structure .pdbs in `<OUTPUT_DIR>/<RUN_NAME>/af2/` can be visualized and compared with their respective RFdiffusion designs in `<OUTPUT_DIR>/<RUN_NAME>/rfdiffusion/`.
 
+----
+
 # Individual Steps of the Pipeline
 
 The following explains how to run the individual components of the pipeline. The provided commands submit slurm jobs but the scripts can also be run from an interactive node using bash.
@@ -145,6 +150,8 @@ sbatch --gpus 1 --mem 8G --tmp 8G --time 2:00:00 scripts/af2.sh <RUN_NAME> <inpu
 Results are output to `<OUTPUT_DIR>/af2/`.
 
 The sorted score file will be created as `<OUTPUT_DIR>/<RUN_NAME>.out.txt`.
+
+----
 
 # Additional Functionalities
 
@@ -261,6 +268,7 @@ python helper_scripts/pdb_to_sequence.py <pdb_dir> <out_txt>
 ```
 Binder sequences will be output to `<sequences.txt>`.
 
+----
 
 # Troubleshooting
 
