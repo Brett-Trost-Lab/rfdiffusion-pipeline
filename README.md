@@ -2,7 +2,7 @@
 
 In 2023, the Baker Lab published [RFdiffusion](https://github.com/RosettaCommons/RFdiffusion), a deep-learning framework for *de novo* protein design. Using [ProteinMPNN and AlphaFold2](https://github.com/nrbennet/dl_binder_design) for validation, the authors demonstrated RFdiffusion's ability to tackle a diverse range of design challenges, including the successful generation of high-affinity binders to desired target proteins.
 
-# Automated Validation Pipeline
+# Automated Pipeline
 
 A collection of scripts that automates the validation process of **RFdiffusion &#8594; ProteinMPNN &#8594; AlphaFold2 (AF2)**. Developed specifically for protein binder design on the SickKids High-Performance Computing (HPC) cluster.
 
