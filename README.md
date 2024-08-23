@@ -125,7 +125,7 @@ sbatch --gpus 1 --mem 8G --tmp 8G --time=2:00:00 scripts/rfdiffusion.sh <RUN_NAM
 This feature allows you to prespecify desired topologies for your binders. This is done by passing information from other PDBs with those desired topologies, which will act as scaffolds.
 ```
 # make binder scaffolds if not already made
-sbatch scripts/make_scaffolds.sh <INPUT_PDBS> <SCAFFOLD_DIR>
+sbatch helper_scripts/make_scaffolds.sh <INPUT_PDBS> <SCAFFOLD_DIR>
 
 # run script
 sbatch --gpus 1 --mem 8G --tmp 8G --time=2:00:00 scripts/fold_conditioning.sh <RUN_NAME> <PATH_TO_PDB> <HOTSPOTS> <NUM_STRUCTS> <OUTPUT_DIR> <SCAFFOLD_DIR>
