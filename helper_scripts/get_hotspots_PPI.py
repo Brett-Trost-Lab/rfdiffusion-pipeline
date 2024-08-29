@@ -64,10 +64,7 @@ def main():
     target_structure = parser.get_structure('target', target_pdb)
     ligand_structure = parser.get_structure('ligand', ligand_pdb)
     
-    print('get beta carbons target')
     target_atoms = get_beta_carbons(target_structure)
-
-    print('get beta carbons ligand')
     ligand_atoms = get_beta_carbons(ligand_structure)
     
     distances = calculate_distances(target_atoms, ligand_atoms)
