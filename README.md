@@ -15,7 +15,7 @@ In 2023, the Baker Lab published [RFdiffusion](https://github.com/RosettaCommons
 - [Additional Functionalities](#additional-functionalities)
   - [Selecting Hotspot Residues](#selecting-hotspot-residues)
   - [Isolate Successful Designs](#isolate-successful-designs)
-  - [Mix and Match Binders](#mix-and-match-binders)
+  - [Binder Validation](#binder-validation)
   - [Filter by Number of Helices](#filter-by-number-of-helices)
   - [Filter by Binder Length](#filter-by-binder-length)
   - [Aggregate Results](#aggregate-results)
@@ -196,14 +196,16 @@ Given the `.out.txt` file, you may wish to move all successful PDBs into their o
 bash helper_scripts/isolate_successful.sh <.out.txt> <folder_with_all_pdbs> <new_folder_for_successful_pdbs_only>
 ```
 
-## Mix and Match Binders
-You may be interested in designing binders to one target protein, but validating them on another. This could be to analyze the specificity of the binders to similar proteins. Or, the protein was truncated for RFdiffusion, but the entire structure is to be used in AF2 validation.
+## Binder Validation
+You may be interested in designing binders to one target protein, but validating them on another. This could be to analyze the specificity of the binders to similar proteins. Or, the protein was truncated for RFdiffusion, but the entire structure is to be used in AF2 validation. Alternatively, you may be interested in validating a solved binder for your target protein.
 
-The script below takes designed binders from ProteinMPNN-generated PDBs and adds them to a separate target PDB. This output can then be passed to AF2, allowing the designed binders to be validated on proteins they weren't designed for. Note that this script handles AF2's requirement for unique residue indices across chains.
+The script below takes designed binders from ProteinMPNN-generated PDBs (or a particular chain from any PDBs) and adds them to a separate target PDB. This output can then be passed to AF2, allowing the binders to be validated on proteins they weren't designed for. Note that this script handles AF2's requirement for unique residue indices across chains.
 
 ```
-python helper_scripts/integrate_binders.py <old_target_proteinmpnn_outdir> <path_to_new_target_pdb> <new_output_dir>
+python helper_scripts/integrate_binders.py <old_target_proteinmpnn_outdir> <chain_id> <path_to_new_target_pdb> <new_output_dir>
 ```
+
+Note that for ProteinMPNN-generated PDBs, the `<chain_id>` will be `A`.
 
 ## Filter by Number of Helices
 The *RFdiffusion* authors did not order any binder designs with two helical bundles or fewer. These do not form a well-packed protein core and are therefore unlikely to express in solution. We developed functionality for filtering binders by a minimum number of helices. This can be applied directly after RFdiffusion (so that the binder is not passed through ProteinMPNN and AlphaFold2) or after AlphaFold2.
