@@ -269,7 +269,7 @@ To convert a directory of PDBs to a FASTA file:
 srun --pty bash  # enter compute node
 python helper_scripts/pdb_to_fasta.py <pdb_dir> <out_txt>
 ```
-Binder sequences will be output to `<output.fasta>`.
+Binder sequences will be output to `output.fasta`.
 
 ----
 
