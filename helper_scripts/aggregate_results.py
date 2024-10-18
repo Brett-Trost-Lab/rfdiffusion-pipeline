@@ -78,7 +78,8 @@ def main(args):
     df.sort_values(['successful', 'pae_interaction', 'plddt_binder', 'binder_aligned_rmsd'], \
                     ascending=[False, True, False, True], \
                     inplace=True)
-    
+    df = df.head(max_designs)
+
     pathlib.Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     if copy_designs:
@@ -94,7 +95,7 @@ def main(args):
 
     # create output file
     output_file = output_dir + '/' + 'scores.out.txt'
-    df.head(max_designs).to_csv(output_file, sep='\t', header=True, index=False)
+    df.to_csv(output_file, sep='\t', header=True, index=False)
     
     print('\nCreated output scores file:', output_file)
 

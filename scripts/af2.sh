@@ -32,6 +32,11 @@ echo OUTPUT_DIR $output_dir
 echo Loading module...
 module load dl_binder_design/v1.0.1
 
+## TEMPORARY FIX, WAITING FOR NEW MODULE ##
+pip install numpy==1.26.4
+pip install numba==0.58.1
+###########################################
+
 echo Activating conda...
 eval "$(conda shell.bash hook)"
 conda activate $DL_BINDER_DESIGN_DIR/../af2_binder_design

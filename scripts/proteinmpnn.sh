@@ -14,6 +14,11 @@ DL_BINDER_DESIGN_DIR=/hpf/tools/alma8/dl_binder_design/v1.0.1/base_dir/
 echo Loading module...
 module load dl_binder_design/v1.0.1
 
+## TEMPORARY FIX, WAITING FOR NEW MODULE ##
+pip install numpy==1.26.4
+pip install numba==0.58.1
+###########################################
+
 echo RUN_NAME $run_name
 echo OUTPUT_DIR $output_dir
 echo SEQS_PER_STRUCT $seqs_per_struct

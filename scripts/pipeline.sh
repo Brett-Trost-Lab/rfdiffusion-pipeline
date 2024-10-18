@@ -126,15 +126,10 @@ echo RFDiffusion time elapsed: $(convert_seconds $SECONDS)
 total_seconds=$((total_seconds+SECONDS))
 SECONDS=0
 
-conda deactivate
-module unload RFDiffusion/1.1.0
-
-echo
-echo Loading module...
-module load dl_binder_design/v1.0.1
 
 echo
 echo Filtering by number of helices...
+
 if [ "$min_helices" -gt 1 ]; then
 
     echo
@@ -165,7 +160,7 @@ if [ "$min_helices" -gt 1 ]; then
 
 	    if [ "$num_helices" -lt "$min_helices" ]; then
 	        echo Does not pass threshold. Moving design to $output_dir/rfdiffusion/below_threshold/
-	        mv $output_dir/rfdiffusion/$design_name.* $binder_pdb $output_dir/rfdiffusion/below_threshold/
+	        mv $output_dir/rfdiffusion/$design_name.* $output_dir/rfdiffusion/below_threshold/
 	    fi
 
         else
@@ -177,8 +172,21 @@ else
     echo No filtering.
 fi
 
+
 echo
 echo STEP 2: ProteinMPNN
+
+conda deactivate
+module unload RFDiffusion/1.1.0
+
+echo
+echo Loading module...
+module load dl_binder_design/v1.0.1
+
+## TEMPORARY FIX, WAITING FOR NEW MODULE ##
+pip install numpy==1.26.4
+pip install numba==0.58.1
+###########################################
 
 echo Running ProteinMPNN...
 
